@@ -1,12 +1,12 @@
 import './globals.css'
 
 export const metadata = {
-  title: 'Probox Infotech | Empowering Digital Excellence',
-  description: 'We transform businesses through innovative technology solutions, driving growth and efficiency in the digital age. Partner with us for web development, mobile apps, cloud solutions, and more.',
-  keywords: 'IT services, web development, mobile app development, cloud solutions, digital transformation, IT consulting, cybersecurity',
+  title: 'PROBOX | SIMPLICITY - We Make I.T Simple',
+  description: 'We are a leading customized customer experience (CX) innovators who design, build and deliver personalized next-gen I.T services for global and disruptive brands.',
+  keywords: 'IT services, managed IT services, cloud services, cybersecurity, artificial intelligence, IIoT, network management, digital transformation, customer experience, CX',
   openGraph: {
-    title: 'Probox Infotech | Empowering Digital Excellence',
-    description: 'Transform your business with our innovative technology solutions.',
+    title: 'PROBOX | We Make I.T Simple',
+    description: 'Leading CX innovators delivering personalized next-gen I.T services for global brands.',
     type: 'website',
   },
 }

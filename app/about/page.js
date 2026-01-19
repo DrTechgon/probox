@@ -7,8 +7,8 @@ import Stats from '@/components/sections/Stats';
 import WhyChooseUs from '@/components/sections/WhyChooseUs';
 import CTABanner from '@/components/sections/CTABanner';
 import Footer from '@/components/sections/Footer';
-import { companyInfo } from '@/data/site-data';
-import { Target, Eye, Award, Users, Globe, Lightbulb } from 'lucide-react';
+import { companyInfo, awards } from '@/data/site-data';
+import { Target, Eye, Award, Users, Globe, Lightbulb, MapPin } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 
 const values = [
@@ -19,8 +19,8 @@ const values = [
   },
   {
     icon: Users,
-    title: 'Collaboration',
-    description: 'We believe in the power of teamwork, both within our organization and with our clients.'
+    title: 'People First',
+    description: 'Best Company to Work For 2022-2023 - we believe in putting our people first in all that we do.'
   },
   {
     icon: Lightbulb,
@@ -29,68 +29,101 @@ const values = [
   },
   {
     icon: Globe,
-    title: 'Integrity',
-    description: 'We conduct our business with transparency, honesty, and ethical practices.'
+    title: 'Global Reach',
+    description: 'With 810+ support locations, we deliver enterprise-grade IT services worldwide.'
   }
-];
-
-const timeline = [
-  { year: '2015', title: 'Company Founded', description: 'Started with a vision to transform businesses through technology.' },
-  { year: '2017', title: 'First Major Enterprise Client', description: 'Secured our first Fortune 500 client, marking a significant milestone.' },
-  { year: '2019', title: 'Cloud Partnership', description: 'Became an AWS Advanced Consulting Partner.' },
-  { year: '2021', title: 'Global Expansion', description: 'Expanded operations to serve clients across 15+ countries.' },
-  { year: '2023', title: '500+ Projects Milestone', description: 'Successfully delivered 500+ projects across various industries.' },
-  { year: '2025', title: 'AI & Innovation Hub', description: 'Launched dedicated AI/ML practice and innovation center.' }
 ];
 
 export default function AboutPage() {
   return (
     <main className="min-h-screen bg-white">
       <Navbar />
-      
+
       {/* Hero Section */}
       <section className="pt-32 pb-20 bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 relative overflow-hidden">
         <div className="absolute inset-0">
           <motion.div
             animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.5, 0.3] }}
-            transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute top-1/4 -left-1/4 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl"
+            transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
+            className="absolute top-1/4 -left-1/4 w-96 h-96 bg-teal-500/20 rounded-full blur-3xl"
           />
         </div>
         <div className="container mx-auto px-4 lg:px-8 relative z-10">
           <div className="max-w-3xl">
-            <span className="text-blue-400 font-semibold text-sm uppercase tracking-wider">About Us</span>
+            <span className="text-teal-400 font-semibold text-sm uppercase tracking-wider">About Us</span>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mt-4 mb-6">
-              Driving Digital Innovation Since 2015
+              We Are PROBOX
             </h1>
             <p className="text-xl text-white/70">
-              We are a team of passionate technologists committed to helping 
-              businesses thrive in the digital age.
+              India's Most Trusted and Fastest Growing Fast Forward Technology, Consulting and Outsourcing Company.
             </p>
           </div>
         </div>
       </section>
 
-      {/* Mission & Vision */}
+      {/* About Content */}
       <section className="py-24">
+        <div className="container mx-auto px-4 lg:px-8">
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+            >
+              <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-6">
+                Award-Winning Technology Partner
+              </h2>
+              <p className="text-slate-600 text-lg mb-6 leading-relaxed">
+                {companyInfo.aboutDescription}
+              </p>
+              <div className="flex flex-wrap gap-3">
+                {awards.map((award, index) => (
+                  <div key={index} className="flex items-center gap-2 bg-gradient-to-r from-teal-50 to-blue-50 px-4 py-2 rounded-full border border-teal-100">
+                    <Award className="w-4 h-4 text-teal-600" />
+                    <span className="text-slate-700 text-sm font-medium">{award}</span>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="relative"
+            >
+              <div className="relative h-[400px] rounded-2xl overflow-hidden shadow-2xl">
+                <Image
+                  src="https://proboxinfotech.com/wp-content/uploads/2023/08/Awards-1-1024x207.jpg"
+                  alt="PROBOX Awards"
+                  fill
+                  className="object-contain bg-white p-8"
+                />
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* Mission & Vision */}
+      <section className="py-24 bg-slate-50">
         <div className="container mx-auto px-4 lg:px-8">
           <div className="grid md:grid-cols-2 gap-12">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="relative"
             >
               <Card className="h-full border-slate-200 hover:shadow-xl transition-shadow">
                 <CardContent className="p-8">
-                  <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-blue-500 to-teal-500 flex items-center justify-center mb-6">
+                  <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-teal-500 to-blue-500 flex items-center justify-center mb-6">
                     <Target className="text-white" size={28} />
                   </div>
                   <h2 className="text-2xl font-bold text-slate-900 mb-4">Our Mission</h2>
                   <p className="text-slate-600 leading-relaxed">
-                    To empower businesses with innovative technology solutions that drive growth, 
-                    efficiency, and competitive advantage. We are committed to delivering exceptional 
-                    value through our expertise, dedication, and client-centric approach.
+                    To enable global enterprises to address a dual mandate: to make their current operations 
+                    as efficient and cost-effective as possible and to invest in innovation to unleash new 
+                    potential across their organizations through cutting-edge technology solutions.
                   </p>
                 </CardContent>
               </Card>
@@ -104,14 +137,14 @@ export default function AboutPage() {
             >
               <Card className="h-full border-slate-200 hover:shadow-xl transition-shadow">
                 <CardContent className="p-8">
-                  <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-blue-500 to-teal-500 flex items-center justify-center mb-6">
+                  <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-teal-500 to-blue-500 flex items-center justify-center mb-6">
                     <Eye className="text-white" size={28} />
                   </div>
                   <h2 className="text-2xl font-bold text-slate-900 mb-4">Our Vision</h2>
                   <p className="text-slate-600 leading-relaxed">
-                    To be the most trusted technology partner for businesses worldwide, known 
-                    for our innovation, quality, and lasting impact. We envision a future where 
-                    technology seamlessly enables every organization to achieve its full potential.
+                    To be the most trusted technology partner for businesses worldwide, known for our 
+                    innovation in Customer Experience (CX), quality delivery, and lasting impact. We envision 
+                    a future where technology seamlessly enables every organization to achieve its full potential.
                   </p>
                 </CardContent>
               </Card>
@@ -124,7 +157,7 @@ export default function AboutPage() {
       <Stats />
 
       {/* Our Values */}
-      <section className="py-24 bg-slate-50">
+      <section className="py-24 bg-white">
         <div className="container mx-auto px-4 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -132,7 +165,7 @@ export default function AboutPage() {
             viewport={{ once: true }}
             className="text-center max-w-3xl mx-auto mb-16"
           >
-            <span className="text-blue-600 font-semibold text-sm uppercase tracking-wider">Our Values</span>
+            <span className="text-teal-600 font-semibold text-sm uppercase tracking-wider">Our Values</span>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 mt-4 mb-6">
               Principles That Guide Us
             </h2>
@@ -152,7 +185,7 @@ export default function AboutPage() {
               >
                 <Card className="h-full bg-white border-slate-200 hover:shadow-lg transition-all text-center">
                   <CardContent className="p-8">
-                    <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-500 to-teal-500 flex items-center justify-center mx-auto mb-6">
+                    <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-teal-500 to-blue-500 flex items-center justify-center mx-auto mb-6">
                       <value.icon className="text-white" size={32} />
                     </div>
                     <h3 className="text-xl font-bold text-slate-900 mb-3">{value.title}</h3>
@@ -165,8 +198,8 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Timeline */}
-      <section className="py-24">
+      {/* Office Locations */}
+      <section className="py-24 bg-slate-50">
         <div className="container mx-auto px-4 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -174,49 +207,39 @@ export default function AboutPage() {
             viewport={{ once: true }}
             className="text-center max-w-3xl mx-auto mb-16"
           >
-            <span className="text-blue-600 font-semibold text-sm uppercase tracking-wider">Our Journey</span>
+            <span className="text-teal-600 font-semibold text-sm uppercase tracking-wider">Our Presence</span>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 mt-4 mb-6">
-              A Decade of Excellence
+              Office Locations
             </h2>
           </motion.div>
 
-          <div className="max-w-4xl mx-auto">
-            <div className="relative">
-              {/* Timeline line */}
-              <div className="absolute left-0 md:left-1/2 transform md:-translate-x-1/2 h-full w-0.5 bg-gradient-to-b from-blue-500 to-teal-500" />
-              
-              {timeline.map((item, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.1 }}
-                  className={`relative flex items-center mb-12 ${
-                    index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'
-                  }`}
-                >
-                  {/* Dot */}
-                  <div className="absolute left-0 md:left-1/2 transform md:-translate-x-1/2 w-4 h-4 rounded-full bg-gradient-to-br from-blue-500 to-teal-500 border-4 border-white shadow-md z-10" />
-                  
-                  {/* Content */}
-                  <div className={`ml-8 md:ml-0 md:w-1/2 ${
-                    index % 2 === 0 ? 'md:pr-12 md:text-right' : 'md:pl-12'
-                  }`}>
-                    <span className="text-blue-600 font-bold text-lg">{item.year}</span>
-                    <h3 className="text-xl font-bold text-slate-900 mt-1 mb-2">{item.title}</h3>
-                    <p className="text-slate-600">{item.description}</p>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {companyInfo.branches.map((branch, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
+              >
+                <Card className="h-full border-slate-200 hover:shadow-lg hover:border-teal-200 transition-all">
+                  <CardContent className="p-6">
+                    <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-teal-500 to-blue-500 flex items-center justify-center mb-4">
+                      <MapPin className="text-white" size={20} />
+                    </div>
+                    <h3 className="text-lg font-bold text-slate-900 mb-2">{branch.city}</h3>
+                    <p className="text-slate-600 text-sm">{branch.address}</p>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
 
       {/* Why Choose Us */}
       <WhyChooseUs />
-      
+
       <CTABanner />
       <Footer />
     </main>

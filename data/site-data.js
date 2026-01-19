@@ -2,202 +2,260 @@
 // Centralized data for easy content management
 
 export const companyInfo = {
-  name: "Probox Infotech",
-  tagline: "Empowering Digital Excellence",
-  description: "We transform businesses through innovative technology solutions, driving growth and efficiency in the digital age.",
-  founded: 2015,
+  name: "PROBOX",
+  fullName: "PROBOX Infotech Pvt. Ltd",
+  tagline: "SIMPLICITY",
+  slogan: "We Make I.T Simple",
+  description: "We are a leading customized customer experience (CX) innovators who design, build and deliver personalized next-gen I.T services for global and disruptive brands.",
+  aboutDescription: "The proud recipients of the prestigious Iconic Brand of the Year 2023 & 2024 Award: Recognized as The Most Promising Technology, Consulting, and Outsourcing Company which enables global enterprises to address a dual mandate: to make their current operations as efficient and cost-effective as possible and to invest in innovation to unleash new potential across their organizations.",
+  founded: 2020,
   email: "info@proboxinfotech.com",
-  phone: "+91 98765 43210",
-  address: "123 Tech Park, Sector 62, Noida, UP 201301, India",
+  phone: "+91-7738322228",
+  address: "813, C 2 Skyline Wealth Space, Premier Road, Near DMart, Vidyavihar (West), Mumbai – 400 086, Maharashtra, INDIA",
+  logo: "https://i0.wp.com/proboxinfotech.com/wp-content/uploads/2023/08/probox-logo-2.jpg?fit=953%2C266&ssl=1",
   social: {
     linkedin: "https://linkedin.com/company/proboxinfotech",
     twitter: "https://twitter.com/proboxinfotech",
     facebook: "https://facebook.com/proboxinfotech"
-  }
+  },
+  branches: [
+    { city: "Mumbai", address: "813, C 2 Skyline Wealth Space, Premier Road, Near DMart, Vidyavihar (West), Mumbai – 400 086" },
+    { city: "Bangalore", address: "Kasturi Nagar, 4th Floor, No. 1AA-124-D, Sri Raj Building, East of NGEF, Bengaluru - 560043" },
+    { city: "Hyderabad", address: "2nd, Flat No. 32, Bharani Complex, Minister Road, Secunderabad - 500003" },
+    { city: "Kerala", address: "Opp. Bharat Matha College, 8th, D-80, Infra Futura Building, Seaport Airport Road, Kalamassery, Ernakulam - 682021" }
+  ]
 };
+
+export const heroSlides = [
+  {
+    id: 1,
+    title: "We Make I.T Simple",
+    subtitle: "SIMPLICITY",
+    description: "We are a leading customized customer experience (CX) innovators who design, build and deliver personalized next-gen I.T services for global and disruptive brands.",
+    cta: "Connect with our CX Expert",
+    image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1920&q=80"
+  },
+  {
+    id: 2,
+    title: "Iconic Brand of the Year",
+    subtitle: "AWARD WINNING",
+    description: "Recognized as India's Outstanding and Most Trusted Company 2023 | Best Company to Work For 2022-2023 | Iconic Brand of the Year 2024",
+    cta: "Learn About Our Journey",
+    image: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=1920&q=80"
+  },
+  {
+    id: 3,
+    title: "1M+ Assets Supported",
+    subtitle: "GLOBAL REACH",
+    description: "With 810+ support locations worldwide, we deliver enterprise-grade IT services that scale with your business needs.",
+    cta: "Explore Our Services",
+    image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1920&q=80"
+  },
+  {
+    id: 4,
+    title: "Next-Gen Technology Partner",
+    subtitle: "INNOVATION",
+    description: "From AI & Machine Learning to Cloud Services and Cybersecurity, we bring cutting-edge solutions to transform your business.",
+    cta: "Discover Solutions",
+    image: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=1920&q=80"
+  }
+];
+
+export const awards = [
+  "India's Outstanding and Most Trusted Company 2023",
+  "Iconic Brand of the Year 2023",
+  "Best Company to Work For 2022-2023",
+  "Iconic Brand of the Year 2024"
+];
 
 export const services = [
   {
-    id: "web-development",
-    title: "Web Development",
-    shortDescription: "Custom web applications built with modern frameworks and technologies.",
-    fullDescription: "We design and develop responsive, scalable web applications using cutting-edge technologies like React, Next.js, Node.js, and cloud-native architectures. Our solutions are tailored to your business needs, ensuring optimal performance and user experience.",
-    icon: "Globe",
+    id: "artificial-intelligence",
+    title: "Artificial Intelligence",
+    shortDescription: "AI services encompass a wide range of applications and solutions that leverage AI technologies to transform your business.",
+    fullDescription: "Artificial Intelligence (AI) services encompass a wide range of applications and solutions that leverage AI technologies. From machine learning models to natural language processing, we help businesses harness the power of AI to automate processes, gain insights, and create intelligent solutions.",
+    icon: "Brain",
     features: [
-      "Custom Web Applications",
-      "Progressive Web Apps (PWA)",
-      "E-commerce Solutions",
-      "Content Management Systems",
-      "API Development & Integration"
+      "Machine Learning Solutions",
+      "Natural Language Processing",
+      "Computer Vision Applications",
+      "Predictive Analytics",
+      "AI-Powered Automation"
     ],
-    category: "development"
+    category: "technology",
+    image: "https://proboxinfotech.com/wp-content/uploads/2023/07/istockphoto-1181533674-612x612-1.jpg"
   },
   {
-    id: "mobile-development",
-    title: "Mobile App Development",
-    shortDescription: "Native and cross-platform mobile solutions for iOS and Android.",
-    fullDescription: "Create powerful mobile experiences with our expert mobile development team. We build native iOS and Android apps, as well as cross-platform solutions using React Native and Flutter, delivering seamless user experiences across all devices.",
-    icon: "Smartphone",
+    id: "managed-it-services",
+    title: "Managed IT Services",
+    shortDescription: "Comprehensive solution designed to empower you to focus on what you do best: driving your business forward.",
+    fullDescription: "In the fast-paced digital landscape, managing your IT infrastructure can be complex and demanding. Our Managed IT Services – a comprehensive solution designed to empower you to focus on what you do best: driving your business forward. We handle everything from monitoring to maintenance.",
+    icon: "Server",
     features: [
-      "iOS App Development",
-      "Android App Development",
-      "Cross-Platform Solutions",
-      "App Store Optimization",
-      "Maintenance & Support"
+      "24/7 Infrastructure Monitoring",
+      "Proactive Maintenance",
+      "Help Desk Support",
+      "IT Asset Management",
+      "Performance Optimization"
     ],
-    category: "development"
+    category: "infrastructure",
+    image: "https://proboxinfotech.com/wp-content/uploads/2023/08/39.jpg"
+  },
+  {
+    id: "cyber-security",
+    title: "Cyber Security Services",
+    shortDescription: "Comprehensive measures and solutions designed to protect your systems, networks, and data from threats.",
+    fullDescription: "Cybersecurity services encompass a wide range of measures and solutions designed to protect computer systems, networks, and data from unauthorized access, attacks, and threats. We provide end-to-end security solutions to safeguard your digital assets.",
+    icon: "Shield",
+    features: [
+      "Threat Detection & Response",
+      "Vulnerability Assessment",
+      "Security Audits & Compliance",
+      "Identity & Access Management",
+      "Security Operations Center (SOC)"
+    ],
+    category: "security",
+    image: "https://proboxinfotech.com/wp-content/uploads/2023/07/Untitled-presentation-2.jpg"
+  },
+  {
+    id: "iiot",
+    title: "IIoT Solutions",
+    shortDescription: "Industrial Internet of Things services for smart manufacturing, automation, and process optimization.",
+    fullDescription: "IIoT (Industrial Internet of Things) services involve the application of IoT technologies and connectivity in industrial settings to enable smart manufacturing, automation, and optimization of processes. Transform your operations with connected intelligence.",
+    icon: "Cpu",
+    features: [
+      "Smart Manufacturing Solutions",
+      "Industrial Automation",
+      "Predictive Maintenance",
+      "Real-time Monitoring",
+      "Process Optimization"
+    ],
+    category: "technology",
+    image: "https://proboxinfotech.com/wp-content/uploads/2023/07/istockphoto-1170644956-612x612-1.jpg"
+  },
+  {
+    id: "network-management",
+    title: "Network Management",
+    shortDescription: "Administration, monitoring, and optimization of computer networks for reliable and efficient operations.",
+    fullDescription: "IT network management services encompass the activities and processes involved in the administration, monitoring, and optimization of computer networks within an organization. These services are crucial for ensuring the reliable and efficient operation of network infrastructure.",
+    icon: "Network",
+    features: [
+      "Network Design & Architecture",
+      "Performance Monitoring",
+      "Troubleshooting & Support",
+      "Network Security",
+      "Bandwidth Optimization"
+    ],
+    category: "infrastructure",
+    image: "https://proboxinfotech.com/wp-content/uploads/2023/07/istockphoto-1132079855-612x612-1.jpg"
   },
   {
     id: "cloud-services",
-    title: "Cloud Solutions",
-    shortDescription: "Scalable cloud infrastructure and migration services.",
-    fullDescription: "Leverage the power of cloud computing with our comprehensive cloud services. From AWS, Azure, and GCP deployments to cloud-native development and migration strategies, we help you build resilient, cost-effective infrastructure.",
+    title: "Cloud Services",
+    shortDescription: "Delivery of computing resources including servers, storage, databases, and applications over the internet.",
+    fullDescription: "Cloud services refer to the delivery of computing resources, such as servers, storage, databases, software applications, and networking, over the internet. We help businesses migrate, manage, and optimize their cloud infrastructure for maximum efficiency.",
     icon: "Cloud",
     features: [
       "Cloud Migration",
-      "Infrastructure as Code",
-      "Serverless Architecture",
-      "DevOps & CI/CD",
-      "Cost Optimization"
+      "Multi-Cloud Management",
+      "Cloud Security",
+      "Cost Optimization",
+      "DevOps & Automation"
     ],
-    category: "infrastructure"
-  },
-  {
-    id: "data-analytics",
-    title: "Data Analytics & AI",
-    shortDescription: "Transform data into actionable insights with advanced analytics.",
-    fullDescription: "Unlock the potential of your data with our analytics and AI solutions. We implement data pipelines, business intelligence dashboards, machine learning models, and predictive analytics to drive data-informed decisions.",
-    icon: "BarChart3",
-    features: [
-      "Business Intelligence",
-      "Machine Learning Solutions",
-      "Predictive Analytics",
-      "Data Visualization",
-      "ETL Pipeline Development"
-    ],
-    category: "data"
-  },
-  {
-    id: "cybersecurity",
-    title: "Cybersecurity",
-    shortDescription: "Comprehensive security solutions to protect your digital assets.",
-    fullDescription: "Protect your business with our end-to-end cybersecurity services. We provide security assessments, penetration testing, compliance consulting, and managed security services to safeguard your critical infrastructure.",
-    icon: "Shield",
-    features: [
-      "Security Assessments",
-      "Penetration Testing",
-      "Compliance & Governance",
-      "Incident Response",
-      "Security Monitoring"
-    ],
-    category: "security"
-  },
-  {
-    id: "it-consulting",
-    title: "IT Consulting",
-    shortDescription: "Strategic technology consulting for digital transformation.",
-    fullDescription: "Navigate your digital transformation journey with expert guidance. Our consultants help you develop technology roadmaps, optimize IT operations, and implement best practices that align technology investments with business goals.",
-    icon: "Lightbulb",
-    features: [
-      "Digital Strategy",
-      "Technology Roadmapping",
-      "Process Optimization",
-      "Vendor Selection",
-      "Change Management"
-    ],
-    category: "consulting"
+    category: "cloud",
+    image: "https://proboxinfotech.com/wp-content/uploads/2023/07/istockphoto-1484912807-612x612-1.jpg"
   }
 ];
 
 export const caseStudies = [
   {
-    id: "fintech-platform",
-    title: "Digital Banking Platform",
-    client: "Leading Financial Services Firm",
-    category: "Web",
-    description: "Built a comprehensive digital banking platform serving 2M+ customers with real-time transactions, advanced security, and seamless UX.",
+    id: "nine-rasa-ott",
+    title: "Nine Rasa OTT Platform",
+    client: "Nine Rasa",
+    category: "Technology",
+    description: "We are proud technology partner of the World's First OTT Platform exclusively dedicated for Theatre & Performing Arts. The platform showcases song plays, one-act plays, skits, solos, poetry, dance, musicals, and more.",
     results: [
-      "40% increase in customer engagement",
-      "60% reduction in transaction time",
-      "99.99% uptime achieved"
+      "World's First Theatre OTT",
+      "Complete Platform Development",
+      "Scalable Streaming Infrastructure"
     ],
-    technologies: ["React", "Node.js", "AWS", "PostgreSQL"],
-    image: "https://images.unsplash.com/photo-1580982330720-bd5e0fed108b",
+    technologies: ["Cloud", "Streaming", "React", "Node.js"],
+    image: "https://proboxinfotech.com/wp-content/uploads/2023/07/nine-1.jpg",
     featured: true
   },
   {
-    id: "healthcare-app",
-    title: "Telemedicine Mobile App",
-    client: "Healthcare Network",
-    category: "Mobile",
-    description: "Developed a HIPAA-compliant telemedicine app enabling virtual consultations, prescription management, and health monitoring.",
+    id: "enterprise-it-transformation",
+    title: "Enterprise IT Transformation",
+    client: "Fortune 500 Company",
+    category: "Managed IT",
+    description: "Complete digital transformation of legacy IT infrastructure to modern cloud-native architecture, supporting over 100,000 users globally.",
     results: [
-      "500K+ app downloads",
-      "4.8 star rating",
-      "30% reduction in missed appointments"
+      "40% Cost Reduction",
+      "99.99% Uptime Achieved",
+      "3x Faster Deployment"
     ],
-    technologies: ["React Native", "Firebase", "WebRTC", "HL7 FHIR"],
-    image: "https://images.pexels.com/photos/3205403/pexels-photo-3205403.jpeg",
-    featured: true
-  },
-  {
-    id: "cloud-migration",
-    title: "Enterprise Cloud Migration",
-    client: "Manufacturing Conglomerate",
-    category: "Cloud",
-    description: "Migrated legacy infrastructure to AWS, implementing microservices architecture and achieving significant cost savings.",
-    results: [
-      "45% reduction in infrastructure costs",
-      "3x improvement in deployment speed",
-      "Zero downtime migration"
-    ],
-    technologies: ["AWS", "Kubernetes", "Terraform", "Jenkins"],
+    technologies: ["Azure", "Kubernetes", "Terraform", "CI/CD"],
     image: "https://images.pexels.com/photos/1148820/pexels-photo-1148820.jpeg",
     featured: true
   },
   {
-    id: "retail-analytics",
-    title: "Retail Analytics Platform",
-    client: "Major Retail Chain",
-    category: "Data",
-    description: "Implemented real-time analytics dashboard providing insights into sales, inventory, and customer behavior across 500+ stores.",
+    id: "smart-manufacturing",
+    title: "Smart Manufacturing Implementation",
+    client: "Leading Manufacturer",
+    category: "IIoT",
+    description: "Implemented IIoT solutions across 5 manufacturing plants enabling real-time monitoring, predictive maintenance, and automated quality control.",
     results: [
-      "25% improvement in inventory turnover",
-      "15% increase in sales",
-      "Real-time reporting achieved"
+      "30% Productivity Increase",
+      "50% Reduction in Downtime",
+      "Real-time Analytics Dashboard"
     ],
-    technologies: ["Python", "Spark", "Tableau", "Snowflake"],
-    image: "https://images.unsplash.com/photo-1580983558189-84200466afb8",
-    featured: false
+    technologies: ["IoT Sensors", "Azure IoT Hub", "Power BI", "ML"],
+    image: "https://images.unsplash.com/photo-1565043666747-69f6646db940?w=800",
+    featured: true
   },
   {
-    id: "security-overhaul",
-    title: "Security Infrastructure Overhaul",
-    client: "Government Agency",
+    id: "cybersecurity-overhaul",
+    title: "Enterprise Security Overhaul",
+    client: "Financial Services Firm",
     category: "Security",
-    description: "Comprehensive security assessment and implementation of zero-trust architecture protecting critical government systems.",
+    description: "Comprehensive security transformation including SOC setup, zero-trust architecture, and compliance implementation for a major financial institution.",
     results: [
-      "100% compliance achieved",
-      "Zero security incidents post-implementation",
-      "50% reduction in vulnerability exposure"
+      "Zero Security Breaches",
+      "100% Compliance Achieved",
+      "24/7 SOC Operations"
     ],
-    technologies: ["Okta", "CrowdStrike", "Splunk", "HashiCorp Vault"],
+    technologies: ["SIEM", "Zero Trust", "IAM", "Compliance Tools"],
     image: "https://images.pexels.com/photos/4508751/pexels-photo-4508751.jpeg",
     featured: false
   },
   {
-    id: "ecommerce-platform",
-    title: "E-commerce Transformation",
-    client: "Fashion Retailer",
-    category: "Web",
-    description: "Built a headless e-commerce platform with personalization engine, increasing conversion rates significantly.",
+    id: "cloud-migration",
+    title: "Multi-Cloud Migration",
+    client: "Retail Enterprise",
+    category: "Cloud",
+    description: "Seamless migration of 200+ applications to a multi-cloud environment with zero downtime and improved performance.",
     results: [
-      "80% increase in conversion rate",
-      "3x growth in mobile revenue",
-      "Sub-second page loads"
+      "Zero Downtime Migration",
+      "45% Cost Savings",
+      "2x Performance Improvement"
     ],
-    technologies: ["Next.js", "Shopify", "Algolia", "Contentful"],
-    image: "https://images.unsplash.com/photo-1580983553600-c49a1d083f54",
+    technologies: ["AWS", "Azure", "GCP", "Containers"],
+    image: "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=800",
+    featured: false
+  },
+  {
+    id: "ai-customer-service",
+    title: "AI-Powered Customer Service",
+    client: "Telecom Provider",
+    category: "AI",
+    description: "Deployed AI chatbots and intelligent routing systems handling millions of customer queries with improved satisfaction scores.",
+    results: [
+      "60% Query Automation",
+      "35% Cost Reduction",
+      "90%+ Customer Satisfaction"
+    ],
+    technologies: ["NLP", "ML", "Chatbots", "Analytics"],
+    image: "https://images.unsplash.com/photo-1531746790731-6c087fecd65a?w=800",
     featured: false
   }
 ];
@@ -205,87 +263,87 @@ export const caseStudies = [
 export const testimonials = [
   {
     id: 1,
-    name: "Rajesh Kumar",
+    name: "Rajesh Sharma",
     role: "CTO",
-    company: "FinServe Technologies",
-    content: "Probox Infotech transformed our digital infrastructure completely. Their expertise in cloud architecture and their commitment to delivery timelines exceeded our expectations. The team's technical depth is truly impressive.",
-    avatar: "RK",
+    company: "Leading Manufacturing Firm",
+    content: "PROBOX transformed our IT infrastructure completely. Their expertise in managed services and their commitment to excellence has made them our trusted technology partner. The team's technical depth is truly impressive.",
+    avatar: "RS",
     rating: 5
   },
   {
     id: 2,
-    name: "Priya Sharma",
-    role: "VP of Engineering",
-    company: "HealthFirst India",
-    content: "Working with Probox was a game-changer for our telemedicine initiative. They understood healthcare compliance requirements and delivered a secure, user-friendly solution that our patients love.",
-    avatar: "PS",
+    name: "Priya Menon",
+    role: "VP of Technology",
+    company: "Financial Services Company",
+    content: "Working with PROBOX on our cybersecurity transformation was exceptional. They understood our compliance requirements and delivered a robust security framework that protects our critical assets.",
+    avatar: "PM",
     rating: 5
   },
   {
     id: 3,
-    name: "Anil Mehta",
-    role: "Director of IT",
-    company: "RetailMax Group",
-    content: "The analytics platform built by Probox has revolutionized how we make decisions. Real-time insights across our retail chain have improved our operational efficiency significantly.",
-    avatar: "AM",
+    name: "Amit Patel",
+    role: "Director of Operations",
+    company: "Retail Chain",
+    content: "The cloud migration project executed by PROBOX was flawless. Zero downtime and significant cost savings within the first quarter. Their expertise in multi-cloud environments is outstanding.",
+    avatar: "AP",
     rating: 5
   },
   {
     id: 4,
-    name: "Sneha Patel",
+    name: "Sunita Krishnan",
     role: "CEO",
-    company: "StartupHub Ventures",
-    content: "As a startup, we needed a technology partner who could move fast without compromising quality. Probox delivered our MVP in record time and has been instrumental in our growth journey.",
-    avatar: "SP",
+    company: "Tech Startup",
+    content: "PROBOX's AI solutions have revolutionized our customer service. Their team delivered beyond expectations, and the results speak for themselves - happier customers and reduced operational costs.",
+    avatar: "SK",
     rating: 5
   },
   {
     id: 5,
-    name: "Vikram Singh",
-    role: "Head of Digital",
-    company: "ManufacturePro Ltd",
-    content: "The cloud migration project was executed flawlessly. Zero downtime during transition and significant cost savings within the first quarter. Highly recommend their expertise.",
-    avatar: "VS",
+    name: "Vikram Reddy",
+    role: "Plant Manager",
+    company: "Industrial Manufacturing",
+    content: "The IIoT implementation by PROBOX has transformed our factory operations. Real-time monitoring and predictive maintenance have significantly reduced our downtime and improved productivity.",
+    avatar: "VR",
     rating: 5
   }
 ];
 
 export const stats = [
-  { value: 500, suffix: "+", label: "Projects Delivered" },
-  { value: 10, suffix: "+", label: "Years Experience" },
-  { value: 150, suffix: "+", label: "Happy Clients" },
-  { value: 98, suffix: "%", label: "Client Satisfaction" }
+  { value: 1000000, suffix: "+", label: "Assets Supported", prefix: "" },
+  { value: 810, suffix: "+", label: "Support Locations", prefix: "" },
+  { value: 500, suffix: "+", label: "Enterprise Clients", prefix: "" },
+  { value: 99.9, suffix: "%", label: "Client Satisfaction", prefix: "" }
 ];
 
 export const whyChooseUs = [
   {
-    title: "Expert Team",
-    description: "Our team comprises certified professionals with deep expertise across technologies and industries.",
-    icon: "Users"
-  },
-  {
-    title: "Proven Track Record",
-    description: "500+ successful projects delivered with consistent quality and on-time delivery.",
+    title: "Award-Winning Excellence",
+    description: "Iconic Brand of the Year 2023 & 2024, recognized as India's Most Trusted Company.",
     icon: "Award"
   },
   {
-    title: "Cutting-Edge Technology",
-    description: "We stay ahead of the curve, implementing the latest technologies and best practices.",
-    icon: "Zap"
+    title: "Global Reach",
+    description: "810+ support locations worldwide with 1M+ assets under management.",
+    icon: "Globe"
   },
   {
-    title: "Client-Centric Approach",
-    description: "Your success is our priority. We work as an extension of your team.",
+    title: "CX Innovation",
+    description: "Customer experience at the heart of everything we do, driving transformation.",
     icon: "Heart"
   },
   {
-    title: "Agile Methodology",
-    description: "Flexible, iterative development ensuring transparency and rapid delivery.",
-    icon: "RefreshCw"
+    title: "Technology Leadership",
+    description: "Cutting-edge solutions in AI, Cloud, IIoT, and Cybersecurity.",
+    icon: "Zap"
+  },
+  {
+    title: "People First",
+    description: "Best Company to Work For 2022-2023 - we put our people first.",
+    icon: "Users"
   },
   {
     title: "24/7 Support",
-    description: "Round-the-clock support and maintenance to keep your systems running smoothly.",
+    description: "Round-the-clock support ensuring your systems run smoothly always.",
     icon: "Headphones"
   }
 ];
@@ -298,4 +356,4 @@ export const navigation = [
   { name: "Contact", href: "/contact" }
 ];
 
-export const caseStudyCategories = ["All", "Web", "Mobile", "Cloud", "Data", "Security"];
+export const caseStudyCategories = ["All", "Technology", "Managed IT", "Security", "Cloud", "IIoT", "AI"];

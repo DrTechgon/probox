@@ -1,152 +1,272 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { useState, useEffect, useCallback } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
-import { ArrowRight, Play } from 'lucide-react';
+import Image from 'next/image';
+import { ArrowRight, ChevronLeft, ChevronRight, Play, Pause } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { companyInfo } from '@/data/site-data';
+import { heroSlides, awards } from '@/data/site-data';
 
 export default function Hero() {
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [isPlaying, setIsPlaying] = useState(true);
+  const [direction, setDirection] = useState(1);
+
+  const nextSlide = useCallback(() => {
+    setDirection(1);
+    setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
+  }, []);
+
+  const prevSlide = useCallback(() => {
+    setDirection(-1);
+    setCurrentSlide((prev) => (prev - 1 + heroSlides.length) % heroSlides.length);
+  }, []);
+
+  const goToSlide = (index) => {
+    setDirection(index > currentSlide ? 1 : -1);
+    setCurrentSlide(index);
+  };
+
+  useEffect(() => {
+    if (!isPlaying) return;
+    const timer = setInterval(nextSlide, 6000);
+    return () => clearInterval(timer);
+  }, [isPlaying, nextSlide]);
+
+  const slideVariants = {
+    enter: (direction) => ({
+      x: direction > 0 ? '100%' : '-100%',
+      opacity: 0,
+    }),
+    center: {
+      x: 0,
+      opacity: 1,
+    },
+    exit: (direction) => ({
+      x: direction < 0 ? '100%' : '-100%',
+      opacity: 0,
+    }),
+  };
+
+  const contentVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: (i) => ({
+      opacity: 1,
+      y: 0,
+      transition: { delay: i * 0.15, duration: 0.6, ease: 'easeOut' },
+    }),
+  };
+
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden">
-      {/* Animated Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900">
-        {/* Animated gradient orbs */}
+    <section className="relative h-screen min-h-[700px] overflow-hidden">
+      {/* Background Slides */}
+      <AnimatePresence initial={false} custom={direction} mode="wait">
+        <motion.div
+          key={currentSlide}
+          custom={direction}
+          variants={slideVariants}
+          initial="enter"
+          animate="center"
+          exit="exit"
+          transition={{ duration: 0.8, ease: [0.4, 0, 0.2, 1] }}
+          className="absolute inset-0"
+        >
+          {/* Background Image */}
+          <div className="absolute inset-0">
+            <Image
+              src={heroSlides[currentSlide].image}
+              alt={heroSlides[currentSlide].title}
+              fill
+              priority
+              className="object-cover"
+            />
+            {/* Gradient Overlays */}
+            <div className="absolute inset-0 bg-gradient-to-r from-slate-900/95 via-slate-900/80 to-slate-900/40" />
+            <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-slate-900/30" />
+          </div>
+        </motion.div>
+      </AnimatePresence>
+
+      {/* Animated Background Elements */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <motion.div
           animate={{
             scale: [1, 1.2, 1],
-            opacity: [0.3, 0.5, 0.3],
+            opacity: [0.1, 0.2, 0.1],
           }}
-          transition={{
-            duration: 8,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-          className="absolute top-1/4 -left-1/4 w-96 h-96 bg-blue-500/30 rounded-full blur-3xl"
+          transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
+          className="absolute top-1/4 -left-1/4 w-[600px] h-[600px] bg-blue-500/20 rounded-full blur-3xl"
         />
         <motion.div
           animate={{
             scale: [1.2, 1, 1.2],
-            opacity: [0.2, 0.4, 0.2],
+            opacity: [0.1, 0.15, 0.1],
           }}
-          transition={{
-            duration: 10,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-          className="absolute bottom-1/4 -right-1/4 w-[500px] h-[500px] bg-teal-500/20 rounded-full blur-3xl"
+          transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }}
+          className="absolute bottom-1/4 -right-1/4 w-[500px] h-[500px] bg-teal-500/15 rounded-full blur-3xl"
         />
-        <motion.div
-          animate={{
-            scale: [1, 1.3, 1],
-            opacity: [0.15, 0.3, 0.15],
-          }}
-          transition={{
-            duration: 12,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-indigo-500/20 rounded-full blur-3xl"
-        />
-        
-        {/* Grid pattern overlay */}
-        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0wIDBoNjB2NjBIMHoiLz48cGF0aCBkPSJNMzAgMzBtLTEgMGExIDEgMCAxIDAgMiAwYTEgMSAwIDEgMCAtMiAwIiBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMSkiLz48L2c+PC9zdmc+')] opacity-40" />
       </div>
 
       {/* Content */}
-      <div className="container mx-auto px-4 lg:px-8 pt-24 relative z-10">
-        <div className="max-w-4xl">
-          {/* Badge */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="inline-flex items-center px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-white/90 text-sm mb-8"
-          >
-            <span className="w-2 h-2 bg-teal-400 rounded-full mr-2 animate-pulse" />
-            Trusted by 150+ enterprises worldwide
-          </motion.div>
+      <div className="relative z-10 h-full flex items-center">
+        <div className="container mx-auto px-4 lg:px-8">
+          <div className="max-w-4xl">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={currentSlide}
+                initial="hidden"
+                animate="visible"
+                exit="hidden"
+              >
+                {/* Subtitle Badge */}
+                <motion.div
+                  custom={0}
+                  variants={contentVariants}
+                  className="inline-flex items-center px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-teal-400 text-sm font-semibold mb-6"
+                >
+                  <span className="w-2 h-2 bg-teal-400 rounded-full mr-2 animate-pulse" />
+                  {heroSlides[currentSlide].subtitle}
+                </motion.div>
 
-          {/* Headline */}
-          <motion.h1
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white leading-tight mb-6"
-          >
-            Empowering Your
-            <span className="block mt-2 bg-gradient-to-r from-blue-400 via-teal-400 to-blue-400 bg-clip-text text-transparent">
-              Digital Excellence
-            </span>
-          </motion.h1>
+                {/* Title */}
+                <motion.h1
+                  custom={1}
+                  variants={contentVariants}
+                  className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white leading-tight mb-6"
+                >
+                  {heroSlides[currentSlide].title.split(' ').map((word, i) => (
+                    <span key={i}>
+                      {word === 'I.T' || word === 'Simple' ? (
+                        <span className="bg-gradient-to-r from-teal-400 to-blue-400 bg-clip-text text-transparent">
+                          {word}
+                        </span>
+                      ) : (
+                        word
+                      )}{' '}
+                    </span>
+                  ))}
+                </motion.h1>
 
-          {/* Subheadline */}
-          <motion.p
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-lg md:text-xl text-white/70 max-w-2xl mb-10 leading-relaxed"
-          >
-            We transform businesses through innovative technology solutions, 
-            driving growth and efficiency in the digital age. Partner with us 
-            to unlock your organization's full potential.
-          </motion.p>
+                {/* Description */}
+                <motion.p
+                  custom={2}
+                  variants={contentVariants}
+                  className="text-lg md:text-xl text-white/70 max-w-2xl mb-8 leading-relaxed"
+                >
+                  {heroSlides[currentSlide].description}
+                </motion.p>
 
-          {/* CTAs */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="flex flex-col sm:flex-row gap-4"
-          >
-            <Link href="/contact">
-              <Button size="lg" className="bg-gradient-to-r from-blue-500 to-teal-500 hover:from-blue-600 hover:to-teal-600 text-white px-8 py-6 text-lg font-medium group">
-                Start Your Project
-                <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" size={20} />
-              </Button>
-            </Link>
-            <Link href="/case-studies">
-              <Button size="lg" variant="outline" className="border-white/30 bg-white/5 text-white hover:bg-white/10 px-8 py-6 text-lg font-medium">
-                <Play className="mr-2 fill-white" size={20} />
-                View Our Work
-              </Button>
-            </Link>
-          </motion.div>
-
-          {/* Trust indicators */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.5 }}
-            className="mt-16 pt-8 border-t border-white/10"
-          >
-            <p className="text-white/50 text-sm mb-4">Trusted by industry leaders</p>
-            <div className="flex flex-wrap items-center gap-8 opacity-60">
-              {['Fortune 500', 'Tech Leaders', 'Startups', 'Government'].map((item, index) => (
-                <div key={index} className="text-white/80 font-semibold text-lg">
-                  {item}
-                </div>
-              ))}
-            </div>
-          </motion.div>
+                {/* CTA Buttons */}
+                <motion.div
+                  custom={3}
+                  variants={contentVariants}
+                  className="flex flex-col sm:flex-row gap-4"
+                >
+                  <Link href="/contact">
+                    <Button
+                      size="lg"
+                      className="bg-gradient-to-r from-teal-500 to-blue-500 hover:from-teal-600 hover:to-blue-600 text-white px-8 py-6 text-lg font-medium group"
+                    >
+                      {heroSlides[currentSlide].cta}
+                      <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" size={20} />
+                    </Button>
+                  </Link>
+                  <Link href="/case-studies">
+                    <Button
+                      size="lg"
+                      variant="outline"
+                      className="border-white/30 bg-white/5 text-white hover:bg-white/10 px-8 py-6 text-lg font-medium"
+                    >
+                      View Our Work
+                    </Button>
+                  </Link>
+                </motion.div>
+              </motion.div>
+            </AnimatePresence>
+          </div>
         </div>
       </div>
 
-      {/* Scroll indicator */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2"
-      >
-        <motion.div
-          animate={{ y: [0, 10, 0] }}
-          transition={{ duration: 1.5, repeat: Infinity }}
-          className="w-6 h-10 rounded-full border-2 border-white/30 flex items-start justify-center p-2"
+      {/* Slide Navigation */}
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex items-center gap-6">
+        {/* Progress Dots */}
+        <div className="flex items-center gap-3">
+          {heroSlides.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => goToSlide(index)}
+              className={`relative h-2 rounded-full transition-all duration-500 ${
+                index === currentSlide
+                  ? 'w-12 bg-gradient-to-r from-teal-400 to-blue-400'
+                  : 'w-2 bg-white/40 hover:bg-white/60'
+              }`}
+            >
+              {index === currentSlide && isPlaying && (
+                <motion.div
+                  initial={{ width: 0 }}
+                  animate={{ width: '100%' }}
+                  transition={{ duration: 6, ease: 'linear' }}
+                  className="absolute inset-0 bg-white/30 rounded-full"
+                />
+              )}
+            </button>
+          ))}
+        </div>
+
+        {/* Play/Pause */}
+        <button
+          onClick={() => setIsPlaying(!isPlaying)}
+          className="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors"
         >
-          <motion.div className="w-1.5 h-1.5 bg-white/60 rounded-full" />
+          {isPlaying ? (
+            <Pause className="text-white" size={18} />
+          ) : (
+            <Play className="text-white ml-0.5" size={18} />
+          )}
+        </button>
+      </div>
+
+      {/* Arrow Navigation */}
+      <div className="absolute bottom-1/2 translate-y-1/2 left-4 right-4 z-20 flex justify-between pointer-events-none">
+        <button
+          onClick={prevSlide}
+          className="w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors pointer-events-auto backdrop-blur-sm"
+        >
+          <ChevronLeft className="text-white" size={24} />
+        </button>
+        <button
+          onClick={nextSlide}
+          className="w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors pointer-events-auto backdrop-blur-sm"
+        >
+          <ChevronRight className="text-white" size={24} />
+        </button>
+      </div>
+
+      {/* Awards Ticker */}
+      <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-r from-teal-600 to-blue-600 py-3 overflow-hidden z-20">
+        <motion.div
+          animate={{ x: ['0%', '-50%'] }}
+          transition={{ duration: 30, repeat: Infinity, ease: 'linear' }}
+          className="flex whitespace-nowrap"
+        >
+          {[...awards, ...awards, ...awards, ...awards].map((award, index) => (
+            <span key={index} className="text-white text-sm font-medium mx-8 flex items-center">
+              <span className="w-1.5 h-1.5 bg-white rounded-full mr-3" />
+              {award}
+            </span>
+          ))}
         </motion.div>
-      </motion.div>
+      </div>
+
+      {/* Slide Counter */}
+      <div className="absolute top-32 right-8 z-20 hidden lg:block">
+        <div className="text-white/60 text-sm font-medium">
+          <span className="text-white text-2xl font-bold">{String(currentSlide + 1).padStart(2, '0')}</span>
+          <span className="mx-2">/</span>
+          <span>{String(heroSlides.length).padStart(2, '0')}</span>
+        </div>
+      </div>
     </section>
   );
 }

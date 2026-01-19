@@ -15,8 +15,8 @@ export default function Home() {
       <Hero />
       <Services />
       <WhyChooseUs />
-      <CaseStudies limit={3} />
       <Stats />
+      <CaseStudies limit={3} />
       <Testimonials />
       <CTABanner />
       <Footer />

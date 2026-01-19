@@ -1,15 +1,15 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { whyChooseUs } from '@/data/site-data';
-import { Users, Award, Zap, Heart, RefreshCw, Headphones } from 'lucide-react';
+import { whyChooseUs, awards } from '@/data/site-data';
+import { Award, Globe, Heart, Zap, Users, Headphones } from 'lucide-react';
 
 const iconMap = {
-  Users: Users,
   Award: Award,
-  Zap: Zap,
+  Globe: Globe,
   Heart: Heart,
-  RefreshCw: RefreshCw,
+  Zap: Zap,
+  Users: Users,
   Headphones: Headphones
 };
 
@@ -25,30 +25,24 @@ export default function WhyChooseUs() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <span className="text-blue-600 font-semibold text-sm uppercase tracking-wider">Why Choose Us</span>
+            <span className="text-teal-600 font-semibold text-sm uppercase tracking-wider">We Are PROBOX</span>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 mt-4 mb-6">
-              Your Trusted Technology Partner
+              India's Most Trusted Technology Partner
             </h2>
             <p className="text-slate-600 text-lg mb-8 leading-relaxed">
-              With over a decade of experience delivering innovative solutions, we've built 
-              a reputation for excellence. Our commitment to quality and client success 
-              sets us apart in the industry.
+              The proud recipients of the prestigious "Iconic Brand of the Year 2023 & 2024 Award" - 
+              Recognized as The Most Promising Technology, Consulting, and Outsourcing Company which 
+              enables global enterprises to make their operations efficient and invest in innovation.
             </p>
-            
-            {/* Feature highlights */}
-            <div className="flex flex-wrap gap-4">
-              <div className="flex items-center gap-2 bg-blue-50 px-4 py-2 rounded-full">
-                <span className="w-2 h-2 bg-blue-500 rounded-full" />
-                <span className="text-slate-700 text-sm font-medium">ISO 27001 Certified</span>
-              </div>
-              <div className="flex items-center gap-2 bg-teal-50 px-4 py-2 rounded-full">
-                <span className="w-2 h-2 bg-teal-500 rounded-full" />
-                <span className="text-slate-700 text-sm font-medium">AWS Partner</span>
-              </div>
-              <div className="flex items-center gap-2 bg-indigo-50 px-4 py-2 rounded-full">
-                <span className="w-2 h-2 bg-indigo-500 rounded-full" />
-                <span className="text-slate-700 text-sm font-medium">Microsoft Gold Partner</span>
-              </div>
+
+            {/* Awards badges */}
+            <div className="flex flex-wrap gap-3">
+              {awards.slice(0, 3).map((award, index) => (
+                <div key={index} className="flex items-center gap-2 bg-gradient-to-r from-teal-50 to-blue-50 px-4 py-2 rounded-full border border-teal-100">
+                  <Award className="w-4 h-4 text-teal-600" />
+                  <span className="text-slate-700 text-sm font-medium">{award}</span>
+                </div>
+              ))}
             </div>
           </motion.div>
 
@@ -63,13 +57,13 @@ export default function WhyChooseUs() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="group p-6 bg-slate-50 rounded-2xl hover:bg-gradient-to-br hover:from-blue-50 hover:to-teal-50 transition-all duration-300"
+                  className="group p-6 bg-slate-50 rounded-2xl hover:bg-gradient-to-br hover:from-teal-50 hover:to-blue-50 transition-all duration-300 border border-transparent hover:border-teal-100"
                 >
-                  <div className="w-12 h-12 rounded-xl bg-white shadow-sm flex items-center justify-center mb-4 group-hover:bg-gradient-to-br group-hover:from-blue-500 group-hover:to-teal-500 transition-all duration-300">
+                  <div className="w-12 h-12 rounded-xl bg-white shadow-sm flex items-center justify-center mb-4 group-hover:bg-gradient-to-br group-hover:from-teal-500 group-hover:to-blue-500 transition-all duration-300">
                     {IconComponent && (
-                      <IconComponent 
-                        size={24} 
-                        className="text-blue-600 group-hover:text-white transition-colors duration-300" 
+                      <IconComponent
+                        size={24}
+                        className="text-teal-600 group-hover:text-white transition-colors duration-300"
                       />
                     )}
                   </div>
