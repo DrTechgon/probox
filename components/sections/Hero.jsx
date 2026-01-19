@@ -106,8 +106,8 @@ export default function Hero() {
               </Button>
             </Link>
             <Link href="/case-studies">
-              <Button size="lg" variant="outline" className="border-white/30 text-white hover:bg-white/10 px-8 py-6 text-lg font-medium">
-                <Play className="mr-2" size={20} />
+              <Button size="lg" variant="outline" className="border-white/30 bg-white/5 text-white hover:bg-white/10 px-8 py-6 text-lg font-medium">
+                <Play className="mr-2 fill-white" size={20} />
                 View Our Work
               </Button>
             </Link>
