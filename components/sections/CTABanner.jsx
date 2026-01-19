@@ -75,7 +75,7 @@ export default function CTABanner() {
               </Button>
             </Link>
             <a href={`tel:${companyInfo.phone.replace(/\s/g, '')}`}>
-              <Button size="lg" variant="outline" className="border-white/30 text-white hover:bg-white/10 px-8 py-6 text-lg font-medium">
+              <Button size="lg" variant="outline" className="border-white/30 bg-white/10 text-white hover:bg-white/20 px-8 py-6 text-lg font-medium">
                 <Phone className="mr-2" size={20} />
                 {companyInfo.phone}
               </Button>
