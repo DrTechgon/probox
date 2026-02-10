@@ -29,35 +29,35 @@ export const companyInfo = {
 export const heroSlides = [
   {
     id: 1,
-    title: "We Make I.T Simple",
-    subtitle: "SIMPLICITY",
-    description: "We are a leading customized customer experience (CX) innovators who design, build and deliver personalized next-gen I.T services for global and disruptive brands.",
-    cta: "Connect with our CX Expert",
-    image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1920&q=80"
+    title: "AI-Powered Enterprise Solutions",
+    subtitle: "ARTIFICIAL INTELLIGENCE",
+    description: "Harness the power of Machine Learning, Natural Language Processing, and Predictive Analytics to automate processes, gain insights, and drive intelligent decision-making across your organization.",
+    cta: "Explore AI Solutions",
+    image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=1920&q=80"
   },
   {
     id: 2,
-    title: "Iconic Brand of the Year",
-    subtitle: "AWARD WINNING",
-    description: "Recognized as India's Outstanding and Most Trusted Company 2023 | Best Company to Work For 2022-2023 | Iconic Brand of the Year 2024",
-    cta: "Learn About Our Journey",
-    image: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=1920&q=80"
+    title: "Fortify Your Digital Assets",
+    subtitle: "CYBERSECURITY",
+    description: "Comprehensive cybersecurity services including 24/7 SOC operations, zero-trust architecture, threat detection & response, and compliance management to protect your business from evolving threats.",
+    cta: "Secure Your Business",
+    image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=1920&q=80"
   },
   {
     id: 3,
-    title: "1M+ Assets Supported",
-    subtitle: "GLOBAL REACH",
-    description: "With 810+ support locations worldwide, we deliver enterprise-grade IT services that scale with your business needs.",
-    cta: "Explore Our Services",
-    image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1920&q=80"
+    title: "Intelligent Automation at Scale",
+    subtitle: "AI & MACHINE LEARNING",
+    description: "Deploy cutting-edge AI models for computer vision, chatbots, predictive maintenance, and business process automation. Transform operations with data-driven intelligence.",
+    cta: "Discover AI Capabilities",
+    image: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=1920&q=80"
   },
   {
     id: 4,
-    title: "Next-Gen Technology Partner",
-    subtitle: "INNOVATION",
-    description: "From AI & Machine Learning to Cloud Services and Cybersecurity, we bring cutting-edge solutions to transform your business.",
-    cta: "Discover Solutions",
-    image: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=1920&q=80"
+    title: "Zero Trust Security Framework",
+    subtitle: "ENTERPRISE SECURITY",
+    description: "Implement robust security measures with our end-to-end cybersecurity solutions—from vulnerability assessments and penetration testing to identity management and security operations centers.",
+    cta: "Get Protected Today",
+    image: "https://images.unsplash.com/photo-1563986768609-322da13575f3?w=1920&q=80"
   }
 ];
 
@@ -168,21 +168,6 @@ export const services = [
 ];
 
 export const caseStudies = [
-  {
-    id: "nine-rasa-ott",
-    title: "Nine Rasa OTT Platform",
-    client: "Nine Rasa",
-    category: "Technology",
-    description: "We are proud technology partner of the World's First OTT Platform exclusively dedicated for Theatre & Performing Arts. The platform showcases song plays, one-act plays, skits, solos, poetry, dance, musicals, and more.",
-    results: [
-      "World's First Theatre OTT",
-      "Complete Platform Development",
-      "Scalable Streaming Infrastructure"
-    ],
-    technologies: ["Cloud", "Streaming", "React", "Node.js"],
-    image: "https://proboxinfotech.com/wp-content/uploads/2023/07/nine-1.jpg",
-    featured: true
-  },
   {
     id: "enterprise-it-transformation",
     title: "Enterprise IT Transformation",

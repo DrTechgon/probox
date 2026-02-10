@@ -40,29 +40,7 @@ export default function CaseStudies({ showAll = false, limit = 3 }) {
           </p>
         </motion.div>
 
-        {/* Filter Chips */}
-        {showAll && (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="flex flex-wrap justify-center gap-3 mb-12"
-          >
-            {caseStudyCategories.map((category) => (
-              <button
-                key={category}
-                onClick={() => setActiveFilter(category)}
-                className={`px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300 ${
-                  activeFilter === category
-                    ? 'bg-gradient-to-r from-teal-500 to-blue-500 text-white shadow-md'
-                    : 'bg-white text-slate-600 hover:bg-slate-100 border border-slate-200'
-                }`}
-              >
-                {category}
-              </button>
-            ))}
-          </motion.div>
-        )}
+{/* Filter Chips - Removed as per requirement */}
 
         {/* Case Studies Grid */}
         <motion.div
