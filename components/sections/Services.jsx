@@ -1,13 +1,11 @@
 'use client';
 
-import { useState } from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { services } from '@/data/site-data';
-import { Brain, Server, Shield, Cpu, Network, Cloud, ChevronRight, X, Check } from 'lucide-react';
+import { Brain, Server, Shield, Cpu, Network, Cloud, ChevronRight, ArrowRight } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 import Link from 'next/link';
 
 const iconMap = {
@@ -20,7 +18,6 @@ const iconMap = {
 };
 
 export default function Services({ showAll = false }) {
-  const [selectedService, setSelectedService] = useState(null);
   const displayedServices = showAll ? services : services.slice(0, 6);
 
   return (
@@ -56,39 +53,38 @@ export default function Services({ showAll = false }) {
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
               >
-                <Card
-                  className="group cursor-pointer h-full bg-white border-slate-200 hover:border-teal-200 hover:shadow-2xl transition-all duration-500 overflow-hidden"
-                  onClick={() => setSelectedService(service)}
-                >
-                  {/* Service Image */}
-                  <div className="relative h-48 overflow-hidden">
-                    <Image
-                      src={service.image}
-                      alt={service.title}
-                      fill
-                      className="object-cover group-hover:scale-110 transition-transform duration-700"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-slate-900/20 to-transparent" />
-                    <div className="absolute bottom-4 left-4">
-                      <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-teal-500 to-blue-500 flex items-center justify-center shadow-lg">
-                        {IconComponent && <IconComponent className="text-white" size={24} />}
+                <Link href={`/services/${service.id}`}>
+                  <Card className="group cursor-pointer h-full bg-white border-slate-200 hover:border-teal-200 hover:shadow-2xl transition-all duration-500 overflow-hidden">
+                    {/* Service Image */}
+                    <div className="relative h-48 overflow-hidden">
+                      <Image
+                        src={service.image}
+                        alt={service.title}
+                        fill
+                        className="object-cover group-hover:scale-110 transition-transform duration-700"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-slate-900/20 to-transparent" />
+                      <div className="absolute bottom-4 left-4">
+                        <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-teal-500 to-blue-500 flex items-center justify-center shadow-lg">
+                          {IconComponent && <IconComponent className="text-white" size={24} />}
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  
-                  <CardContent className="p-6">
-                    <h3 className="text-xl font-bold text-slate-900 mb-3 group-hover:text-teal-600 transition-colors">
-                      {service.title}
-                    </h3>
-                    <p className="text-slate-600 mb-4 line-clamp-2">
-                      {service.shortDescription}
-                    </p>
-                    <div className="flex items-center text-teal-600 font-medium text-sm">
-                      Know More
-                      <ChevronRight size={16} className="ml-1 group-hover:translate-x-2 transition-transform" />
-                    </div>
-                  </CardContent>
-                </Card>
+                    
+                    <CardContent className="p-6">
+                      <h3 className="text-xl font-bold text-slate-900 mb-3 group-hover:text-teal-600 transition-colors">
+                        {service.title}
+                      </h3>
+                      <p className="text-slate-600 mb-4 line-clamp-2">
+                        {service.shortDescription}
+                      </p>
+                      <div className="flex items-center text-teal-600 font-medium text-sm group-hover:text-teal-700">
+                        Learn More
+                        <ArrowRight size={16} className="ml-1 group-hover:translate-x-2 transition-transform" />
+                      </div>
+                    </CardContent>
+                  </Card>
+                </Link>
               </motion.div>
             );
           })}
@@ -111,59 +107,6 @@ export default function Services({ showAll = false }) {
           </motion.div>
         )}
       </div>
-
-      {/* Service Detail Dialog */}
-      <Dialog open={!!selectedService} onOpenChange={() => setSelectedService(null)}>
-        <DialogContent className="max-w-2xl">
-          {selectedService && (
-            <>
-              <DialogHeader>
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-teal-500 to-blue-500 flex items-center justify-center">
-                    {iconMap[selectedService.icon] && (
-                      <span className="text-white">
-                        {(() => {
-                          const Icon = iconMap[selectedService.icon];
-                          return <Icon size={28} />;
-                        })()}
-                      </span>
-                    )}
-                  </div>
-                  <DialogTitle className="text-2xl font-bold text-slate-900">
-                    {selectedService.title}
-                  </DialogTitle>
-                </div>
-                <DialogDescription className="text-base text-slate-600 leading-relaxed">
-                  {selectedService.fullDescription}
-                </DialogDescription>
-              </DialogHeader>
-              <div className="mt-6">
-                <h4 className="font-semibold text-slate-900 mb-4">Key Features</h4>
-                <ul className="space-y-3">
-                  {selectedService.features.map((feature, index) => (
-                    <li key={index} className="flex items-center gap-3">
-                      <div className="w-5 h-5 rounded-full bg-teal-100 flex items-center justify-center flex-shrink-0">
-                        <Check size={12} className="text-teal-600" />
-                      </div>
-                      <span className="text-slate-700">{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <div className="mt-8 flex gap-4">
-                <Link href="/contact" className="flex-1">
-                  <Button className="w-full bg-gradient-to-r from-teal-500 to-blue-500 hover:from-teal-600 hover:to-blue-600">
-                    Get Started
-                  </Button>
-                </Link>
-                <Button variant="outline" onClick={() => setSelectedService(null)} className="px-8">
-                  Close
-                </Button>
-              </div>
-            </>
-          )}
-        </DialogContent>
-      </Dialog>
     </section>
   );
 }
