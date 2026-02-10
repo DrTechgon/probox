@@ -11,7 +11,7 @@ import os
 from datetime import datetime
 
 # Get base URL from environment
-BASE_URL = "https://probox-revamp.preview.emergentagent.com"
+BASE_URL = "https://probox-nextgen.preview.emergentagent.com"
 API_BASE = f"{BASE_URL}/api"
 
 def print_test_result(test_name, success, details=""):
