@@ -1,23 +1,16 @@
 'use client';
 
-import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
-import { caseStudies, caseStudyCategories } from '@/data/site-data';
+import { caseStudies } from '@/data/site-data';
 import { ArrowRight } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 
 export default function CaseStudies({ showAll = false, limit = 3 }) {
-  const [activeFilter, setActiveFilter] = useState('All');
-
-  const filteredStudies = caseStudies.filter(study =>
-    activeFilter === 'All' || study.category === activeFilter
-  );
-
-  const displayedStudies = showAll ? filteredStudies : filteredStudies.slice(0, limit);
+  const displayedStudies = showAll ? caseStudies : caseStudies.slice(0, limit);
 
   return (
     <section className="py-24 bg-slate-50">
