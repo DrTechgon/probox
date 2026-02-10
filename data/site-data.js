@@ -353,6 +353,7 @@ export const navigation = [
   { name: "Services", href: "/services" },
   { name: "Case Studies", href: "/case-studies" },
   { name: "About", href: "/about" },
+  { name: "Careers", href: "/careers" },
   { name: "Contact", href: "/contact" }
 ];
 
