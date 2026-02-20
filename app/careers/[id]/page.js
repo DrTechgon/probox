@@ -455,7 +455,7 @@ export default function JobDetailPage() {
                         <div>
                           <p className="text-slate-500">Posted</p>
                           <p className="font-medium text-slate-900">
-                            {new Date(job.postedDate).toLocaleDateString('en-IN', {
+                            {new Date(job.createdAt || job.postedDate).toLocaleDateString('en-IN', {
                               month: 'long',
                               day: 'numeric',
                               year: 'numeric'
