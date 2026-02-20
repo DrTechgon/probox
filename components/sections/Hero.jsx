@@ -34,19 +34,27 @@ export default function Hero() {
     return () => clearInterval(timer);
   }, [isPlaying, nextSlide]);
 
+  // Smooth crossfade variants - no sliding, just fade
   const slideVariants = {
-    enter: (direction) => ({
-      x: direction > 0 ? '100%' : '-100%',
+    enter: {
       opacity: 0,
-    }),
-    center: {
-      x: 0,
-      opacity: 1,
+      scale: 1.05,
     },
-    exit: (direction) => ({
-      x: direction < 0 ? '100%' : '-100%',
+    center: {
+      opacity: 1,
+      scale: 1,
+      transition: {
+        opacity: { duration: 0.8, ease: 'easeOut' },
+        scale: { duration: 1.2, ease: 'easeOut' },
+      },
+    },
+    exit: {
       opacity: 0,
-    }),
+      scale: 1,
+      transition: {
+        opacity: { duration: 0.6, ease: 'easeIn' },
+      },
+    },
   };
 
   const contentVariants = {
@@ -54,22 +62,28 @@ export default function Hero() {
     visible: (i) => ({
       opacity: 1,
       y: 0,
-      transition: { delay: i * 0.15, duration: 0.6, ease: 'easeOut' },
+      transition: { delay: 0.3 + i * 0.12, duration: 0.5, ease: 'easeOut' },
     }),
+    exit: { 
+      opacity: 0, 
+      y: -20,
+      transition: { duration: 0.3, ease: 'easeIn' }
+    },
   };
 
   return (
-    <section className="relative h-screen min-h-[700px] overflow-hidden">
-      {/* Background Slides */}
-      <AnimatePresence initial={false} custom={direction} mode="wait">
+    <section className="relative h-screen min-h-[700px] overflow-hidden bg-slate-900">
+      {/* Static dark background to prevent white flash */}
+      <div className="absolute inset-0 bg-slate-900" />
+      
+      {/* Background Slides - Crossfade effect */}
+      <AnimatePresence mode="popLayout">
         <motion.div
           key={currentSlide}
-          custom={direction}
           variants={slideVariants}
           initial="enter"
           animate="center"
           exit="exit"
-          transition={{ duration: 0.8, ease: [0.4, 0, 0.2, 1] }}
           className="absolute inset-0"
         >
           {/* Background Image */}
@@ -80,6 +94,7 @@ export default function Hero() {
               fill
               priority
               className="object-cover"
+              sizes="100vw"
             />
             {/* Gradient Overlays */}
             <div className="absolute inset-0 bg-gradient-to-r from-slate-900/95 via-slate-900/80 to-slate-900/40" />
@@ -89,7 +104,7 @@ export default function Hero() {
       </AnimatePresence>
 
       {/* Animated Background Elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+      <div className="absolute inset-0 overflow-hidden pointer-events-none z-[1]">
         <motion.div
           animate={{
             scale: [1, 1.2, 1],
@@ -117,7 +132,7 @@ export default function Hero() {
                 key={currentSlide}
                 initial="hidden"
                 animate="visible"
-                exit="hidden"
+                exit="exit"
               >
                 {/* Subtitle Badge */}
                 <motion.div
@@ -137,7 +152,7 @@ export default function Hero() {
                 >
                   {heroSlides[currentSlide].title.split(' ').map((word, i) => (
                     <span key={i}>
-                      {word === 'I.T' || word === 'Simple' ? (
+                      {word === 'I.T' || word === 'Simple' || word === 'AI-Powered' || word === 'Digital' ? (
                         <span className="bg-gradient-to-r from-teal-400 to-blue-400 bg-clip-text text-transparent">
                           {word}
                         </span>
