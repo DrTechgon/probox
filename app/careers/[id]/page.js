@@ -90,6 +90,18 @@ export default function JobDetailPage() {
     resolver: zodResolver(applicationSchema),
   });
 
+  if (isLoading) {
+    return (
+      <main className="min-h-screen bg-white">
+        <Navbar />
+        <div className="pt-32 pb-20 flex items-center justify-center">
+          <Loader2 className="h-8 w-8 animate-spin text-teal-500" />
+        </div>
+        <Footer />
+      </main>
+    );
+  }
+
   if (!job) {
     return (
       <main className="min-h-screen bg-white">
