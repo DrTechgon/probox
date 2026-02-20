@@ -7,6 +7,7 @@ import Link from 'next/link';
 import { useState } from 'react';
 import Navbar from '@/components/sections/Navbar';
 import Footer from '@/components/sections/Footer';
+import ServiceHeroBackground from '@/components/services/ServiceHeroBackground';
 import { services } from '@/data/site-data';
 import { servicesDetailData, defaultServiceData } from '@/data/services-detail-data';
 import { Button } from '@/components/ui/button';
