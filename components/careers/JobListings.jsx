@@ -180,21 +180,43 @@ function ActiveFilter({ label, onRemove }) {
 }
 
 export default function JobListings() {
+  const [jobs, setJobs] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [department, setDepartment] = useState('All Departments');
   const [location, setLocation] = useState('All Locations');
   const [employmentType, setEmploymentType] = useState('All Types');
   const [experienceLevel, setExperienceLevel] = useState('All Levels');
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
+
+  // Load published jobs from store
+  useEffect(() => {
+    const loadJobs = () => {
+      const publishedJobs = fetchPublishedJobs();
+      setJobs(publishedJobs);
+      setIsLoading(false);
+    };
+    
+    loadJobs();
+    
+    // Listen for storage changes (for real-time updates from admin)
+    const handleStorageChange = (e) => {
+      if (e.key === 'probox_job_listings') {
+        loadJobs();
+      }
+    };
+    
+    window.addEventListener('storage', handleStorageChange);
+    return () => window.removeEventListener('storage', handleStorageChange);
+  }, []);
 
   // Filter jobs
   const filteredJobs = useMemo(() => {
-    return jobOpenings.filter((job) => {
+    return jobs.filter((job) => {
       const matchesSearch =
         searchQuery === '' ||
         job.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        job.shortDescription.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        (job.shortDescription || '').toLowerCase().includes(searchQuery.toLowerCase()) ||
         job.department.toLowerCase().includes(searchQuery.toLowerCase());
 
       const matchesDepartment =
@@ -211,14 +233,17 @@ export default function JobListings() {
 
       return matchesSearch && matchesDepartment && matchesLocation && matchesType && matchesLevel;
     });
-  }, [searchQuery, department, location, employmentType, experienceLevel]);
+  }, [jobs, searchQuery, department, location, employmentType, experienceLevel]);
 
   // Sort: featured first, then by date
   const sortedJobs = useMemo(() => {
     return [...filteredJobs].sort((a, b) => {
       if (a.featured && !b.featured) return -1;
       if (!a.featured && b.featured) return 1;
-      return new Date(b.postedDate).getTime() - new Date(a.postedDate).getTime();
+      // Use createdAt or updatedAt instead of postedDate
+      const dateA = new Date(a.createdAt || a.postedDate).getTime();
+      const dateB = new Date(b.createdAt || b.postedDate).getTime();
+      return dateB - dateA;
     });
   }, [filteredJobs]);
 
