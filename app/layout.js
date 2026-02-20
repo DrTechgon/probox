@@ -1,4 +1,5 @@
 import './globals.css'
+import ChatWidget from '@/components/chat/ChatWidget'
 
 export const metadata = {
   title: 'PROBOX | SIMPLICITY - We Make I.T Simple',
@@ -16,6 +17,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className="antialiased">
         {children}
+        <ChatWidget />
       </body>
     </html>
   )
