@@ -143,10 +143,6 @@ export default function JobDetailPage() {
     }, 300);
   };
 
-  const relatedJobs = jobOpenings
-    .filter((j) => j.department === job.department && j.id !== job.id)
-    .slice(0, 3);
-
   return (
     <main className="min-h-screen bg-white">
       <Navbar />
