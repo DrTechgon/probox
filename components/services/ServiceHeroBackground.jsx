@@ -15,7 +15,7 @@ const serviceBackgrounds = {
   'cyber-security': 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=1920&q=80',
   'cloud-services': 'https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=1920&q=80',
   'network-management': 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1920&q=80',
-  'iiot': 'https://images.unsplash.com/photo-1565514020179-026b92b2d70b?w=1920&q=80',
+  'iiot': 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=1920&q=80',
   'managed-it-services': 'https://images.unsplash.com/photo-1551434678-e076c223a692?w=1920&q=80',
 };
 
