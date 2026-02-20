@@ -358,7 +358,7 @@ export default function JobListings() {
             Find Your Role
           </h2>
           <p className="text-slate-600 text-lg">
-            {jobOpenings.length} open positions across {departments.length - 1} departments
+            {jobs.length} open positions across {departmentOptions.length} departments
           </p>
         </motion.div>
 
