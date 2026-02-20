@@ -1,12 +1,12 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import Navbar from '@/components/sections/Navbar';
 import Footer from '@/components/sections/Footer';
-import { jobOpenings } from '@/data/careers-data';
+import { fetchPublishedJobs, fetchJobById } from '@/lib/jobs-store';
 import {
   ArrowLeft,
   MapPin,
@@ -19,7 +19,8 @@ import {
   Bookmark,
   Building2,
   Send,
-  CheckCircle
+  CheckCircle,
+  Loader2
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -50,11 +51,35 @@ const applicationSchema = z.object({
 export default function JobDetailPage() {
   const params = useParams();
   const router = useRouter();
+  const [job, setJob] = useState(null);
+  const [relatedJobs, setRelatedJobs] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [isApplyOpen, setIsApplyOpen] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const job = jobOpenings.find((j) => j.id === params.id);
+  useEffect(() => {
+    const loadJob = () => {
+      const foundJob = fetchJobById(params.id);
+      
+      // Only show published jobs on public page
+      if (foundJob && foundJob.status === 'published') {
+        setJob(foundJob);
+        
+        // Get related jobs from same department
+        const allPublished = fetchPublishedJobs();
+        const related = allPublished
+          .filter(j => j.department === foundJob.department && j.id !== foundJob.id)
+          .slice(0, 3);
+        setRelatedJobs(related);
+      } else {
+        setJob(null);
+      }
+      setIsLoading(false);
+    };
+    
+    loadJob();
+  }, [params.id]);
 
   const {
     register,
