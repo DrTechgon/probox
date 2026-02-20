@@ -105,6 +105,10 @@ export default function ServiceDetailPage() {
       <section className="relative py-20 lg:py-32 overflow-hidden">
         {/* Background */}
         <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
+          {/* Service-specific animated background */}
+          <ServiceHeroBackground serviceId={serviceId} />
+          
+          {/* Existing gradient orbs */}
           <motion.div
             animate={{ scale: [1, 1.1, 1], opacity: [0.1, 0.15, 0.1] }}
             transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }}
