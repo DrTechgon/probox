@@ -104,7 +104,7 @@ function JobCard({ job, index }) {
             <div className="mt-4 pt-4 border-t border-slate-100 flex items-center justify-between">
               <span className="text-teal-600 font-semibold">{job.salary}</span>
               <span className="text-slate-400 text-xs">
-                Posted {new Date(job.postedDate).toLocaleDateString('en-IN', { month: 'short', day: 'numeric' })}
+                Posted {new Date(job.createdAt || job.postedDate).toLocaleDateString('en-IN', { month: 'short', day: 'numeric' })}
               </span>
             </div>
           </CardContent>
