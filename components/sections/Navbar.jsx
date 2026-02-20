@@ -36,24 +36,17 @@ export default function Navbar() {
       <div className="container mx-auto px-4 lg:px-8">
         <nav className="flex items-center justify-between h-20">
           {/* Logo */}
-          <Link href="/" className="flex items-center space-x-3">
-            <div className="relative h-12 w-40">
-              {isScrolled ? (
-                <Image
-                  src={companyInfo.logo}
-                  alt={companyInfo.name}
-                  fill
-                  className="object-contain"
-                  priority
-                />
-              ) : (
-                <div className="flex items-center h-full">
-                  <div className="w-10 h-10 bg-gradient-to-br from-teal-500 to-blue-500 rounded-lg flex items-center justify-center mr-2">
-                    <span className="text-white font-bold text-xl">P</span>
-                  </div>
-                  <span className="text-white text-xl font-bold">{companyInfo.name}</span>
-                </div>
-              )}
+          <Link href="/" className="flex items-center">
+            <div className="relative h-12 w-44">
+              <Image
+                src="/images/probox-logo.png"
+                alt="PROBOX Infotech"
+                fill
+                className={`object-contain transition-all duration-300 ${
+                  isScrolled ? '' : 'brightness-0 invert'
+                }`}
+                priority
+              />
             </div>
           </Link>
 
