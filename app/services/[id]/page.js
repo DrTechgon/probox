@@ -103,24 +103,8 @@ export default function ServiceDetailPage() {
       
       {/* Hero Section */}
       <section className="relative py-20 lg:py-32 overflow-hidden">
-        {/* Background */}
-        <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
-          {/* Service-specific animated background */}
-          <ServiceHeroBackground serviceId={serviceId} />
-          
-          {/* Existing gradient orbs */}
-          <motion.div
-            animate={{ scale: [1, 1.1, 1], opacity: [0.1, 0.15, 0.1] }}
-            transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }}
-            className="absolute top-0 right-0 w-[600px] h-[600px] bg-teal-500/20 rounded-full blur-3xl"
-          />
-          <motion.div
-            animate={{ scale: [1.1, 1, 1.1], opacity: [0.1, 0.2, 0.1] }}
-            transition={{ duration: 12, repeat: Infinity, ease: 'easeInOut' }}
-            className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-blue-500/20 rounded-full blur-3xl"
-          />
-          <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0wIDBoNjB2NjBIMHoiLz48cGF0aCBkPSJNMzAgMzBtLTEgMGExIDEgMCAxIDAgMiAwYTEgMSAwIDEgMCAtMiAwIiBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMDMpIi8+PC9nPjwvc3ZnPg==')] opacity-50" />
-        </div>
+        {/* Background - Clean professional style matching landing page */}
+        <ServiceHeroBackground serviceId={serviceId} />
         
         <div className="container mx-auto px-4 lg:px-8 relative z-10">
           <div className="max-w-4xl">
