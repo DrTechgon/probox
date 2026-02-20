@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo, useCallback } from 'react';
+import { useState, useMemo, useCallback, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import {
@@ -35,12 +35,18 @@ import {
 } from '@/components/ui/sheet';
 import { Skeleton } from '@/components/ui/skeleton';
 import {
-  jobOpenings,
-  departments,
-  locations,
-  employmentTypes,
-  experienceLevels
-} from '@/data/careers-data';
+  fetchPublishedJobs,
+  departmentOptions,
+  locationOptions,
+  employmentTypeOptions,
+  experienceLevelOptions
+} from '@/lib/jobs-store';
+
+// Transform store data for filter dropdowns
+const departments = ['All Departments', ...departmentOptions];
+const locations = ['All Locations', ...locationOptions];
+const employmentTypes = ['All Types', ...employmentTypeOptions];
+const experienceLevels = ['All Levels', ...experienceLevelOptions];
 
 // Job Card Component
 function JobCard({ job, index }) {
