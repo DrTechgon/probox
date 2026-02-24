@@ -47,8 +47,7 @@ Would you like me to tell you more about any specific role or department?`
 
 **Contact Options:**
 
-**Email:** info@proboxinfotech.com  
-**Phone:** +91-7738322228  
+**Email:** info@proboxinfotech.com
 **Address:** Mumbai, India
 
 You can also fill out the form on our [Contact page](/contact) and our team will get back to you within 24 hours.

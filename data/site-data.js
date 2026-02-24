@@ -10,7 +10,6 @@ export const companyInfo = {
   aboutDescription: "The proud recipients of the prestigious Iconic Brand of the Year 2023 & 2024 Award: Recognized as The Most Promising Technology, Consulting, and Outsourcing Company which enables global enterprises to address a dual mandate: to make their current operations as efficient and cost-effective as possible and to invest in innovation to unleash new potential across their organizations.",
   founded: 2020,
   email: "info@proboxinfotech.com",
-  phone: "+91-7738322228",
   address: "813, C 2 Skyline Wealth Space, Premier Road, Near DMart, Vidyavihar (West), Mumbai – 400 086, Maharashtra, INDIA",
   logo: "https://i0.wp.com/proboxinfotech.com/wp-content/uploads/2023/08/probox-logo-2.jpg?fit=953%2C266&ssl=1",
   social: {

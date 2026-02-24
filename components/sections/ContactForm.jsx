@@ -75,7 +75,6 @@ export default function ContactForm() {
 
   const contactInfo = [
     { icon: Mail, label: 'Email', value: companyInfo.email },
-    { icon: Phone, label: 'Phone', value: companyInfo.phone },
     { icon: Building2, label: 'Corporate Office', value: companyInfo.address },
     { icon: Clock, label: 'Working Hours', value: 'Mon - Fri: 9:00 AM - 6:00 PM IST' }
   ];

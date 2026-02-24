@@ -80,10 +80,6 @@ export default function Footer() {
                 <span className="text-slate-400 text-sm">{companyInfo.email}</span>
               </li>
               <li className="flex items-start space-x-3">
-                <Phone size={18} className="text-teal-400 mt-0.5" />
-                <span className="text-slate-400 text-sm">{companyInfo.phone}</span>
-              </li>
-              <li className="flex items-start space-x-3">
                 <MapPin size={18} className="text-teal-400 mt-0.5 flex-shrink-0" />
                 <span className="text-slate-400 text-sm">{companyInfo.address}</span>
               </li>

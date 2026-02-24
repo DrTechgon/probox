@@ -69,12 +69,6 @@ export default function CTABanner() {
                 <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" size={20} />
               </Button>
             </Link>
-            <a href={`tel:${companyInfo.phone.replace(/[\s-]/g, '')}`}>
-              <Button size="lg" variant="outline" className="border-white/30 bg-white/5 text-white hover:bg-white/10 px-8 py-6 text-lg font-medium">
-                <Phone className="mr-2" size={20} />
-                {companyInfo.phone}
-              </Button>
-            </a>
           </motion.div>
         </div>
       </div>

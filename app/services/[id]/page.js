@@ -560,12 +560,6 @@ export default function ServiceDetailPage() {
                   <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" size={20} />
                 </Button>
               </Link>
-              <a href="tel:+917738322228">
-                <Button size="lg" variant="outline" className="border-white/30 bg-white/5 text-white hover:bg-white/10 px-10 py-6 text-lg font-medium">
-                  <Phone size={18} className="mr-2" />
-                  +91-7738322228
-                </Button>
-              </a>
             </div>
           </motion.div>
         </div>

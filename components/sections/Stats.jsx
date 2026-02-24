@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { stats } from '@/data/site-data';
+import WorldMap from '@/components/ui/world-map';
 
 function Counter({ value, suffix, prefix = '', inView }) {
   const [count, setCount] = useState(0);
@@ -98,6 +99,48 @@ export default function Stats() {
               <p className="text-white/80 font-medium text-sm md:text-base">{stat.label}</p>
             </motion.div>
           ))}
+        </motion.div>
+
+        {/* World Map Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.5, delay: 0.4 }}
+          className="mt-16"
+        >
+          <WorldMap
+            dots={[
+              {
+                start: {
+                  lat: 64.2008,
+                  lng: -149.4937,
+                }, // Alaska (Fairbanks)
+                end: {
+                  lat: 34.0522,
+                  lng: -118.2437,
+                }, // Los Angeles
+              },
+              {
+                start: { lat: 64.2008, lng: -149.4937 }, // Alaska (Fairbanks)
+                end: { lat: -15.7975, lng: -47.8919 }, // Brazil (Brasília)
+              },
+              {
+                start: { lat: -15.7975, lng: -47.8919 }, // Brazil (Brasília)
+                end: { lat: 38.7223, lng: -9.1393 }, // Lisbon
+              },
+              {
+                start: { lat: 51.5074, lng: -0.1278 }, // London
+                end: { lat: 28.6139, lng: 77.209 }, // New Delhi
+              },
+              {
+                start: { lat: 28.6139, lng: 77.209 }, // New Delhi
+                end: { lat: 43.1332, lng: 131.9113 }, // Vladivostok
+              },
+              {
+                start: { lat: 28.6139, lng: 77.209 }, // New Delhi
+                end: { lat: -1.2921, lng: 36.8219 }, // Nairobi
+              },
+            ]} />
         </motion.div>
       </div>
     </section>
