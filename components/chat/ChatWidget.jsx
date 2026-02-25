@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef, useCallback } from 'react';
+import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import ReactMarkdown from 'react-markdown';
 import {
@@ -14,7 +15,8 @@ import {
   Copy,
   Check,
   AlertCircle,
-  Loader2
+  Loader2,
+  Sparkles
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
@@ -30,9 +32,75 @@ import {
   clearChatHistory,
   generateMessageId,
   sendMessage,
-  suggestedPrompts,
   welcomeMessage
 } from '@/lib/chat-service';
+
+// Page-specific conversation starters
+const conversationStartersByPage = {
+  '/': [
+    "What services does PROBOX offer?",
+    "How can PROBOX help my business?",
+    "Tell me about your expertise"
+  ],
+  '/services': [
+    "Which service is best for startups?",
+    "Do you offer cloud solutions?",
+    "Tell me about your AI services"
+  ],
+  '/about': [
+    "What's PROBOX's mission?",
+    "How experienced is your team?",
+    "Where are your offices located?"
+  ],
+  '/careers': [
+    "What positions are open?",
+    "What's the hiring process like?",
+    "What benefits do you offer?"
+  ],
+  '/careers/[id]': [
+    "What skills are required?",
+    "Is remote work available?",
+    "How do I apply for this role?"
+  ],
+  '/contact': [
+    "What's the best way to reach you?",
+    "How quickly do you respond?",
+    "Can I schedule a consultation?"
+  ],
+  '/case-studies': [
+    "What industries do you work with?",
+    "Can you share success stories?",
+    "What results have clients seen?"
+  ],
+  'default': [
+    "Tell me about PROBOX",
+    "What services do you offer?",
+    "How can I get started?"
+  ]
+};
+
+// Get conversation starters based on current path
+const getConversationStarters = (pathname) => {
+  // Check for exact match first
+  if (conversationStartersByPage[pathname]) {
+    return conversationStartersByPage[pathname];
+  }
+  
+  // Check for dynamic routes (e.g., /careers/[id], /services/[id])
+  if (pathname.startsWith('/careers/') && pathname !== '/careers') {
+    return conversationStartersByPage['/careers/[id]'];
+  }
+  if (pathname.startsWith('/services/') && pathname !== '/services') {
+    return [
+      "Tell me more about this service",
+      "What's the pricing for this?",
+      "How do I get started?"
+    ];
+  }
+  
+  // Return default starters
+  return conversationStartersByPage['default'];
+};
 
 // Typing indicator component
 function TypingIndicator() {
@@ -178,7 +246,7 @@ function ChatMessage({ message, onCopy }) {
   );
 }
 
-// Suggestion chip component
+// Suggestion chip component (inside chat)
 function SuggestionChip({ text, onClick }) {
   return (
     <button
@@ -190,24 +258,57 @@ function SuggestionChip({ text, onClick }) {
   );
 }
 
+// Conversation Starter Bubble (floating above chat button)
+function ConversationStarterBubble({ text, onClick, index, total }) {
+  return (
+    <motion.button
+      initial={{ opacity: 0, x: 20, scale: 0.8 }}
+      animate={{ opacity: 1, x: 0, scale: 1 }}
+      exit={{ opacity: 0, x: 20, scale: 0.8 }}
+      transition={{ 
+        duration: 0.3, 
+        delay: index * 0.1,
+        type: "spring",
+        stiffness: 200
+      }}
+      onClick={() => onClick(text)}
+      className="group flex items-center gap-2 px-4 py-2.5 bg-white rounded-full shadow-lg border border-slate-100 hover:border-teal-300 hover:shadow-xl transition-all duration-200 max-w-[280px]"
+      whileHover={{ scale: 1.02, x: -5 }}
+      whileTap={{ scale: 0.98 }}
+    >
+      <Sparkles size={14} className="text-teal-500 flex-shrink-0" />
+      <span className="text-sm text-slate-700 group-hover:text-teal-600 transition-colors truncate">
+        {text}
+      </span>
+    </motion.button>
+  );
+}
+
 // Main ChatWidget component
 export default function ChatWidget() {
+  const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([]);
   const [inputValue, setInputValue] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [isInitialized, setIsInitialized] = useState(false);
   const [userHasScrolled, setUserHasScrolled] = useState(false);
+  const [showStarters, setShowStarters] = useState(true);
+  const [hasInteracted, setHasInteracted] = useState(false);
   
   const messagesEndRef = useRef(null);
   const messagesContainerRef = useRef(null);
   const inputRef = useRef(null);
+
+  // Get page-specific conversation starters
+  const conversationStarters = getConversationStarters(pathname);
 
   // Load chat history on mount
   useEffect(() => {
     const history = getChatHistory();
     if (history.length > 0) {
       setMessages(history);
+      setHasInteracted(true);
     }
     setIsInitialized(true);
   }, []);
@@ -233,6 +334,17 @@ export default function ChatWidget() {
     }
   }, [isOpen]);
 
+  // Show conversation starters after a delay on page change
+  useEffect(() => {
+    if (!isOpen && !hasInteracted) {
+      setShowStarters(false);
+      const timer = setTimeout(() => {
+        setShowStarters(true);
+      }, 2000);
+      return () => clearTimeout(timer);
+    }
+  }, [pathname, isOpen, hasInteracted]);
+
   // Handle scroll events
   const handleScroll = useCallback((e) => {
     const { scrollTop, scrollHeight, clientHeight } = e.target;
@@ -256,6 +368,9 @@ export default function ChatWidget() {
   const handleSendMessage = async (content = inputValue) => {
     if (!content.trim() || isLoading) return;
 
+    setHasInteracted(true);
+    setShowStarters(false);
+
     const userMessage = {
       id: generateMessageId(),
       role: 'user',
@@ -267,6 +382,11 @@ export default function ChatWidget() {
     setInputValue('');
     setIsLoading(true);
     setUserHasScrolled(false);
+
+    // Open chat if sending from starter bubble
+    if (!isOpen) {
+      setIsOpen(true);
+    }
 
     try {
       const response = await sendMessage(content, messages);
@@ -302,6 +422,8 @@ export default function ChatWidget() {
   const handleClearConversation = () => {
     setMessages([]);
     clearChatHistory();
+    setHasInteracted(false);
+    setShowStarters(true);
   };
 
   // Toggle chat panel
@@ -312,10 +434,40 @@ export default function ChatWidget() {
     }
   };
 
+  // Handle starter click
+  const handleStarterClick = (text) => {
+    setIsOpen(true);
+    setTimeout(() => {
+      handleSendMessage(text);
+    }, 300);
+  };
+
   const showWelcome = messages.length === 0;
 
   return (
     <>
+      {/* Conversation Starter Bubbles - shown when chat is closed */}
+      <AnimatePresence>
+        {!isOpen && showStarters && !hasInteracted && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed bottom-24 right-6 z-40 flex flex-col items-end gap-2"
+          >
+            {conversationStarters.map((starter, index) => (
+              <ConversationStarterBubble
+                key={`${pathname}-${index}`}
+                text={starter}
+                onClick={handleStarterClick}
+                index={index}
+                total={conversationStarters.length}
+              />
+            ))}
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {/* Floating Chat Button */}
       <motion.button
         onClick={toggleChat}
@@ -441,8 +593,9 @@ export default function ChatWidget() {
                     <div className="bg-slate-100 rounded-2xl rounded-bl-md px-4 py-3 mb-4">
                       <p className="text-sm text-slate-700">{welcomeMessage.content}</p>
                     </div>
-                    <div className="flex flex-wrap gap-2 mt-4">
-                      {suggestedPrompts.map((prompt, idx) => (
+                    <p className="text-xs text-slate-400 mb-3">Quick questions for this page:</p>
+                    <div className="flex flex-wrap gap-2 mt-2">
+                      {conversationStarters.map((prompt, idx) => (
                         <SuggestionChip
                           key={idx}
                           text={prompt}
