@@ -1,12 +1,12 @@
+'use client';
+
+import { motion } from 'framer-motion';
+import Image from 'next/image';
 import Navbar from '@/components/sections/Navbar';
 import CaseStudies from '@/components/sections/CaseStudies';
 import CTABanner from '@/components/sections/CTABanner';
 import Footer from '@/components/sections/Footer';
-
-export const metadata = {
-  title: 'Case Studies | Probox Infotech',
-  description: 'Explore our success stories and see how we have helped businesses across industries achieve their digital transformation goals.',
-}
+import { Sparkles } from 'lucide-react';
 
 export default function CaseStudiesPage() {
   return (
@@ -14,17 +14,141 @@ export default function CaseStudiesPage() {
       <Navbar />
       
       {/* Hero Section */}
-      <section className="pt-32 pb-20 bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900">
-        <div className="container mx-auto px-4 lg:px-8">
+      <section className="relative min-h-[60vh] flex items-center overflow-hidden">
+        {/* Background Image */}
+        <div className="absolute inset-0">
+          <Image
+            src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1ODh8MHwxfHNlYXJjaHwzfHxidXNpbmVzcyUyMGFuYWx5dGljc3xlbnwwfHx8fDE3NzIwMDE1OTZ8MA&ixlib=rb-4.1.0&q=85"
+            alt="Business Analytics and Success"
+            fill
+            priority
+            className="object-cover"
+          />
+          {/* Gradient overlays for depth and readability */}
+          <div className="absolute inset-0 bg-gradient-to-r from-slate-900/95 via-slate-900/85 to-slate-900/70" />
+          <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-slate-900/40" />
+        </div>
+
+        {/* Animated Visual Elements */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          {/* Floating gradient orbs */}
+          <motion.div
+            animate={{
+              scale: [1, 1.2, 1],
+              opacity: [0.15, 0.25, 0.15],
+              x: [0, 30, 0],
+            }}
+            transition={{ duration: 12, repeat: Infinity, ease: 'easeInOut' }}
+            className="absolute top-1/4 -left-20 w-[500px] h-[500px] bg-gradient-to-br from-blue-500/30 to-purple-500/20 rounded-full blur-3xl"
+          />
+          <motion.div
+            animate={{
+              scale: [1.2, 1, 1.2],
+              opacity: [0.1, 0.2, 0.1],
+              x: [0, -20, 0],
+            }}
+            transition={{ duration: 15, repeat: Infinity, ease: 'easeInOut' }}
+            className="absolute bottom-1/4 -right-20 w-[600px] h-[600px] bg-gradient-to-tl from-teal-500/25 to-cyan-500/15 rounded-full blur-3xl"
+          />
+          
+          {/* Floating particles */}
+          {[...Array(6)].map((_, i) => (
+            <motion.div
+              key={i}
+              className="absolute w-2 h-2 bg-blue-400/40 rounded-full"
+              style={{
+                left: `${15 + i * 15}%`,
+                top: `${20 + (i % 3) * 25}%`,
+              }}
+              animate={{
+                y: [0, -30, 0],
+                opacity: [0.2, 0.6, 0.2],
+                scale: [1, 1.5, 1],
+              }}
+              transition={{
+                duration: 4 + i * 0.5,
+                repeat: Infinity,
+                ease: 'easeInOut',
+                delay: i * 0.3,
+              }}
+            />
+          ))}
+
+          {/* Decorative lines */}
+          <svg className="absolute inset-0 w-full h-full opacity-20" preserveAspectRatio="none">
+            <motion.line
+              x1="10%" y1="20%" x2="30%" y2="80%"
+              stroke="url(#lineGradient2)"
+              strokeWidth="1"
+              initial={{ pathLength: 0, opacity: 0 }}
+              animate={{ pathLength: 1, opacity: [0, 0.5, 0] }}
+              transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
+            />
+            <motion.line
+              x1="70%" y1="10%" x2="90%" y2="70%"
+              stroke="url(#lineGradient2)"
+              strokeWidth="1"
+              initial={{ pathLength: 0, opacity: 0 }}
+              animate={{ pathLength: 1, opacity: [0, 0.4, 0] }}
+              transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
+            />
+            <defs>
+              <linearGradient id="lineGradient2" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="rgba(59, 130, 246, 0)" />
+                <stop offset="50%" stopColor="rgba(59, 130, 246, 0.6)" />
+                <stop offset="100%" stopColor="rgba(139, 92, 246, 0)" />
+              </linearGradient>
+            </defs>
+          </svg>
+
+          {/* Geometric shapes */}
+          <motion.div
+            className="absolute top-1/3 right-[15%] w-32 h-32 border border-blue-500/20 rounded-2xl"
+            animate={{ rotate: 360, scale: [1, 1.1, 1] }}
+            transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
+          />
+          <motion.div
+            className="absolute bottom-1/3 left-[10%] w-24 h-24 border border-purple-500/20 rounded-full"
+            animate={{ rotate: -360 }}
+            transition={{ duration: 25, repeat: Infinity, ease: 'linear' }}
+          />
+        </div>
+
+        {/* Content */}
+        <div className="container mx-auto px-4 lg:px-8 pt-32 pb-20 relative z-10">
           <div className="max-w-3xl">
-            <span className="text-blue-400 font-semibold text-sm uppercase tracking-wider">Case Studies</span>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mt-4 mb-6">
-              Our Success Stories
-            </h1>
-            <p className="text-xl text-white/70">
+            {/* Badge */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="inline-flex items-center px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-blue-400 text-sm font-medium mb-6"
+            >
+              <Sparkles size={16} className="mr-2" />
+              Case Studies
+            </motion.div>
+
+            <motion.h1 
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mt-4 mb-6"
+            >
+              Our{' '}
+              <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+                Success
+              </span>{' '}
+              Stories
+            </motion.h1>
+            <motion.p 
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="text-xl text-white/70"
+            >
               Discover how we've helped businesses across industries transform 
               their operations and achieve remarkable results.
-            </p>
+            </motion.p>
           </div>
         </div>
       </section>
