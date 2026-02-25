@@ -293,8 +293,7 @@ export default function ChatWidget() {
   const [isLoading, setIsLoading] = useState(false);
   const [isInitialized, setIsInitialized] = useState(false);
   const [userHasScrolled, setUserHasScrolled] = useState(false);
-  const [showStarters, setShowStarters] = useState(true);
-  const [hasInteracted, setHasInteracted] = useState(false);
+  const [showStarters, setShowStarters] = useState(false);
   
   const messagesEndRef = useRef(null);
   const messagesContainerRef = useRef(null);
@@ -308,7 +307,6 @@ export default function ChatWidget() {
     const history = getChatHistory();
     if (history.length > 0) {
       setMessages(history);
-      setHasInteracted(true);
     }
     setIsInitialized(true);
   }, []);
@@ -334,16 +332,18 @@ export default function ChatWidget() {
     }
   }, [isOpen]);
 
-  // Show conversation starters after a delay on page change
+  // Show conversation starters after a delay when chat is closed
   useEffect(() => {
-    if (!isOpen && !hasInteracted) {
+    if (!isOpen) {
       setShowStarters(false);
       const timer = setTimeout(() => {
         setShowStarters(true);
-      }, 2000);
+      }, 1500);
       return () => clearTimeout(timer);
+    } else {
+      setShowStarters(false);
     }
-  }, [pathname, isOpen, hasInteracted]);
+  }, [pathname, isOpen]);
 
   // Handle scroll events
   const handleScroll = useCallback((e) => {
@@ -367,9 +367,6 @@ export default function ChatWidget() {
   // Send message handler
   const handleSendMessage = async (content = inputValue) => {
     if (!content.trim() || isLoading) return;
-
-    setHasInteracted(true);
-    setShowStarters(false);
 
     const userMessage = {
       id: generateMessageId(),
@@ -422,8 +419,6 @@ export default function ChatWidget() {
   const handleClearConversation = () => {
     setMessages([]);
     clearChatHistory();
-    setHasInteracted(false);
-    setShowStarters(true);
   };
 
   // Toggle chat panel
@@ -446,9 +441,9 @@ export default function ChatWidget() {
 
   return (
     <>
-      {/* Conversation Starter Bubbles - shown when chat is closed */}
+      {/* Conversation Starter Bubbles - always shown when chat is closed */}
       <AnimatePresence>
-        {!isOpen && showStarters && !hasInteracted && (
+        {!isOpen && showStarters && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
