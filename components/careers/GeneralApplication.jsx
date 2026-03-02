@@ -1,11 +1,11 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
-import { Send, CheckCircle, Upload, FileText } from 'lucide-react';
+import { Send, CheckCircle, Upload, FileText, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -18,6 +18,8 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
+import { supabase } from '@/lib/supabase';
+import { uploadCV } from '@/lib/storage-helpers';
 
 const formSchema = z.object({
   name: z.string().min(2, 'Name is required'),
@@ -32,6 +34,10 @@ export default function GeneralApplication() {
   const [isOpen, setIsOpen] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [cvFile, setCvFile] = useState(null);
+  const [cvError, setCvError] = useState('');
+  const [isDragging, setIsDragging] = useState(false);
+  const fileInputRef = useRef(null);
 
   const {
     register,
@@ -42,13 +48,101 @@ export default function GeneralApplication() {
     resolver: zodResolver(formSchema),
   });
 
+  const isValidFile = (file) => {
+    const validTypes = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
+    const maxSize = 5 * 1024 * 1024; // 5MB
+
+    if (!validTypes.includes(file.type)) {
+      setCvError('Please upload a PDF or Word document');
+      return false;
+    }
+    if (file.size > maxSize) {
+      setCvError('File size must be less than 5MB');
+      return false;
+    }
+    return true;
+  };
+
+  const handleFileSelect = (e) => {
+    const file = e.target.files[0];
+    if (file && isValidFile(file)) {
+      setCvFile(file);
+      setCvError('');
+    }
+  };
+
+  const handleDragOver = (e) => {
+    e.preventDefault();
+    setIsDragging(true);
+  };
+
+  const handleDragLeave = (e) => {
+    e.preventDefault();
+    setIsDragging(false);
+  };
+
+  const handleDrop = (e) => {
+    e.preventDefault();
+    setIsDragging(false);
+    const file = e.dataTransfer.files[0];
+    if (file && isValidFile(file)) {
+      setCvFile(file);
+      setCvError('');
+    }
+  };
+
+  const removeFile = () => {
+    setCvFile(null);
+    if (fileInputRef.current) {
+      fileInputRef.current.value = '';
+    }
+  };
+
+  const formatFileSize = (bytes) => {
+    if (bytes < 1024) return bytes + ' B';
+    if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+    return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
+  };
+
   const onSubmit = async (data) => {
     setIsSubmitting(true);
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1500));
+      // Upload CV if provided
+      let cvUrl = '';
+      if (cvFile) {
+        try {
+          const { url } = await uploadCV(cvFile, 'general', 'general-application', data.name);
+          cvUrl = url;
+        } catch (uploadError) {
+          console.error('Upload error:', uploadError);
+          setCvError('Failed to upload CV. Please try again.');
+          setIsSubmitting(false);
+          return;
+        }
+      }
+
+      const { error } = await supabase
+        .from('applications')
+        .insert([{
+          job_id: null,
+          job_title: 'General Application',
+          name: data.name,
+          email: data.email,
+          phone: data.phone,
+          linkedin: data.linkedin || '',
+          portfolio: data.portfolio || '',
+          message: data.message,
+          cv_url: cvUrl,
+        }]);
+
+      if (error) {
+        console.error('Insert error:', error);
+        throw error;
+      }
+
       setIsSubmitted(true);
       reset();
+      setCvFile(null);
     } catch (error) {
       console.error('Error:', error);
     } finally {
@@ -60,6 +154,8 @@ export default function GeneralApplication() {
     setIsOpen(false);
     setTimeout(() => {
       setIsSubmitted(false);
+      setCvFile(null);
+      setCvError('');
     }, 300);
   };
 
@@ -73,7 +169,7 @@ export default function GeneralApplication() {
             opacity: [0.1, 0.2, 0.1],
           }}
           transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
-          className="absolute top-0 right-0 w-[500px] h-[500px] bg-teal-500/20 rounded-full blur-3xl"
+          className="absolute top-0 right-0 w-[500px] h-[500px] bg-orange-500/20 rounded-full blur-3xl"
         />
         <motion.div
           animate={{
@@ -116,7 +212,7 @@ export default function GeneralApplication() {
                     animate={{ opacity: 1, scale: 1 }}
                     className="py-12 text-center"
                   >
-                    <div className="w-20 h-20 bg-gradient-to-br from-teal-500 to-blue-500 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <div className="w-20 h-20 bg-gradient-to-br from-orange-500 to-blue-500 rounded-full flex items-center justify-center mx-auto mb-6">
                       <CheckCircle className="text-white" size={40} />
                     </div>
                     <h3 className="text-2xl font-bold text-slate-900 mb-4">Application Received!</h3>
@@ -215,10 +311,77 @@ export default function GeneralApplication() {
                         )}
                       </div>
 
+                      {/* CV Upload */}
+                      <div className="space-y-2">
+                        <Label className="flex items-center gap-2">
+                          <FileText size={14} className="text-orange-500" />
+                          Upload CV <span className="text-slate-400 text-xs">(Optional)</span>
+                        </Label>
+
+                        {cvFile ? (
+                          <motion.div
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            className="flex items-center justify-between p-3 bg-orange-50 border border-orange-200 rounded-lg"
+                          >
+                            <div className="flex items-center gap-3">
+                              <div className="w-9 h-9 bg-orange-100 rounded-lg flex items-center justify-center">
+                                <FileText className="text-orange-600" size={18} />
+                              </div>
+                              <div>
+                                <p className="text-sm font-medium text-slate-900 truncate max-w-[200px]">
+                                  {cvFile.name}
+                                </p>
+                                <p className="text-xs text-slate-500">{formatFileSize(cvFile.size)}</p>
+                              </div>
+                            </div>
+                            <button
+                              type="button"
+                              onClick={removeFile}
+                              className="p-1.5 hover:bg-orange-100 rounded-full transition-colors"
+                            >
+                              <X size={14} className="text-slate-500" />
+                            </button>
+                          </motion.div>
+                        ) : (
+                          <div
+                            onDragOver={handleDragOver}
+                            onDragLeave={handleDragLeave}
+                            onDrop={handleDrop}
+                            onClick={() => fileInputRef.current?.click()}
+                            className={`
+                              border-2 border-dashed rounded-lg p-4 text-center cursor-pointer transition-all
+                              ${isDragging
+                                ? 'border-orange-500 bg-orange-50'
+                                : cvError
+                                  ? 'border-red-300 bg-red-50'
+                                  : 'border-slate-200 hover:border-orange-300 hover:bg-slate-50'
+                              }
+                            `}
+                          >
+                            <input
+                              ref={fileInputRef}
+                              type="file"
+                              onChange={handleFileSelect}
+                              accept=".pdf,.doc,.docx"
+                              className="hidden"
+                            />
+                            <Upload className={`mx-auto mb-1 ${isDragging ? 'text-orange-500' : 'text-slate-400'}`} size={20} />
+                            <p className="text-sm text-slate-600">
+                              <span className="font-medium text-orange-600">Click to upload</span> or drag and drop
+                            </p>
+                            <p className="text-xs text-slate-400 mt-1">PDF or Word (Max 5MB)</p>
+                          </div>
+                        )}
+                        {cvError && (
+                          <p className="text-red-500 text-xs">{cvError}</p>
+                        )}
+                      </div>
+
                       <Button
                         type="submit"
                         disabled={isSubmitting}
-                        className="w-full bg-gradient-to-r from-teal-500 to-blue-500 hover:from-teal-600 hover:to-blue-600"
+                        className="w-full bg-gradient-to-r from-orange-500 to-blue-500 hover:from-orange-600 hover:to-blue-600"
                       >
                         {isSubmitting ? (
                           'Submitting...'

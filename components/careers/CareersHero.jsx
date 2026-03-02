@@ -38,7 +38,7 @@ export default function CareersHero() {
             x: [0, 30, 0],
           }}
           transition={{ duration: 12, repeat: Infinity, ease: 'easeInOut' }}
-          className="absolute top-1/4 -left-20 w-[500px] h-[500px] bg-gradient-to-br from-teal-500/30 to-cyan-500/20 rounded-full blur-3xl"
+          className="absolute top-1/4 -left-20 w-[500px] h-[500px] bg-gradient-to-br from-orange-500/30 to-blue-500/20 rounded-full blur-3xl"
         />
         <motion.div
           animate={{
@@ -54,7 +54,7 @@ export default function CareersHero() {
         {[...Array(6)].map((_, i) => (
           <motion.div
             key={i}
-            className="absolute w-2 h-2 bg-teal-400/40 rounded-full"
+            className="absolute w-2 h-2 bg-orange-400/40 rounded-full"
             style={{
               left: `${15 + i * 15}%`,
               top: `${20 + (i % 3) * 25}%`,
@@ -93,8 +93,8 @@ export default function CareersHero() {
           />
           <defs>
             <linearGradient id="lineGradient1" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="rgba(20, 184, 166, 0)" />
-              <stop offset="50%" stopColor="rgba(20, 184, 166, 0.6)" />
+              <stop offset="0%" stopColor="rgba(249, 115, 22, 0)" />
+              <stop offset="50%" stopColor="rgba(249, 115, 22, 0.6)" />
               <stop offset="100%" stopColor="rgba(59, 130, 246, 0)" />
             </linearGradient>
           </defs>
@@ -102,7 +102,7 @@ export default function CareersHero() {
 
         {/* Geometric shapes */}
         <motion.div
-          className="absolute top-1/3 right-[15%] w-32 h-32 border border-teal-500/20 rounded-2xl"
+          className="absolute top-1/3 right-[15%] w-32 h-32 border border-orange-500/20 rounded-2xl"
           animate={{ rotate: 360, scale: [1, 1.1, 1] }}
           transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
         />
@@ -121,7 +121,7 @@ export default function CareersHero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="inline-flex items-center px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-teal-400 text-sm font-medium mb-8"
+            className="inline-flex items-center px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-orange-400 text-sm font-medium mb-8"
           >
             <Sparkles size={16} className="mr-2" />
             We're Hiring
@@ -137,7 +137,7 @@ export default function CareersHero() {
             {careerHero.headline.split(' ').map((word, i) => (
               <span key={i}>
                 {word === 'Future' ? (
-                  <span className="bg-gradient-to-r from-teal-400 to-blue-400 bg-clip-text text-transparent">
+                  <span className="bg-gradient-to-r from-orange-400 to-blue-400 bg-clip-text text-transparent">
                     {word}
                   </span>
                 ) : (
@@ -167,7 +167,7 @@ export default function CareersHero() {
             <Button
               onClick={scrollToPositions}
               size="lg"
-              className="bg-gradient-to-r from-teal-500 to-blue-500 hover:from-teal-600 hover:to-blue-600 text-white px-8 py-6 text-lg font-medium group"
+              className="bg-gradient-to-r from-orange-500 to-blue-500 hover:from-orange-600 hover:to-blue-600 text-white px-8 py-6 text-lg font-medium group"
             >
               View Open Roles
               <ArrowDown className="ml-2 group-hover:translate-y-1 transition-transform" size={20} />
@@ -176,7 +176,7 @@ export default function CareersHero() {
               <Button
                 size="lg"
                 variant="outline"
-                className="border-white/30 bg-white/5 text-white hover:bg-white/10 px-8 py-6 text-lg font-medium"
+                className="border-white/30 bg-white/5 text-white hover:bg-white/10 hover:text-white px-8 py-6 text-lg font-medium"
               >
                 Life at PROBOX
               </Button>

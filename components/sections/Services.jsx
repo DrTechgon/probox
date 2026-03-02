@@ -31,7 +31,7 @@ export default function Services({ showAll = false }) {
           transition={{ duration: 0.5 }}
           className="text-center max-w-3xl mx-auto mb-16"
         >
-          <span className="text-teal-600 font-semibold text-sm uppercase tracking-wider">Our Offerings</span>
+          <span className="text-orange-600 font-semibold text-sm uppercase tracking-wider">Our Offerings</span>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 mt-4 mb-6">
             Comprehensive IT Solutions
           </h2>
@@ -54,7 +54,7 @@ export default function Services({ showAll = false }) {
                 transition={{ duration: 0.5, delay: index * 0.1 }}
               >
                 <Link href={`/services/${service.id}`}>
-                  <Card className="group cursor-pointer h-full bg-white border-slate-200 hover:border-teal-200 hover:shadow-2xl transition-all duration-500 overflow-hidden">
+                  <Card className="group cursor-pointer h-full bg-white border-slate-200 hover:border-orange-200 hover:shadow-2xl transition-all duration-500 overflow-hidden">
                     {/* Service Image */}
                     <div className="relative h-48 overflow-hidden">
                       <Image
@@ -65,20 +65,20 @@ export default function Services({ showAll = false }) {
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-slate-900/20 to-transparent" />
                       <div className="absolute bottom-4 left-4">
-                        <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-teal-500 to-blue-500 flex items-center justify-center shadow-lg">
+                        <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-orange-500 to-blue-500 flex items-center justify-center shadow-lg">
                           {IconComponent && <IconComponent className="text-white" size={24} />}
                         </div>
                       </div>
                     </div>
                     
                     <CardContent className="p-6">
-                      <h3 className="text-xl font-bold text-slate-900 mb-3 group-hover:text-teal-600 transition-colors">
+                      <h3 className="text-xl font-bold text-slate-900 mb-3 group-hover:text-orange-600 transition-colors">
                         {service.title}
                       </h3>
                       <p className="text-slate-600 mb-4 line-clamp-2">
                         {service.shortDescription}
                       </p>
-                      <div className="flex items-center text-teal-600 font-medium text-sm group-hover:text-teal-700">
+                      <div className="flex items-center text-orange-600 font-medium text-sm group-hover:text-orange-700">
                         Learn More
                         <ArrowRight size={16} className="ml-1 group-hover:translate-x-2 transition-transform" />
                       </div>
@@ -99,7 +99,7 @@ export default function Services({ showAll = false }) {
             className="text-center mt-12"
           >
             <Link href="/services">
-              <Button variant="outline" size="lg" className="border-slate-300 text-slate-700 hover:border-teal-500 hover:text-teal-600">
+              <Button variant="outline" size="lg" className="border-slate-300 text-slate-700 hover:border-orange-500 hover:text-orange-600">
                 View All Services
                 <ChevronRight size={18} className="ml-1" />
               </Button>

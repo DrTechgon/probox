@@ -181,7 +181,7 @@ function ChatMessage({ message, onCopy }) {
         <div
           className={`rounded-2xl px-4 py-2.5 ${
             isUser
-              ? 'bg-gradient-to-r from-teal-500 to-blue-500 text-white rounded-br-md'
+              ? 'bg-gradient-to-r from-orange-500 to-blue-500 text-white rounded-br-md'
               : isError
               ? 'bg-red-50 text-red-700 border border-red-200 rounded-bl-md'
               : 'bg-slate-100 text-slate-800 rounded-bl-md'
@@ -195,7 +195,7 @@ function ChatMessage({ message, onCopy }) {
               <span>{message.content}</span>
             </div>
           ) : (
-            <div className="text-sm prose prose-sm prose-slate max-w-none prose-p:my-1 prose-ul:my-1 prose-ol:my-1 prose-li:my-0.5 prose-headings:my-2 prose-a:text-teal-600">
+            <div className="text-sm prose prose-sm prose-slate max-w-none prose-p:my-1 prose-ul:my-1 prose-ol:my-1 prose-li:my-0.5 prose-headings:my-2 prose-a:text-orange-600">
               <ReactMarkdown
                 components={{
                   code: ({ node, inline, className, children, ...props }) => {
@@ -209,7 +209,7 @@ function ChatMessage({ message, onCopy }) {
                     return <CodeBlock className={className}>{children}</CodeBlock>;
                   },
                   a: ({ node, children, href, ...props }) => (
-                    <a href={href} className="text-teal-600 hover:text-teal-700 underline" {...props}>
+                    <a href={href} className="text-orange-600 hover:text-orange-700 underline" {...props}>
                       {children}
                     </a>
                   ),
@@ -251,7 +251,7 @@ function SuggestionChip({ text, onClick }) {
   return (
     <button
       onClick={() => onClick(text)}
-      className="px-3 py-1.5 text-sm bg-white border border-slate-200 rounded-full text-slate-600 hover:border-teal-300 hover:text-teal-600 hover:bg-teal-50 transition-colors whitespace-nowrap"
+      className="px-3 py-1.5 text-sm bg-white border border-slate-200 rounded-full text-slate-600 hover:border-orange-300 hover:text-orange-600 hover:bg-orange-50 transition-colors whitespace-nowrap"
     >
       {text}
     </button>
@@ -272,12 +272,12 @@ function ConversationStarterBubble({ text, onClick, index, total }) {
         stiffness: 200
       }}
       onClick={() => onClick(text)}
-      className="group flex items-center gap-2 px-4 py-2.5 bg-white rounded-full shadow-lg border border-slate-100 hover:border-teal-300 hover:shadow-xl transition-all duration-200 max-w-[280px]"
+      className="group flex items-center gap-2 px-4 py-2.5 bg-white rounded-full shadow-lg border border-slate-100 hover:border-orange-300 hover:shadow-xl transition-all duration-200 max-w-[280px]"
       whileHover={{ scale: 1.02, x: -5 }}
       whileTap={{ scale: 0.98 }}
     >
-      <Sparkles size={14} className="text-teal-500 flex-shrink-0" />
-      <span className="text-sm text-slate-700 group-hover:text-teal-600 transition-colors truncate">
+      <Sparkles size={14} className="text-orange-500 flex-shrink-0" />
+      <span className="text-sm text-slate-700 group-hover:text-orange-600 transition-colors truncate">
         {text}
       </span>
     </motion.button>
@@ -469,7 +469,7 @@ export default function ChatWidget() {
         className={`fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full shadow-lg flex items-center justify-center transition-all duration-300 ${
           isOpen 
             ? 'bg-slate-700 hover:bg-slate-800' 
-            : 'bg-gradient-to-r from-teal-500 to-blue-500 hover:from-teal-600 hover:to-blue-600'
+            : 'bg-gradient-to-r from-orange-500 to-blue-500 hover:from-orange-600 hover:to-blue-600'
         }`}
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
@@ -531,7 +531,7 @@ export default function ChatWidget() {
               {/* Header */}
               <div className="flex items-center justify-between px-4 py-3 border-b border-slate-100 bg-white">
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-teal-500 to-blue-500 flex items-center justify-center">
+                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-orange-500 to-blue-500 flex items-center justify-center">
                     <MessageCircle className="text-white" size={20} />
                   </div>
                   <div>
@@ -640,7 +640,7 @@ export default function ChatWidget() {
                   <Button
                     onClick={() => handleSendMessage()}
                     disabled={!inputValue.trim() || isLoading}
-                    className="h-10 w-10 flex-shrink-0 rounded-xl bg-gradient-to-r from-teal-500 to-blue-500 hover:from-teal-600 hover:to-blue-600 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="h-10 w-10 flex-shrink-0 rounded-xl bg-gradient-to-r from-orange-500 to-blue-500 hover:from-orange-600 hover:to-blue-600 disabled:opacity-50 disabled:cursor-not-allowed"
                     aria-label="Send message"
                   >
                     {isLoading ? (

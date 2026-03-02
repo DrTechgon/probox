@@ -29,7 +29,7 @@ export default function Footer() {
               {companyInfo.description}
             </p>
             <div className="flex space-x-4">
-              <a href={companyInfo.social.linkedin} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-lg bg-slate-800 hover:bg-teal-600 flex items-center justify-center transition-colors">
+              <a href={companyInfo.social.linkedin} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-lg bg-slate-800 hover:bg-orange-600 flex items-center justify-center transition-colors">
                 <Linkedin size={18} />
               </a>
               <a href={companyInfo.social.twitter} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-lg bg-slate-800 hover:bg-blue-400 flex items-center justify-center transition-colors">
@@ -76,11 +76,11 @@ export default function Footer() {
             <h4 className="text-lg font-semibold mb-6">Contact Us</h4>
             <ul className="space-y-4 mb-6">
               <li className="flex items-start space-x-3">
-                <Mail size={18} className="text-teal-400 mt-0.5" />
+                <Mail size={18} className="text-orange-400 mt-0.5" />
                 <span className="text-slate-400 text-sm">{companyInfo.email}</span>
               </li>
               <li className="flex items-start space-x-3">
-                <MapPin size={18} className="text-teal-400 mt-0.5 flex-shrink-0" />
+                <MapPin size={18} className="text-orange-400 mt-0.5 flex-shrink-0" />
                 <span className="text-slate-400 text-sm">{companyInfo.address}</span>
               </li>
             </ul>
@@ -92,7 +92,7 @@ export default function Footer() {
                   placeholder="Your email"
                   className="bg-slate-800 border-slate-700 text-white placeholder:text-slate-500"
                 />
-                <Button className="bg-teal-600 hover:bg-teal-700 px-4">
+                <Button className="bg-orange-600 hover:bg-orange-700 px-4">
                   <ArrowRight size={18} />
                 </Button>
               </div>

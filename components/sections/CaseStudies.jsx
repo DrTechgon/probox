@@ -23,7 +23,7 @@ export default function CaseStudies({ showAll = false, limit = 3 }) {
           transition={{ duration: 0.5 }}
           className="text-center max-w-3xl mx-auto mb-12"
         >
-          <span className="text-teal-600 font-semibold text-sm uppercase tracking-wider">Our Milestone</span>
+          <span className="text-orange-600 font-semibold text-sm uppercase tracking-wider">Our Milestone</span>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 mt-4 mb-6">
             Success Stories That Inspire
           </h2>
@@ -64,15 +64,15 @@ export default function CaseStudies({ showAll = false, limit = 3 }) {
                       {study.category}
                     </Badge>
                     {study.featured && (
-                      <Badge className="absolute top-4 right-4 bg-teal-500 text-white">
+                      <Badge className="absolute top-4 right-4 bg-orange-500 text-white">
                         Featured
                       </Badge>
                     )}
                   </div>
 
                   <CardContent className="p-6">
-                    <p className="text-sm text-teal-600 font-medium mb-2">{study.client}</p>
-                    <h3 className="text-xl font-bold text-slate-900 mb-3 group-hover:text-teal-600 transition-colors">
+                    <p className="text-sm text-orange-600 font-medium mb-2">{study.client}</p>
+                    <h3 className="text-xl font-bold text-slate-900 mb-3 group-hover:text-orange-600 transition-colors">
                       {study.title}
                     </h3>
                     <p className="text-slate-600 text-sm mb-4 line-clamp-2">
@@ -83,7 +83,7 @@ export default function CaseStudies({ showAll = false, limit = 3 }) {
                     <div className="space-y-2 mb-4">
                       {study.results.slice(0, 2).map((result, idx) => (
                         <div key={idx} className="flex items-center text-sm text-slate-700">
-                          <span className="w-1.5 h-1.5 bg-teal-500 rounded-full mr-2" />
+                          <span className="w-1.5 h-1.5 bg-orange-500 rounded-full mr-2" />
                           {result}
                         </div>
                       ))}
@@ -113,7 +113,7 @@ export default function CaseStudies({ showAll = false, limit = 3 }) {
             className="text-center mt-12"
           >
             <Link href="/case-studies">
-              <Button size="lg" className="bg-gradient-to-r from-teal-500 to-blue-500 hover:from-teal-600 hover:to-blue-600">
+              <Button size="lg" className="bg-gradient-to-r from-orange-500 to-blue-500 hover:from-orange-600 hover:to-blue-600">
                 View All Case Studies
                 <ArrowRight size={18} className="ml-2" />
               </Button>

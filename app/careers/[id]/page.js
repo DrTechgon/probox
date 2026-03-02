@@ -7,6 +7,8 @@ import Link from 'next/link';
 import Navbar from '@/components/sections/Navbar';
 import Footer from '@/components/sections/Footer';
 import { fetchPublishedJobs, fetchJobById } from '@/lib/jobs-store';
+import { supabase } from '@/lib/supabase';
+import { uploadCV } from '@/lib/storage-helpers';
 import {
   ArrowLeft,
   MapPin,
@@ -60,7 +62,7 @@ const defaultBenefits = [
 ];
 
 // CV Application Dialog Component
-function CVApplicationDialog({ isOpen, onClose, jobTitle }) {
+function CVApplicationDialog({ isOpen, onClose, jobTitle, job }) {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -113,7 +115,7 @@ function CVApplicationDialog({ isOpen, onClose, jobTitle }) {
   const isValidFile = (file) => {
     const validTypes = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
     const maxSize = 5 * 1024 * 1024; // 5MB
-    
+
     if (!validTypes.includes(file.type)) {
       setErrors(prev => ({ ...prev, cv: 'Please upload a PDF or Word document' }));
       return false;
@@ -134,43 +136,82 @@ function CVApplicationDialog({ isOpen, onClose, jobTitle }) {
 
   const validateForm = () => {
     const newErrors = {};
-    
+
     if (!formData.name.trim()) {
       newErrors.name = 'Name is required';
     }
-    
+
     if (!formData.email.trim()) {
       newErrors.email = 'Email is required';
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
       newErrors.email = 'Please enter a valid email';
     }
-    
+
     if (!formData.phone.trim()) {
       newErrors.phone = 'Phone number is required';
     } else if (!/^[+]?[\d\s-]{10,}$/.test(formData.phone.replace(/\s/g, ''))) {
       newErrors.phone = 'Please enter a valid phone number';
     }
-    
+
     if (!cvFile) {
       newErrors.cv = 'Please upload your CV';
     }
-    
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     if (!validateForm()) return;
-    
+
     setIsSubmitting(true);
-    
-    // Simulate API call - Replace with actual API integration later
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    
-    setIsSubmitting(false);
-    setIsSuccess(true);
+
+    try {
+      // Upload CV to Supabase Storage (organized by department/job-title)
+      let cvUrl = '';
+      if (cvFile) {
+        try {
+          const department = job?.department || 'general';
+          const title = job?.title || 'general-application';
+          const { url } = await uploadCV(cvFile, department, title, formData.name);
+          cvUrl = url;
+        } catch (uploadError) {
+          console.error('Upload error:', uploadError);
+          setErrors(prev => ({ ...prev, cv: 'Failed to upload CV. Please try again.' }));
+          setIsSubmitting(false);
+          return;
+        }
+      }
+
+      // Insert application into database
+      const { error: insertError } = await supabase
+        .from('applications')
+        .insert([{
+          job_id: job?.id || null,
+          job_title: jobTitle,
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          linkedin: formData.linkedIn,
+          cv_url: cvUrl,
+        }]);
+
+      if (insertError) {
+        console.error('Insert error:', insertError);
+        setErrors(prev => ({ ...prev, cv: 'Failed to submit application. Please try again.' }));
+        setIsSubmitting(false);
+        return;
+      }
+
+      setIsSubmitting(false);
+      setIsSuccess(true);
+    } catch (err) {
+      console.error('Submission error:', err);
+      setErrors(prev => ({ ...prev, cv: 'An unexpected error occurred. Please try again.' }));
+      setIsSubmitting(false);
+    }
   };
 
   const handleClose = () => {
@@ -200,17 +241,17 @@ function CVApplicationDialog({ isOpen, onClose, jobTitle }) {
               exit={{ opacity: 0, scale: 0.9 }}
               className="p-8 text-center"
             >
-              <div className="w-20 h-20 bg-gradient-to-br from-teal-500 to-blue-500 rounded-full flex items-center justify-center mx-auto mb-6">
+              <div className="w-20 h-20 bg-gradient-to-br from-orange-500 to-blue-500 rounded-full flex items-center justify-center mx-auto mb-6">
                 <CheckCircle className="text-white" size={40} />
               </div>
               <h3 className="text-2xl font-bold text-slate-900 mb-2">Application Submitted!</h3>
               <p className="text-slate-600 mb-6">
-                Thank you for applying for <span className="font-semibold text-teal-600">{jobTitle}</span>. 
+                Thank you for applying for <span className="font-semibold text-orange-600">{jobTitle}</span>.
                 We'll review your application and get back to you soon.
               </p>
-              <Button 
+              <Button
                 onClick={handleClose}
-                className="bg-gradient-to-r from-teal-500 to-blue-500 hover:from-teal-600 hover:to-blue-600"
+                className="bg-gradient-to-r from-orange-500 to-blue-500 hover:from-orange-600 hover:to-blue-600"
               >
                 Close
               </Button>
@@ -223,13 +264,13 @@ function CVApplicationDialog({ isOpen, onClose, jobTitle }) {
               exit={{ opacity: 0 }}
             >
               {/* Header */}
-              <div className="bg-gradient-to-r from-teal-500 to-blue-500 p-6 text-white">
+              <div className="bg-gradient-to-r from-orange-500 to-blue-500 p-6 text-white">
                 <DialogHeader>
                   <DialogTitle className="text-xl font-bold text-white flex items-center gap-2">
                     <Sparkles size={20} />
                     Apply for this Position
                   </DialogTitle>
-                  <DialogDescription className="text-teal-100 mt-1">
+                  <DialogDescription className="text-orange-100 mt-1">
                     {jobTitle}
                   </DialogDescription>
                 </DialogHeader>
@@ -240,7 +281,7 @@ function CVApplicationDialog({ isOpen, onClose, jobTitle }) {
                 {/* Name */}
                 <div className="space-y-2">
                   <Label htmlFor="name" className="text-slate-700 font-medium flex items-center gap-2">
-                    <User size={14} className="text-teal-500" />
+                    <User size={14} className="text-orange-500" />
                     Full Name <span className="text-red-500">*</span>
                   </Label>
                   <Input
@@ -259,7 +300,7 @@ function CVApplicationDialog({ isOpen, onClose, jobTitle }) {
                 {/* Email */}
                 <div className="space-y-2">
                   <Label htmlFor="email" className="text-slate-700 font-medium flex items-center gap-2">
-                    <Mail size={14} className="text-teal-500" />
+                    <Mail size={14} className="text-orange-500" />
                     Email Address <span className="text-red-500">*</span>
                   </Label>
                   <Input
@@ -279,7 +320,7 @@ function CVApplicationDialog({ isOpen, onClose, jobTitle }) {
                 {/* Phone */}
                 <div className="space-y-2">
                   <Label htmlFor="phone" className="text-slate-700 font-medium flex items-center gap-2">
-                    <Phone size={14} className="text-teal-500" />
+                    <Phone size={14} className="text-orange-500" />
                     Phone Number <span className="text-red-500">*</span>
                   </Label>
                   <Input
@@ -298,7 +339,7 @@ function CVApplicationDialog({ isOpen, onClose, jobTitle }) {
                 {/* LinkedIn */}
                 <div className="space-y-2">
                   <Label htmlFor="linkedIn" className="text-slate-700 font-medium flex items-center gap-2">
-                    <Linkedin size={14} className="text-teal-500" />
+                    <Linkedin size={14} className="text-orange-500" />
                     LinkedIn Profile <span className="text-slate-400 text-xs">(Optional)</span>
                   </Label>
                   <Input
@@ -314,19 +355,19 @@ function CVApplicationDialog({ isOpen, onClose, jobTitle }) {
                 {/* CV Upload */}
                 <div className="space-y-2">
                   <Label className="text-slate-700 font-medium flex items-center gap-2">
-                    <FileText size={14} className="text-teal-500" />
+                    <FileText size={14} className="text-orange-500" />
                     Upload CV <span className="text-red-500">*</span>
                   </Label>
-                  
+
                   {cvFile ? (
                     <motion.div
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
-                      className="flex items-center justify-between p-4 bg-teal-50 border border-teal-200 rounded-lg"
+                      className="flex items-center justify-between p-4 bg-orange-50 border border-orange-200 rounded-lg"
                     >
                       <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 bg-teal-100 rounded-lg flex items-center justify-center">
-                          <FileText className="text-teal-600" size={20} />
+                        <div className="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center">
+                          <FileText className="text-orange-600" size={20} />
                         </div>
                         <div>
                           <p className="text-sm font-medium text-slate-900 truncate max-w-[200px]">
@@ -338,7 +379,7 @@ function CVApplicationDialog({ isOpen, onClose, jobTitle }) {
                       <button
                         type="button"
                         onClick={removeFile}
-                        className="p-1.5 hover:bg-teal-100 rounded-full transition-colors"
+                        className="p-1.5 hover:bg-orange-100 rounded-full transition-colors"
                       >
                         <X size={16} className="text-slate-500" />
                       </button>
@@ -351,11 +392,11 @@ function CVApplicationDialog({ isOpen, onClose, jobTitle }) {
                       onClick={() => fileInputRef.current?.click()}
                       className={`
                         border-2 border-dashed rounded-lg p-6 text-center cursor-pointer transition-all
-                        ${isDragging 
-                          ? 'border-teal-500 bg-teal-50' 
-                          : errors.cv 
-                            ? 'border-red-300 bg-red-50' 
-                            : 'border-slate-200 hover:border-teal-300 hover:bg-slate-50'
+                        ${isDragging
+                          ? 'border-orange-500 bg-orange-50'
+                          : errors.cv
+                            ? 'border-red-300 bg-red-50'
+                            : 'border-slate-200 hover:border-orange-300 hover:bg-slate-50'
                         }
                       `}
                     >
@@ -366,9 +407,9 @@ function CVApplicationDialog({ isOpen, onClose, jobTitle }) {
                         accept=".pdf,.doc,.docx"
                         className="hidden"
                       />
-                      <Upload className={`mx-auto mb-2 ${isDragging ? 'text-teal-500' : 'text-slate-400'}`} size={24} />
+                      <Upload className={`mx-auto mb-2 ${isDragging ? 'text-orange-500' : 'text-slate-400'}`} size={24} />
                       <p className="text-sm text-slate-600">
-                        <span className="font-medium text-teal-600">Click to upload</span> or drag and drop
+                        <span className="font-medium text-orange-600">Click to upload</span> or drag and drop
                       </p>
                       <p className="text-xs text-slate-400 mt-1">PDF or Word (Max 5MB)</p>
                     </div>
@@ -382,7 +423,7 @@ function CVApplicationDialog({ isOpen, onClose, jobTitle }) {
                 <Button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full h-12 bg-gradient-to-r from-teal-500 to-blue-500 hover:from-teal-600 hover:to-blue-600 text-white font-medium"
+                  className="w-full h-12 bg-gradient-to-r from-orange-500 to-blue-500 hover:from-orange-600 hover:to-blue-600 text-white font-medium"
                 >
                   {isSubmitting ? (
                     <>
@@ -418,15 +459,15 @@ export default function JobDetailPage() {
   const [isApplyOpen, setIsApplyOpen] = useState(false);
 
   useEffect(() => {
-    const loadJob = () => {
-      const foundJob = fetchJobById(params.id);
-      
+    const loadJob = async () => {
+      const foundJob = await fetchJobById(params.id);
+
       // Only show published jobs on public page
       if (foundJob && foundJob.status === 'published') {
         setJob(foundJob);
-        
+
         // Get related jobs from same department
-        const allPublished = fetchPublishedJobs();
+        const allPublished = await fetchPublishedJobs();
         const related = allPublished
           .filter(j => j.department === foundJob.department && j.id !== foundJob.id)
           .slice(0, 3);
@@ -436,7 +477,7 @@ export default function JobDetailPage() {
       }
       setIsLoading(false);
     };
-    
+
     loadJob();
   }, [params.id]);
 
@@ -446,7 +487,7 @@ export default function JobDetailPage() {
         <Navbar />
         <div className="pt-32 pb-20 flex items-center justify-center min-h-[60vh]">
           <div className="text-center">
-            <Loader2 className="h-10 w-10 animate-spin text-teal-500 mx-auto mb-4" />
+            <Loader2 className="h-10 w-10 animate-spin text-orange-500 mx-auto mb-4" />
             <p className="text-slate-500">Loading position details...</p>
           </div>
         </div>
@@ -467,7 +508,7 @@ export default function JobDetailPage() {
             <h1 className="text-3xl font-bold text-slate-900 mb-4">Position Not Found</h1>
             <p className="text-slate-600 mb-8 max-w-md mx-auto">The job you're looking for doesn't exist or has been filled.</p>
             <Link href="/careers">
-              <Button className="bg-gradient-to-r from-teal-500 to-blue-500 hover:from-teal-600 hover:to-blue-600">
+              <Button className="bg-gradient-to-r from-orange-500 to-blue-500 hover:from-orange-600 hover:to-blue-600">
                 <ArrowLeft size={18} className="mr-2" />
                 Back to Careers
               </Button>
@@ -503,7 +544,7 @@ export default function JobDetailPage() {
       <section className="pt-20 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 relative overflow-hidden">
         {/* Background decoration */}
         <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute -top-40 -right-40 w-80 h-80 bg-teal-500/10 rounded-full blur-3xl" />
+          <div className="absolute -top-40 -right-40 w-80 h-80 bg-orange-500/10 rounded-full blur-3xl" />
           <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl" />
         </div>
 
@@ -516,7 +557,7 @@ export default function JobDetailPage() {
             {/* Back Button */}
             <Link
               href="/careers#open-positions"
-              className="inline-flex items-center text-teal-400 hover:text-teal-300 mb-8 transition-colors group"
+              className="inline-flex items-center text-orange-400 hover:text-orange-300 mb-8 transition-colors group"
             >
               <ArrowLeft size={18} className="mr-2 group-hover:-translate-x-1 transition-transform" />
               Back to all positions
@@ -527,12 +568,12 @@ export default function JobDetailPage() {
                 {/* Badges */}
                 <div className="flex flex-wrap items-center gap-3 mb-4">
                   {job.featured && (
-                    <Badge className="bg-gradient-to-r from-teal-500 to-blue-500 text-white border-0">
+                    <Badge className="bg-gradient-to-r from-orange-500 to-blue-500 text-white border-0">
                       <Sparkles size={12} className="mr-1" />
                       Featured
                     </Badge>
                   )}
-                  <Badge variant="outline" className="text-teal-400 border-teal-400/50 bg-teal-400/10">
+                  <Badge variant="outline" className="text-orange-400 border-orange-400/50 bg-orange-400/10">
                     {job.department}
                   </Badge>
                   <Badge variant="outline" className="text-slate-300 border-slate-500/50 bg-slate-500/10">
@@ -548,22 +589,22 @@ export default function JobDetailPage() {
                 {/* Meta Info */}
                 <div className="flex flex-wrap gap-4 md:gap-6 text-slate-300">
                   <div className="flex items-center gap-2">
-                    <MapPin size={18} className="text-teal-400" />
+                    <MapPin size={18} className="text-orange-400" />
                     <span>{job.location}</span>
                     {job.locationType && (
                       <span className="text-slate-500">• {job.locationType}</span>
                     )}
                   </div>
                   <div className="flex items-center gap-2">
-                    <Clock size={18} className="text-teal-400" />
+                    <Clock size={18} className="text-orange-400" />
                     <span>{job.experienceLevel}</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <DollarSign size={18} className="text-teal-400" />
+                    <DollarSign size={18} className="text-orange-400" />
                     <span>{job.salary}</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <Calendar size={18} className="text-teal-400" />
+                    <Calendar size={18} className="text-orange-400" />
                     <span>Posted {formattedDate}</span>
                   </div>
                 </div>
@@ -577,10 +618,10 @@ export default function JobDetailPage() {
                 <Button variant="outline" size="icon" className="border-white/20 text-white hover:bg-white/10">
                   <Bookmark size={18} />
                 </Button>
-                <Button 
-                  size="lg" 
+                <Button
+                  size="lg"
                   onClick={() => setIsApplyOpen(true)}
-                  className="bg-gradient-to-r from-teal-500 to-blue-500 hover:from-teal-600 hover:to-blue-600"
+                  className="bg-gradient-to-r from-orange-500 to-blue-500 hover:from-orange-600 hover:to-blue-600"
                 >
                   <Send size={18} className="mr-2" />
                   Submit CV
@@ -606,7 +647,7 @@ export default function JobDetailPage() {
                 <Card className="border-slate-200 shadow-sm">
                   <CardContent className="p-6 lg:p-8">
                     <h2 className="text-2xl font-bold text-slate-900 mb-4 flex items-center gap-2">
-                      <Building2 className="text-teal-500" size={24} />
+                      <Building2 className="text-orange-500" size={24} />
                       About This Role
                     </h2>
                     <p className="text-slate-600 leading-relaxed text-lg">{job.description}</p>
@@ -624,7 +665,7 @@ export default function JobDetailPage() {
                   <Card className="border-slate-200 shadow-sm">
                     <CardContent className="p-6 lg:p-8">
                       <h2 className="text-2xl font-bold text-slate-900 mb-6 flex items-center gap-2">
-                        <Briefcase className="text-teal-500" size={24} />
+                        <Briefcase className="text-orange-500" size={24} />
                         Key Responsibilities
                       </h2>
                       <ul className="space-y-4">
@@ -636,8 +677,8 @@ export default function JobDetailPage() {
                             transition={{ duration: 0.3, delay: 0.3 + index * 0.05 }}
                             className="flex items-start gap-3"
                           >
-                            <div className="mt-1 w-5 h-5 rounded-full bg-teal-100 flex items-center justify-center flex-shrink-0">
-                              <Check size={12} className="text-teal-600" />
+                            <div className="mt-1 w-5 h-5 rounded-full bg-orange-100 flex items-center justify-center flex-shrink-0">
+                              <Check size={12} className="text-orange-600" />
                             </div>
                             <span className="text-slate-600">{item}</span>
                           </motion.li>
@@ -658,7 +699,7 @@ export default function JobDetailPage() {
                   <Card className="border-slate-200 shadow-sm">
                     <CardContent className="p-6 lg:p-8">
                       <h2 className="text-2xl font-bold text-slate-900 mb-6 flex items-center gap-2">
-                        <GraduationCap className="text-teal-500" size={24} />
+                        <GraduationCap className="text-orange-500" size={24} />
                         Requirements
                       </h2>
                       <ul className="space-y-4">
@@ -691,7 +732,7 @@ export default function JobDetailPage() {
                 <Card className="border-slate-200 shadow-sm bg-gradient-to-br from-slate-50 to-white">
                   <CardContent className="p-6 lg:p-8">
                     <h2 className="text-2xl font-bold text-slate-900 mb-6 flex items-center gap-2">
-                      <Heart className="text-teal-500" size={24} />
+                      <Heart className="text-orange-500" size={24} />
                       Benefits & Perks
                     </h2>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -703,7 +744,7 @@ export default function JobDetailPage() {
                           transition={{ duration: 0.3, delay: 0.5 + index * 0.05 }}
                           className="flex items-start gap-3 p-4 bg-white rounded-lg border border-slate-100"
                         >
-                          <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-teal-500 to-blue-500 flex items-center justify-center flex-shrink-0">
+                          <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-orange-500 to-blue-500 flex items-center justify-center flex-shrink-0">
                             <benefit.icon className="text-white" size={20} />
                           </div>
                           <div>
@@ -729,8 +770,8 @@ export default function JobDetailPage() {
               >
                 <Card className="border-slate-200 shadow-lg overflow-hidden">
                   {/* Salary Header */}
-                  <div className="bg-gradient-to-r from-teal-500 to-blue-500 p-6 text-white">
-                    <p className="text-teal-100 text-sm mb-1">Compensation</p>
+                  <div className="bg-gradient-to-r from-orange-500 to-blue-500 p-6 text-white">
+                    <p className="text-orange-100 text-sm mb-1">Compensation</p>
                     <p className="text-2xl font-bold">{job.salary}</p>
                   </div>
 
@@ -746,9 +787,9 @@ export default function JobDetailPage() {
                           <p className="font-medium text-slate-900">{job.department}</p>
                         </div>
                       </div>
-                      
+
                       <Separator />
-                      
+
                       <div className="flex items-center gap-3 text-slate-600">
                         <div className="w-10 h-10 rounded-lg bg-slate-100 flex items-center justify-center">
                           <MapPin className="text-slate-500" size={20} />
@@ -758,9 +799,9 @@ export default function JobDetailPage() {
                           <p className="font-medium text-slate-900">{job.location} {job.locationType && `(${job.locationType})`}</p>
                         </div>
                       </div>
-                      
+
                       <Separator />
-                      
+
                       <div className="flex items-center gap-3 text-slate-600">
                         <div className="w-10 h-10 rounded-lg bg-slate-100 flex items-center justify-center">
                           <Briefcase className="text-slate-500" size={20} />
@@ -770,9 +811,9 @@ export default function JobDetailPage() {
                           <p className="font-medium text-slate-900">{job.employmentType}</p>
                         </div>
                       </div>
-                      
+
                       <Separator />
-                      
+
                       <div className="flex items-center gap-3 text-slate-600">
                         <div className="w-10 h-10 rounded-lg bg-slate-100 flex items-center justify-center">
                           <Clock className="text-slate-500" size={20} />
@@ -785,9 +826,9 @@ export default function JobDetailPage() {
                     </div>
 
                     {/* Apply Button */}
-                    <Button 
+                    <Button
                       onClick={() => setIsApplyOpen(true)}
-                      className="w-full h-12 bg-gradient-to-r from-teal-500 to-blue-500 hover:from-teal-600 hover:to-blue-600 text-white font-medium"
+                      className="w-full h-12 bg-gradient-to-r from-orange-500 to-blue-500 hover:from-orange-600 hover:to-blue-600 text-white font-medium"
                     >
                       <Send className="mr-2" size={18} />
                       Submit CV
@@ -807,7 +848,7 @@ export default function JobDetailPage() {
                       <div className="space-y-3">
                         {relatedJobs.map((relatedJob) => (
                           <Link key={relatedJob.id} href={`/careers/${relatedJob.id}`}>
-                            <div className="p-3 rounded-lg border border-slate-100 hover:border-teal-200 hover:bg-teal-50/50 transition-all cursor-pointer">
+                            <div className="p-3 rounded-lg border border-slate-100 hover:border-orange-200 hover:bg-orange-50/50 transition-all cursor-pointer">
                               <h4 className="font-medium text-slate-900 mb-1">{relatedJob.title}</h4>
                               <div className="flex items-center gap-3 text-xs text-slate-500">
                                 <span>{relatedJob.location}</span>
@@ -842,10 +883,10 @@ export default function JobDetailPage() {
             <p className="text-slate-400 mb-8 max-w-2xl mx-auto">
               Join our team of innovators and work on projects that matter. We're excited to hear from you!
             </p>
-            <Button 
+            <Button
               onClick={() => setIsApplyOpen(true)}
               size="lg"
-              className="bg-gradient-to-r from-teal-500 to-blue-500 hover:from-teal-600 hover:to-blue-600 text-white px-8"
+              className="bg-gradient-to-r from-orange-500 to-blue-500 hover:from-orange-600 hover:to-blue-600 text-white px-8"
             >
               <Send className="mr-2" size={18} />
               Apply for this Position
@@ -857,10 +898,11 @@ export default function JobDetailPage() {
       <Footer />
 
       {/* CV Application Dialog */}
-      <CVApplicationDialog 
+      <CVApplicationDialog
         isOpen={isApplyOpen}
         onClose={() => setIsApplyOpen(false)}
         jobTitle={job.title}
+        job={job}
       />
     </main>
   );

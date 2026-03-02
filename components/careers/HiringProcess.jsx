@@ -23,7 +23,7 @@ export default function HiringProcess() {
           viewport={{ once: true }}
           className="text-center max-w-3xl mx-auto mb-16"
         >
-          <span className="text-teal-600 font-semibold text-sm uppercase tracking-wider">Hiring Process</span>
+          <span className="text-orange-600 font-semibold text-sm uppercase tracking-wider">Hiring Process</span>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 mt-4 mb-6">
             Simple & Transparent
           </h2>
@@ -36,7 +36,7 @@ export default function HiringProcess() {
         <div className="max-w-4xl mx-auto">
           <div className="relative">
             {/* Connection line */}
-            <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-teal-500 via-blue-500 to-teal-500 -translate-x-1/2" />
+            <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-orange-500 via-blue-500 to-orange-500 -translate-x-1/2" />
 
             {hiringProcess.map((step, index) => {
               const Icon = stepIcons[index];
@@ -55,23 +55,23 @@ export default function HiringProcess() {
                 >
                   {/* Mobile: Step number */}
                   <div className="md:hidden flex items-center gap-4 mb-4">
-                    <div className="w-12 h-12 rounded-full bg-gradient-to-br from-teal-500 to-blue-500 flex items-center justify-center flex-shrink-0 shadow-lg">
+                    <div className="w-12 h-12 rounded-full bg-gradient-to-br from-orange-500 to-blue-500 flex items-center justify-center flex-shrink-0 shadow-lg">
                       <Icon className="text-white" size={20} />
                     </div>
-                    <div className="text-2xl font-bold text-teal-600">Step {step.step}</div>
+                    <div className="text-2xl font-bold text-orange-600">Step {step.step}</div>
                   </div>
 
                   {/* Content */}
                   <div className={`flex-1 md:w-[calc(50%-40px)] ${
                     isEven ? 'md:pr-12 md:text-right' : 'md:pl-12'
                   }`}>
-                    <div className={`bg-white rounded-2xl p-6 shadow-sm border border-slate-100 hover:shadow-lg hover:border-teal-100 transition-all ${
+                    <div className={`bg-white rounded-2xl p-6 shadow-sm border border-slate-100 hover:shadow-lg hover:border-orange-100 transition-all ${
                       isEven ? 'md:ml-auto' : 'md:mr-auto'
                     } max-w-md`}>
                       <div className={`hidden md:flex items-center gap-3 mb-3 ${
                         isEven ? 'justify-end' : ''
                       }`}>
-                        <span className="text-sm font-medium text-teal-600">Step {step.step}</span>
+                        <span className="text-sm font-medium text-orange-600">Step {step.step}</span>
                         <span className="text-xs text-slate-400 bg-slate-100 px-2 py-1 rounded-full">
                           {step.duration}
                         </span>
@@ -87,7 +87,7 @@ export default function HiringProcess() {
                   </div>
 
                   {/* Center icon (desktop) */}
-                  <div className="hidden md:flex absolute left-1/2 -translate-x-1/2 w-16 h-16 rounded-full bg-gradient-to-br from-teal-500 to-blue-500 items-center justify-center shadow-lg z-10">
+                  <div className="hidden md:flex absolute left-1/2 -translate-x-1/2 w-16 h-16 rounded-full bg-gradient-to-br from-orange-500 to-blue-500 items-center justify-center shadow-lg z-10">
                     <Icon className="text-white" size={24} />
                   </div>
 

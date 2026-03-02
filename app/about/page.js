@@ -7,7 +7,8 @@ import Stats from '@/components/sections/Stats';
 import WhyChooseUs from '@/components/sections/WhyChooseUs';
 import CTABanner from '@/components/sections/CTABanner';
 import Footer from '@/components/sections/Footer';
-import { companyInfo, awards } from '@/data/site-data';
+import GlobalMapBg from '@/components/backgrounds/GlobalMapBg';
+import { companyInfo, awards, stats } from '@/data/site-data';
 import { Target, Eye, Award, Users, Globe, Lightbulb, MapPin, Sparkles } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 
@@ -40,115 +41,18 @@ export default function AboutPage() {
       <Navbar />
 
       {/* Hero Section */}
-      <section className="relative min-h-[60vh] flex items-center overflow-hidden">
-        {/* Background Image */}
-        <div className="absolute inset-0">
-          <Image
-            src="https://images.unsplash.com/photo-1573164574572-cb89e39749b4?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1ODh8MHwxfHNlYXJjaHw0fHxwcm9mZXNzaW9uYWwlMjB0ZWFtfGVufDB8fHx8MTc3MjAwMTYwMXww&ixlib=rb-4.1.0&q=85"
-            alt="Professional Team"
-            fill
-            priority
-            className="object-cover"
-          />
-          {/* Gradient overlays for depth and readability */}
-          <div className="absolute inset-0 bg-gradient-to-r from-slate-900/95 via-slate-900/85 to-slate-900/70" />
-          <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-slate-900/40" />
-        </div>
-
-        {/* Animated Visual Elements */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          {/* Floating gradient orbs */}
-          <motion.div
-            animate={{
-              scale: [1, 1.2, 1],
-              opacity: [0.15, 0.25, 0.15],
-              x: [0, 30, 0],
-            }}
-            transition={{ duration: 12, repeat: Infinity, ease: 'easeInOut' }}
-            className="absolute top-1/4 -left-20 w-[500px] h-[500px] bg-gradient-to-br from-teal-500/30 to-cyan-500/20 rounded-full blur-3xl"
-          />
-          <motion.div
-            animate={{
-              scale: [1.2, 1, 1.2],
-              opacity: [0.1, 0.2, 0.1],
-              x: [0, -20, 0],
-            }}
-            transition={{ duration: 15, repeat: Infinity, ease: 'easeInOut' }}
-            className="absolute bottom-1/4 -right-20 w-[600px] h-[600px] bg-gradient-to-tl from-blue-500/25 to-purple-500/15 rounded-full blur-3xl"
-          />
-          
-          {/* Floating particles */}
-          {[...Array(6)].map((_, i) => (
-            <motion.div
-              key={i}
-              className="absolute w-2 h-2 bg-teal-400/40 rounded-full"
-              style={{
-                left: `${15 + i * 15}%`,
-                top: `${20 + (i % 3) * 25}%`,
-              }}
-              animate={{
-                y: [0, -30, 0],
-                opacity: [0.2, 0.6, 0.2],
-                scale: [1, 1.5, 1],
-              }}
-              transition={{
-                duration: 4 + i * 0.5,
-                repeat: Infinity,
-                ease: 'easeInOut',
-                delay: i * 0.3,
-              }}
-            />
-          ))}
-
-          {/* Decorative lines */}
-          <svg className="absolute inset-0 w-full h-full opacity-20" preserveAspectRatio="none">
-            <motion.line
-              x1="10%" y1="20%" x2="30%" y2="80%"
-              stroke="url(#lineGradient3)"
-              strokeWidth="1"
-              initial={{ pathLength: 0, opacity: 0 }}
-              animate={{ pathLength: 1, opacity: [0, 0.5, 0] }}
-              transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-            />
-            <motion.line
-              x1="70%" y1="10%" x2="90%" y2="70%"
-              stroke="url(#lineGradient3)"
-              strokeWidth="1"
-              initial={{ pathLength: 0, opacity: 0 }}
-              animate={{ pathLength: 1, opacity: [0, 0.4, 0] }}
-              transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
-            />
-            <defs>
-              <linearGradient id="lineGradient3" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="rgba(20, 184, 166, 0)" />
-                <stop offset="50%" stopColor="rgba(20, 184, 166, 0.6)" />
-                <stop offset="100%" stopColor="rgba(59, 130, 246, 0)" />
-              </linearGradient>
-            </defs>
-          </svg>
-
-          {/* Geometric shapes */}
-          <motion.div
-            className="absolute top-1/3 right-[15%] w-32 h-32 border border-teal-500/20 rounded-2xl"
-            animate={{ rotate: 360, scale: [1, 1.1, 1] }}
-            transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
-          />
-          <motion.div
-            className="absolute bottom-1/3 left-[10%] w-24 h-24 border border-blue-500/20 rounded-full"
-            animate={{ rotate: -360 }}
-            transition={{ duration: 25, repeat: Infinity, ease: 'linear' }}
-          />
-        </div>
+      <section className="relative min-h-[90vh] flex items-center overflow-hidden">
+        <GlobalMapBg />
 
         {/* Content */}
         <div className="container mx-auto px-4 lg:px-8 pt-32 pb-20 relative z-10">
-          <div className="max-w-3xl">
+          <div className="max-w-4xl mx-auto text-center">
             {/* Badge */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
-              className="inline-flex items-center px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-teal-400 text-sm font-medium mb-6"
+              className="inline-flex items-center px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-orange-400 text-sm font-medium mb-8"
             >
               <Sparkles size={16} className="mr-2" />
               About Us
@@ -158,10 +62,10 @@ export default function AboutPage() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
-              className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mt-4 mb-6"
+              className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white leading-tight mb-6"
             >
               We Are{' '}
-              <span className="bg-gradient-to-r from-teal-400 to-blue-400 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-orange-400 to-blue-400 bg-clip-text text-transparent">
                 PROBOX
               </span>
             </motion.h1>
@@ -169,10 +73,35 @@ export default function AboutPage() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="text-xl text-white/70"
+              className="text-lg md:text-xl text-white/70 max-w-2xl mx-auto mb-12 leading-relaxed"
             >
               India's Most Trusted and Fastest Growing Fast Forward Technology, Consulting and Outsourcing Company.
             </motion.p>
+
+            {/* Stats */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.6, delay: 0.5 }}
+              className="mt-4 pt-8 border-t border-white/10"
+            >
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-3xl mx-auto">
+                {stats.map((stat, index) => (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: 0.6 + index * 0.1 }}
+                    className="text-center"
+                  >
+                    <div className="text-2xl md:text-3xl font-bold text-white mb-1">
+                      {stat.prefix}{typeof stat.value === 'number' && stat.value >= 10000 ? `${Math.floor(stat.value / 1000)}K` : stat.value}{stat.suffix}
+                    </div>
+                    <div className="text-white/50 text-sm">{stat.label}</div>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
           </div>
         </div>
       </section>
@@ -194,8 +123,8 @@ export default function AboutPage() {
               </p>
               <div className="flex flex-wrap gap-3">
                 {awards.map((award, index) => (
-                  <div key={index} className="flex items-center gap-2 bg-gradient-to-r from-teal-50 to-blue-50 px-4 py-2 rounded-full border border-teal-100">
-                    <Award className="w-4 h-4 text-teal-600" />
+                  <div key={index} className="flex items-center gap-2 bg-gradient-to-r from-orange-50 to-blue-50 px-4 py-2 rounded-full border border-orange-100">
+                    <Award className="w-4 h-4 text-orange-600" />
                     <span className="text-slate-700 text-sm font-medium">{award}</span>
                   </div>
                 ))}
@@ -232,7 +161,7 @@ export default function AboutPage() {
             >
               <Card className="h-full border-slate-200 hover:shadow-xl transition-shadow">
                 <CardContent className="p-8">
-                  <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-teal-500 to-blue-500 flex items-center justify-center mb-6">
+                  <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-orange-500 to-blue-500 flex items-center justify-center mb-6">
                     <Target className="text-white" size={28} />
                   </div>
                   <h2 className="text-2xl font-bold text-slate-900 mb-4">Our Mission</h2>
@@ -253,7 +182,7 @@ export default function AboutPage() {
             >
               <Card className="h-full border-slate-200 hover:shadow-xl transition-shadow">
                 <CardContent className="p-8">
-                  <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-teal-500 to-blue-500 flex items-center justify-center mb-6">
+                  <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-orange-500 to-blue-500 flex items-center justify-center mb-6">
                     <Eye className="text-white" size={28} />
                   </div>
                   <h2 className="text-2xl font-bold text-slate-900 mb-4">Our Vision</h2>
@@ -281,7 +210,7 @@ export default function AboutPage() {
             viewport={{ once: true }}
             className="text-center max-w-3xl mx-auto mb-16"
           >
-            <span className="text-teal-600 font-semibold text-sm uppercase tracking-wider">Our Values</span>
+            <span className="text-orange-600 font-semibold text-sm uppercase tracking-wider">Our Values</span>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 mt-4 mb-6">
               Principles That Guide Us
             </h2>
@@ -301,7 +230,7 @@ export default function AboutPage() {
               >
                 <Card className="h-full bg-white border-slate-200 hover:shadow-lg transition-all text-center">
                   <CardContent className="p-8">
-                    <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-teal-500 to-blue-500 flex items-center justify-center mx-auto mb-6">
+                    <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-orange-500 to-blue-500 flex items-center justify-center mx-auto mb-6">
                       <value.icon className="text-white" size={32} />
                     </div>
                     <h3 className="text-xl font-bold text-slate-900 mb-3">{value.title}</h3>
@@ -323,7 +252,7 @@ export default function AboutPage() {
             viewport={{ once: true }}
             className="text-center max-w-3xl mx-auto mb-16"
           >
-            <span className="text-teal-600 font-semibold text-sm uppercase tracking-wider">Our Presence</span>
+            <span className="text-orange-600 font-semibold text-sm uppercase tracking-wider">Our Presence</span>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 mt-4 mb-6">
               Office Locations
             </h2>
@@ -338,9 +267,9 @@ export default function AboutPage() {
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
               >
-                <Card className="h-full border-slate-200 hover:shadow-lg hover:border-teal-200 transition-all">
+                <Card className="h-full border-slate-200 hover:shadow-lg hover:border-orange-200 transition-all">
                   <CardContent className="p-6">
-                    <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-teal-500 to-blue-500 flex items-center justify-center mb-4">
+                    <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-orange-500 to-blue-500 flex items-center justify-center mb-4">
                       <MapPin className="text-white" size={20} />
                     </div>
                     <h3 className="text-lg font-bold text-slate-900 mb-2">{branch.city}</h3>

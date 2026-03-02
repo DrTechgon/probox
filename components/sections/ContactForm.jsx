@@ -84,9 +84,9 @@ export default function ContactForm() {
       <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
-        className="bg-gradient-to-br from-teal-50 to-blue-50 rounded-2xl p-12 text-center border border-teal-100"
+        className="bg-gradient-to-br from-orange-50 to-blue-50 rounded-2xl p-12 text-center border border-orange-100"
       >
-        <div className="w-20 h-20 bg-gradient-to-br from-teal-500 to-blue-500 rounded-full flex items-center justify-center mx-auto mb-6">
+        <div className="w-20 h-20 bg-gradient-to-br from-orange-500 to-blue-500 rounded-full flex items-center justify-center mx-auto mb-6">
           <CheckCircle className="text-white" size={40} />
         </div>
         <h3 className="text-2xl font-bold text-slate-900 mb-4">Thank You!</h3>
@@ -122,8 +122,8 @@ export default function ContactForm() {
               transition={{ delay: index * 0.1 }}
               className="flex items-start gap-4"
             >
-              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-teal-100 to-blue-100 flex items-center justify-center flex-shrink-0">
-                <item.icon className="text-teal-600" size={24} />
+              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-orange-100 to-blue-100 flex items-center justify-center flex-shrink-0">
+                <item.icon className="text-orange-600" size={24} />
               </div>
               <div>
                 <p className="text-sm text-slate-500 mb-1">{item.label}</p>
@@ -139,7 +139,7 @@ export default function ContactForm() {
           <div className="grid grid-cols-2 gap-4">
             {companyInfo.branches.map((branch, index) => (
               <div key={index} className="text-sm">
-                <p className="font-medium text-teal-600">{branch.city}</p>
+                <p className="font-medium text-orange-600">{branch.city}</p>
               </div>
             ))}
           </div>
@@ -262,7 +262,7 @@ export default function ContactForm() {
               type="submit"
               size="lg"
               disabled={isSubmitting}
-              className="w-full bg-gradient-to-r from-teal-500 to-blue-500 hover:from-teal-600 hover:to-blue-600"
+              className="w-full bg-gradient-to-r from-orange-500 to-blue-500 hover:from-orange-600 hover:to-blue-600"
             >
               {isSubmitting ? (
                 'Sending...'

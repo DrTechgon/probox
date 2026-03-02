@@ -25,7 +25,7 @@ export default function WhyJoinUs() {
           viewport={{ once: true }}
           className="text-center max-w-3xl mx-auto mb-16"
         >
-          <span className="text-teal-600 font-semibold text-sm uppercase tracking-wider">Why Join Us</span>
+          <span className="text-orange-600 font-semibold text-sm uppercase tracking-wider">Why Join Us</span>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 mt-4 mb-6">
             More Than Just a Job
           </h2>
@@ -46,13 +46,13 @@ export default function WhyJoinUs() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
               >
-                <Card className="h-full bg-white border-slate-200 hover:shadow-xl hover:border-teal-200 transition-all duration-300 group">
+                <Card className="h-full bg-white border-slate-200 hover:shadow-xl hover:border-orange-200 transition-all duration-300 group">
                   <CardContent className="p-8">
-                    <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-slate-100 to-slate-50 group-hover:from-teal-500 group-hover:to-blue-500 flex items-center justify-center mb-6 transition-all duration-300">
+                    <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-slate-100 to-slate-50 group-hover:from-orange-500 group-hover:to-blue-500 flex items-center justify-center mb-6 transition-all duration-300">
                       {IconComponent && (
                         <IconComponent
                           size={28}
-                          className="text-teal-600 group-hover:text-white transition-colors duration-300"
+                          className="text-orange-600 group-hover:text-white transition-colors duration-300"
                         />
                       )}
                     </div>

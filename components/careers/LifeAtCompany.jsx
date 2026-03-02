@@ -16,7 +16,7 @@ export default function LifeAtCompany() {
           viewport={{ once: true }}
           className="text-center max-w-3xl mx-auto mb-16"
         >
-          <span className="text-teal-600 font-semibold text-sm uppercase tracking-wider">Life at PROBOX</span>
+          <span className="text-orange-600 font-semibold text-sm uppercase tracking-wider">Life at PROBOX</span>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 mt-4 mb-6">
             Where Great Work Happens
           </h2>
@@ -78,7 +78,7 @@ export default function LifeAtCompany() {
                     transition={{ delay: index * 0.1 }}
                     className="flex items-center gap-3"
                   >
-                    <div className="w-6 h-6 rounded-full bg-gradient-to-br from-teal-500 to-blue-500 flex items-center justify-center flex-shrink-0">
+                    <div className="w-6 h-6 rounded-full bg-gradient-to-br from-orange-500 to-blue-500 flex items-center justify-center flex-shrink-0">
                       <Check size={14} className="text-white" />
                     </div>
                     <span className="text-white font-medium">{value}</span>
@@ -96,8 +96,8 @@ export default function LifeAtCompany() {
                 />
               </div>
               {/* Decorative elements */}
-              <div className="absolute -top-4 -right-4 w-24 h-24 bg-gradient-to-br from-teal-500 to-blue-500 rounded-2xl opacity-20 blur-xl" />
-              <div className="absolute -bottom-4 -left-4 w-32 h-32 bg-gradient-to-br from-teal-500 to-blue-500 rounded-2xl opacity-20 blur-xl" />
+              <div className="absolute -top-4 -right-4 w-24 h-24 bg-gradient-to-br from-orange-500 to-blue-500 rounded-2xl opacity-20 blur-xl" />
+              <div className="absolute -bottom-4 -left-4 w-32 h-32 bg-gradient-to-br from-orange-500 to-blue-500 rounded-2xl opacity-20 blur-xl" />
             </div>
           </div>
         </motion.div>

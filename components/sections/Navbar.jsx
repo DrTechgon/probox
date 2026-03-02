@@ -59,10 +59,10 @@ export default function Navbar() {
                 className={`px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 ${
                   pathname === item.href
                     ? isScrolled
-                      ? 'text-teal-600 bg-teal-50'
+                      ? 'text-orange-600 bg-orange-50'
                       : 'text-white bg-white/20'
                     : isScrolled
-                      ? 'text-slate-600 hover:text-teal-600 hover:bg-slate-50'
+                      ? 'text-slate-600 hover:text-orange-600 hover:bg-slate-50'
                       : 'text-white/90 hover:text-white hover:bg-white/10'
                 }`}
               >
@@ -77,7 +77,7 @@ export default function Navbar() {
               <Button
                 className={`font-medium px-6 ${
                   isScrolled
-                    ? 'bg-gradient-to-r from-teal-500 to-blue-500 hover:from-teal-600 hover:to-blue-600 text-white'
+                    ? 'bg-gradient-to-r from-orange-500 to-blue-500 hover:from-orange-600 hover:to-blue-600 text-white'
                     : 'bg-white text-slate-900 hover:bg-white/90'
                 }`}
               >
@@ -115,15 +115,15 @@ export default function Navbar() {
                   onClick={() => setIsMobileMenuOpen(false)}
                   className={`block px-4 py-3 rounded-lg text-base font-medium transition-colors ${
                     pathname === item.href
-                      ? 'text-teal-600 bg-teal-50'
-                      : 'text-slate-600 hover:text-teal-600 hover:bg-slate-50'
+                      ? 'text-orange-600 bg-orange-50'
+                      : 'text-slate-600 hover:text-orange-600 hover:bg-slate-50'
                   }`}
                 >
                   {item.name}
                 </Link>
               ))}
               <Link href="/contact" onClick={() => setIsMobileMenuOpen(false)}>
-                <Button className="w-full mt-4 bg-gradient-to-r from-teal-500 to-blue-500">
+                <Button className="w-full mt-4 bg-gradient-to-r from-orange-500 to-blue-500">
                   Connect With Us
                 </Button>
               </Link>

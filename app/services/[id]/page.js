@@ -87,12 +87,12 @@ export default function ServiceDetailPage() {
       <div className="pt-24 bg-slate-50 border-b border-slate-200">
         <div className="container mx-auto px-4 lg:px-8 py-4">
           <nav className="flex items-center text-sm text-slate-500">
-            <Link href="/" className="hover:text-teal-600 transition-colors flex items-center">
+            <Link href="/" className="hover:text-orange-600 transition-colors flex items-center">
               <Home size={14} className="mr-1" />
               Home
             </Link>
             <ChevronRight size={14} className="mx-2" />
-            <Link href="/services" className="hover:text-teal-600 transition-colors">
+            <Link href="/services" className="hover:text-orange-600 transition-colors">
               Services
             </Link>
             <ChevronRight size={14} className="mx-2" />
@@ -114,7 +114,7 @@ export default function ServiceDetailPage() {
               transition={{ duration: 0.5 }}
               className="flex items-center gap-3 mb-6"
             >
-              <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-teal-500 to-blue-500 flex items-center justify-center">
+              <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-orange-500 to-blue-500 flex items-center justify-center">
                 <ServiceIcon className="text-white" size={28} />
               </div>
               <Badge className="bg-white/10 text-white border-white/20 text-sm px-4 py-1.5">
@@ -147,13 +147,13 @@ export default function ServiceDetailPage() {
               className="flex flex-col sm:flex-row gap-4"
             >
               <Link href="/contact">
-                <Button size="lg" className="bg-gradient-to-r from-teal-500 to-blue-500 hover:from-teal-600 hover:to-blue-600 text-white px-8 py-6 text-lg font-medium group">
+                <Button size="lg" className="bg-gradient-to-r from-orange-500 to-blue-500 hover:from-orange-600 hover:to-blue-600 text-white px-8 py-6 text-lg font-medium group">
                   {detailData.hero.primaryCta}
                   <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" size={20} />
                 </Button>
               </Link>
               <Link href="/case-studies">
-                <Button size="lg" variant="outline" className="border-white/30 bg-white/5 text-white hover:bg-white/10 px-8 py-6 text-lg font-medium">
+                <Button size="lg" variant="outline" className="border-white/30 bg-white/5 text-white hover:bg-white/10 hover:text-white px-8 py-6 text-lg font-medium">
                   {detailData.hero.secondaryCta}
                 </Button>
               </Link>
@@ -172,7 +172,7 @@ export default function ServiceDetailPage() {
             variants={fadeInUp}
             className="text-center max-w-3xl mx-auto mb-16"
           >
-            <span className="text-teal-600 font-semibold text-sm uppercase tracking-wider">Challenges</span>
+            <span className="text-orange-600 font-semibold text-sm uppercase tracking-wider">Challenges</span>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 mt-4 mb-6">
               Problems We Solve
             </h2>
@@ -190,7 +190,7 @@ export default function ServiceDetailPage() {
           >
             {detailData.problems.map((problem, index) => (
               <motion.div key={index} variants={fadeInUp}>
-                <Card className="h-full border-slate-200 hover:border-teal-200 hover:shadow-lg transition-all duration-300 group">
+                <Card className="h-full border-slate-200 hover:border-orange-200 hover:shadow-lg transition-all duration-300 group">
                   <CardContent className="p-6">
                     <div className="w-10 h-10 rounded-lg bg-red-50 group-hover:bg-red-100 flex items-center justify-center mb-4 transition-colors">
                       <div className="w-2 h-2 bg-red-500 rounded-full" />
@@ -215,7 +215,7 @@ export default function ServiceDetailPage() {
             variants={fadeInUp}
             className="text-center max-w-3xl mx-auto mb-16"
           >
-            <span className="text-teal-600 font-semibold text-sm uppercase tracking-wider">Our Capabilities</span>
+            <span className="text-orange-600 font-semibold text-sm uppercase tracking-wider">Our Capabilities</span>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 mt-4 mb-6">
               Solutions We Deliver
             </h2>
@@ -235,10 +235,10 @@ export default function ServiceDetailPage() {
               const CapIcon = capabilityIconMap[capability.icon] || CheckCircle;
               return (
                 <motion.div key={index} variants={fadeInUp}>
-                  <Card className="h-full bg-white border-slate-200 hover:border-teal-200 hover:shadow-xl transition-all duration-300 group">
+                  <Card className="h-full bg-white border-slate-200 hover:border-orange-200 hover:shadow-xl transition-all duration-300 group">
                     <CardContent className="p-8">
-                      <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-slate-100 to-slate-50 group-hover:from-teal-500 group-hover:to-blue-500 flex items-center justify-center mb-6 transition-all duration-300">
-                        <CapIcon size={28} className="text-teal-600 group-hover:text-white transition-colors duration-300" />
+                      <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-slate-100 to-slate-50 group-hover:from-orange-500 group-hover:to-blue-500 flex items-center justify-center mb-6 transition-all duration-300">
+                        <CapIcon size={28} className="text-orange-600 group-hover:text-white transition-colors duration-300" />
                       </div>
                       <h3 className="text-xl font-bold text-slate-900 mb-3">{capability.title}</h3>
                       <p className="text-slate-600 leading-relaxed">{capability.description}</p>
@@ -254,7 +254,7 @@ export default function ServiceDetailPage() {
       {/* Results & Proof Section */}
       <section className="py-24 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 relative overflow-hidden">
         <div className="absolute inset-0">
-          <div className="absolute top-1/4 -left-1/4 w-[500px] h-[500px] bg-teal-500/10 rounded-full blur-3xl" />
+          <div className="absolute top-1/4 -left-1/4 w-[500px] h-[500px] bg-orange-500/10 rounded-full blur-3xl" />
           <div className="absolute bottom-1/4 -right-1/4 w-[400px] h-[400px] bg-blue-500/10 rounded-full blur-3xl" />
         </div>
         
@@ -266,7 +266,7 @@ export default function ServiceDetailPage() {
             variants={fadeInUp}
             className="text-center max-w-3xl mx-auto mb-16"
           >
-            <span className="text-teal-400 font-semibold text-sm uppercase tracking-wider">Proven Results</span>
+            <span className="text-orange-400 font-semibold text-sm uppercase tracking-wider">Proven Results</span>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mt-4 mb-6">
               Impact You Can Measure
             </h2>
@@ -285,7 +285,7 @@ export default function ServiceDetailPage() {
           >
             {detailData.results.map((result, index) => (
               <motion.div key={index} variants={fadeInUp} className="text-center">
-                <div className="text-4xl md:text-5xl lg:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-blue-400 mb-2">
+                <div className="text-4xl md:text-5xl lg:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-blue-400 mb-2">
                   {result.metric}
                 </div>
                 <div className="text-white/70">{result.label}</div>
@@ -303,12 +303,12 @@ export default function ServiceDetailPage() {
           >
             <Card className="bg-white/5 border-white/10 backdrop-blur-sm">
               <CardContent className="p-8 md:p-12">
-                <Quote className="text-teal-400 mb-6" size={40} />
+                <Quote className="text-orange-400 mb-6" size={40} />
                 <blockquote className="text-xl md:text-2xl text-white/90 leading-relaxed mb-8">
                   "{detailData.testimonial.quote}"
                 </blockquote>
                 <div className="flex items-center gap-4">
-                  <div className="w-14 h-14 rounded-full bg-gradient-to-br from-teal-500 to-blue-500 flex items-center justify-center text-white font-bold text-lg">
+                  <div className="w-14 h-14 rounded-full bg-gradient-to-br from-orange-500 to-blue-500 flex items-center justify-center text-white font-bold text-lg">
                     {detailData.testimonial.avatar}
                   </div>
                   <div>
@@ -332,7 +332,7 @@ export default function ServiceDetailPage() {
             variants={fadeInUp}
             className="text-center max-w-3xl mx-auto mb-16"
           >
-            <span className="text-teal-600 font-semibold text-sm uppercase tracking-wider">Our Approach</span>
+            <span className="text-orange-600 font-semibold text-sm uppercase tracking-wider">Our Approach</span>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 mt-4 mb-6">
               How We Work
             </h2>
@@ -344,7 +344,7 @@ export default function ServiceDetailPage() {
           <div className="max-w-4xl mx-auto">
             <div className="relative">
               {/* Vertical line */}
-              <div className="absolute left-8 top-0 bottom-0 w-px bg-gradient-to-b from-teal-500 via-blue-500 to-teal-500 hidden md:block" />
+              <div className="absolute left-8 top-0 bottom-0 w-px bg-gradient-to-b from-orange-500 via-blue-500 to-orange-500 hidden md:block" />
               
               <motion.div
                 initial="hidden"
@@ -356,7 +356,7 @@ export default function ServiceDetailPage() {
                 {detailData.process.map((step, index) => (
                   <motion.div key={index} variants={fadeInUp} className="flex gap-6 md:gap-10">
                     <div className="relative flex-shrink-0">
-                      <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-teal-500 to-blue-500 flex items-center justify-center text-white text-xl font-bold shadow-lg">
+                      <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-orange-500 to-blue-500 flex items-center justify-center text-white text-xl font-bold shadow-lg">
                         {step.step}
                       </div>
                     </div>
@@ -383,7 +383,7 @@ export default function ServiceDetailPage() {
               variants={fadeInUp}
               className="text-center max-w-3xl mx-auto mb-12"
             >
-              <span className="text-teal-600 font-semibold text-sm uppercase tracking-wider">Tech Stack</span>
+              <span className="text-orange-600 font-semibold text-sm uppercase tracking-wider">Tech Stack</span>
               <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mt-4 mb-4">
                 Technologies We Use
               </h2>
@@ -401,7 +401,7 @@ export default function ServiceDetailPage() {
             >
               {detailData.technologies.map((tech, index) => (
                 <motion.div key={index} variants={fadeInUp}>
-                  <Badge variant="secondary" className="px-5 py-2.5 text-sm bg-white border border-slate-200 text-slate-700 hover:border-teal-300 hover:bg-teal-50 transition-colors cursor-default">
+                  <Badge variant="secondary" className="px-5 py-2.5 text-sm bg-white border border-slate-200 text-slate-700 hover:border-orange-300 hover:bg-orange-50 transition-colors cursor-default">
                     {tech}
                   </Badge>
                 </motion.div>
@@ -421,7 +421,7 @@ export default function ServiceDetailPage() {
             variants={fadeInUp}
             className="text-center max-w-3xl mx-auto mb-16"
           >
-            <span className="text-teal-600 font-semibold text-sm uppercase tracking-wider">Engagement Models</span>
+            <span className="text-orange-600 font-semibold text-sm uppercase tracking-wider">Engagement Models</span>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 mt-4 mb-6">
               Ways to Work With Us
             </h2>
@@ -441,11 +441,11 @@ export default function ServiceDetailPage() {
               <motion.div key={index} variants={fadeInUp}>
                 <Card className={`h-full relative overflow-hidden transition-all duration-300 ${
                   option.highlighted 
-                    ? 'border-2 border-teal-500 shadow-xl' 
-                    : 'border-slate-200 hover:border-teal-200 hover:shadow-lg'
+                    ? 'border-2 border-orange-500 shadow-xl' 
+                    : 'border-slate-200 hover:border-orange-200 hover:shadow-lg'
                 }`}>
                   {option.highlighted && (
-                    <div className="absolute top-0 left-0 right-0 bg-gradient-to-r from-teal-500 to-blue-500 text-white text-center text-sm font-medium py-2">
+                    <div className="absolute top-0 left-0 right-0 bg-gradient-to-r from-orange-500 to-blue-500 text-white text-center text-sm font-medium py-2">
                       Most Popular
                     </div>
                   )}
@@ -455,7 +455,7 @@ export default function ServiceDetailPage() {
                     <ul className="space-y-3 mb-8">
                       {option.features.map((feature, idx) => (
                         <li key={idx} className="flex items-center gap-2 text-sm text-slate-700">
-                          <Check size={16} className="text-teal-500 flex-shrink-0" />
+                          <Check size={16} className="text-orange-500 flex-shrink-0" />
                           {feature}
                         </li>
                       ))}
@@ -463,7 +463,7 @@ export default function ServiceDetailPage() {
                     <Link href="/contact">
                       <Button className={`w-full ${
                         option.highlighted
-                          ? 'bg-gradient-to-r from-teal-500 to-blue-500 hover:from-teal-600 hover:to-blue-600 text-white'
+                          ? 'bg-gradient-to-r from-orange-500 to-blue-500 hover:from-orange-600 hover:to-blue-600 text-white'
                           : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
                       }`}>
                         Learn More
@@ -488,7 +488,7 @@ export default function ServiceDetailPage() {
             variants={fadeInUp}
             className="text-center max-w-3xl mx-auto mb-16"
           >
-            <span className="text-teal-600 font-semibold text-sm uppercase tracking-wider">FAQ</span>
+            <span className="text-orange-600 font-semibold text-sm uppercase tracking-wider">FAQ</span>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 mt-4 mb-6">
               Common Questions
             </h2>
@@ -509,9 +509,9 @@ export default function ServiceDetailPage() {
                 <AccordionItem 
                   key={index} 
                   value={`item-${index}`}
-                  className="bg-white border border-slate-200 rounded-xl px-6 data-[state=open]:border-teal-200 data-[state=open]:shadow-md transition-all"
+                  className="bg-white border border-slate-200 rounded-xl px-6 data-[state=open]:border-orange-200 data-[state=open]:shadow-md transition-all"
                 >
-                  <AccordionTrigger className="text-left text-slate-900 font-semibold hover:text-teal-600 py-5">
+                  <AccordionTrigger className="text-left text-slate-900 font-semibold hover:text-orange-600 py-5">
                     {item.question}
                   </AccordionTrigger>
                   <AccordionContent className="text-slate-600 pb-5 leading-relaxed">
@@ -530,7 +530,7 @@ export default function ServiceDetailPage() {
           <motion.div
             animate={{ scale: [1, 1.2, 1], opacity: [0.1, 0.2, 0.1] }}
             transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
-            className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-teal-500/20 rounded-full blur-3xl"
+            className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-orange-500/20 rounded-full blur-3xl"
           />
           <motion.div
             animate={{ scale: [1.2, 1, 1.2], opacity: [0.1, 0.15, 0.1] }}

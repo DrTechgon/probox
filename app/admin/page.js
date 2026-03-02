@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
-import { Lock, Mail, Eye, EyeOff, Loader2, ArrowRight } from 'lucide-react';
+import { Lock, Mail, Eye, EyeOff, Loader2, ArrowRight, AlertCircle, CheckCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -15,6 +15,7 @@ import {
   DialogTitle,
   DialogDescription,
 } from '@/components/ui/dialog';
+import { supabase } from '@/lib/supabase';
 
 export default function AdminLoginPage() {
   const router = useRouter();
@@ -22,29 +23,67 @@ export default function AdminLoginPage() {
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState('');
   const [showForgotModal, setShowForgotModal] = useState(false);
+  const [forgotEmail, setForgotEmail] = useState('');
+  const [forgotLoading, setForgotLoading] = useState(false);
+  const [forgotSent, setForgotSent] = useState(false);
+  const [forgotError, setForgotError] = useState('');
 
   const handleSignIn = async (e) => {
     e.preventDefault();
     setIsLoading(true);
+    setError('');
 
-    // Simulate authentication delay
-    await new Promise(resolve => setTimeout(resolve, 1200));
+    try {
+      const { data, error: authError } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
 
-    // Placeholder authentication - store in localStorage
-    // TODO: Replace with Supabase Auth
-    // const { data, error } = await supabase.auth.signInWithPassword({ email, password })
-    localStorage.setItem('isAdmin', 'true');
-    localStorage.setItem('adminEmail', email);
+      if (authError) {
+        setError(authError.message);
+        setIsLoading(false);
+        return;
+      }
 
-    router.push('/admin/careers');
+      if (data.session) {
+        router.push('/admin/careers');
+      }
+    } catch (err) {
+      setError('An unexpected error occurred. Please try again.');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleForgotPassword = async (e) => {
+    e.preventDefault();
+    setForgotLoading(true);
+    setForgotError('');
+
+    try {
+      const { error: resetError } = await supabase.auth.resetPasswordForEmail(forgotEmail, {
+        redirectTo: `${window.location.origin}/admin`,
+      });
+
+      if (resetError) {
+        setForgotError(resetError.message);
+      } else {
+        setForgotSent(true);
+      }
+    } catch (err) {
+      setForgotError('An unexpected error occurred.');
+    } finally {
+      setForgotLoading(false);
+    }
   };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-100 flex items-center justify-center p-4">
       {/* Background decoration */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-teal-500/5 rounded-full blur-3xl" />
+        <div className="absolute -top-40 -right-40 w-80 h-80 bg-orange-500/5 rounded-full blur-3xl" />
         <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-blue-500/5 rounded-full blur-3xl" />
       </div>
 
@@ -56,7 +95,7 @@ export default function AdminLoginPage() {
       >
         {/* Logo / Branding */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-14 h-14 bg-gradient-to-br from-teal-500 to-blue-500 rounded-2xl mb-4 shadow-lg">
+          <div className="inline-flex items-center justify-center w-14 h-14 bg-gradient-to-br from-orange-500 to-blue-500 rounded-2xl mb-4 shadow-lg">
             <Lock className="text-white" size={24} />
           </div>
           <h1 className="text-2xl font-bold text-slate-900">Admin Portal</h1>
@@ -72,6 +111,13 @@ export default function AdminLoginPage() {
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSignIn} className="space-y-4">
+              {error && (
+                <div className="flex items-center gap-2 p-3 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm">
+                  <AlertCircle size={16} className="flex-shrink-0" />
+                  {error}
+                </div>
+              )}
+
               <div className="space-y-2">
                 <Label htmlFor="email" className="text-slate-700">Email</Label>
                 <div className="relative">
@@ -114,8 +160,13 @@ export default function AdminLoginPage() {
               <div className="flex justify-end">
                 <button
                   type="button"
-                  onClick={() => setShowForgotModal(true)}
-                  className="text-sm text-teal-600 hover:text-teal-700 font-medium transition-colors"
+                  onClick={() => {
+                    setShowForgotModal(true);
+                    setForgotEmail(email);
+                    setForgotSent(false);
+                    setForgotError('');
+                  }}
+                  className="text-sm text-orange-600 hover:text-orange-700 font-medium transition-colors"
                 >
                   Forgot password?
                 </button>
@@ -124,7 +175,7 @@ export default function AdminLoginPage() {
               <Button
                 type="submit"
                 disabled={isLoading}
-                className="w-full h-11 bg-gradient-to-r from-teal-500 to-blue-500 hover:from-teal-600 hover:to-blue-600 text-white font-medium"
+                className="w-full h-11 bg-gradient-to-r from-orange-500 to-blue-500 hover:from-orange-600 hover:to-blue-600 text-white font-medium"
               >
                 {isLoading ? (
                   <>
@@ -159,15 +210,50 @@ export default function AdminLoginPage() {
           <DialogHeader>
             <DialogTitle>Password Recovery</DialogTitle>
             <DialogDescription className="pt-2">
-              <div className="flex items-center gap-3 p-4 bg-amber-50 rounded-lg border border-amber-200 text-amber-800 text-sm">
-                <div className="w-2 h-2 bg-amber-500 rounded-full flex-shrink-0" />
-                <span>Password recovery will be connected to Supabase Auth in a future update.</span>
-              </div>
+              {forgotSent ? (
+                <div className="flex items-center gap-3 p-4 bg-green-50 rounded-lg border border-green-200 text-green-800 text-sm">
+                  <CheckCircle size={18} className="flex-shrink-0 text-green-600" />
+                  <span>Password reset email sent! Check your inbox.</span>
+                </div>
+              ) : (
+                <form onSubmit={handleForgotPassword} className="space-y-4">
+                  <p className="text-sm text-slate-600">
+                    Enter your email and we'll send you a password reset link.
+                  </p>
+                  {forgotError && (
+                    <div className="flex items-center gap-2 p-3 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm">
+                      <AlertCircle size={16} className="flex-shrink-0" />
+                      {forgotError}
+                    </div>
+                  )}
+                  <Input
+                    type="email"
+                    placeholder="Enter your email"
+                    value={forgotEmail}
+                    onChange={(e) => setForgotEmail(e.target.value)}
+                    required
+                  />
+                  <Button
+                    type="submit"
+                    disabled={forgotLoading}
+                    className="w-full bg-gradient-to-r from-orange-500 to-blue-500 hover:from-orange-600 hover:to-blue-600"
+                  >
+                    {forgotLoading ? (
+                      <>
+                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                        Sending...
+                      </>
+                    ) : (
+                      'Send Reset Link'
+                    )}
+                  </Button>
+                </form>
+              )}
             </DialogDescription>
           </DialogHeader>
-          <div className="flex justify-end mt-4">
+          <div className="flex justify-end mt-2">
             <Button variant="outline" onClick={() => setShowForgotModal(false)}>
-              Got it
+              {forgotSent ? 'Close' : 'Cancel'}
             </Button>
           </div>
         </DialogContent>

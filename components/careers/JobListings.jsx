@@ -58,13 +58,13 @@ function JobCard({ job, index }) {
       transition={{ duration: 0.3, delay: index * 0.05 }}
     >
       <Link href={`/careers/${job.id}`}>
-        <Card className="group h-full bg-white border-slate-200 hover:border-teal-200 hover:shadow-xl transition-all duration-300 cursor-pointer overflow-hidden">
+        <Card className="group h-full bg-white border-slate-200 hover:border-orange-200 hover:shadow-xl transition-all duration-300 cursor-pointer overflow-hidden">
           <CardContent className="p-6">
             <div className="flex items-start justify-between mb-4">
               <div className="flex-1">
                 <div className="flex items-center gap-2 mb-2">
                   {job.featured && (
-                    <Badge className="bg-gradient-to-r from-teal-500 to-blue-500 text-white text-xs">
+                    <Badge className="bg-gradient-to-r from-orange-500 to-blue-500 text-white text-xs">
                       <Sparkles size={12} className="mr-1" />
                       Featured
                     </Badge>
@@ -73,11 +73,11 @@ function JobCard({ job, index }) {
                     {job.department}
                   </Badge>
                 </div>
-                <h3 className="text-xl font-bold text-slate-900 group-hover:text-teal-600 transition-colors mb-2">
+                <h3 className="text-xl font-bold text-slate-900 group-hover:text-orange-600 transition-colors mb-2">
                   {job.title}
                 </h3>
               </div>
-              <div className="w-10 h-10 rounded-lg bg-slate-50 group-hover:bg-gradient-to-br group-hover:from-teal-500 group-hover:to-blue-500 flex items-center justify-center transition-all duration-300 flex-shrink-0">
+              <div className="w-10 h-10 rounded-lg bg-slate-50 group-hover:bg-gradient-to-br group-hover:from-orange-500 group-hover:to-blue-500 flex items-center justify-center transition-all duration-300 flex-shrink-0">
                 <ChevronRight className="text-slate-400 group-hover:text-white transition-colors" size={20} />
               </div>
             </div>
@@ -88,21 +88,21 @@ function JobCard({ job, index }) {
 
             <div className="flex flex-wrap gap-3 text-sm text-slate-500">
               <div className="flex items-center gap-1.5">
-                <MapPin size={14} className="text-teal-500" />
+                <MapPin size={14} className="text-orange-500" />
                 {job.location}
               </div>
               <div className="flex items-center gap-1.5">
-                <Briefcase size={14} className="text-teal-500" />
+                <Briefcase size={14} className="text-orange-500" />
                 {job.employmentType}
               </div>
               <div className="flex items-center gap-1.5">
-                <Clock size={14} className="text-teal-500" />
+                <Clock size={14} className="text-orange-500" />
                 {job.experienceLevel}
               </div>
             </div>
 
             <div className="mt-4 pt-4 border-t border-slate-100 flex items-center justify-between">
-              <span className="text-teal-600 font-semibold">{job.salary}</span>
+              <span className="text-orange-600 font-semibold">{job.salary}</span>
               <span className="text-slate-400 text-xs">
                 Posted {new Date(job.createdAt || job.postedDate).toLocaleDateString('en-IN', { month: 'short', day: 'numeric' })}
               </span>
@@ -170,9 +170,9 @@ function EmptyState({ onReset }) {
 // Filter Badge
 function ActiveFilter({ label, onRemove }) {
   return (
-    <Badge variant="secondary" className="bg-teal-50 text-teal-700 hover:bg-teal-100 gap-1">
+    <Badge variant="secondary" className="bg-orange-50 text-orange-700 hover:bg-orange-100 gap-1">
       {label}
-      <button onClick={onRemove} className="ml-1 hover:text-teal-900">
+      <button onClick={onRemove} className="ml-1 hover:text-orange-900">
         <X size={12} />
       </button>
     </Badge>
@@ -189,25 +189,15 @@ export default function JobListings() {
   const [isLoading, setIsLoading] = useState(true);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
 
-  // Load published jobs from store
+  // Load published jobs from Supabase
   useEffect(() => {
-    const loadJobs = () => {
-      const publishedJobs = fetchPublishedJobs();
+    const loadJobs = async () => {
+      const publishedJobs = await fetchPublishedJobs();
       setJobs(publishedJobs);
       setIsLoading(false);
     };
-    
+
     loadJobs();
-    
-    // Listen for storage changes (for real-time updates from admin)
-    const handleStorageChange = (e) => {
-      if (e.key === 'probox_job_listings') {
-        loadJobs();
-      }
-    };
-    
-    window.addEventListener('storage', handleStorageChange);
-    return () => window.removeEventListener('storage', handleStorageChange);
   }, []);
 
   // Filter jobs
@@ -353,7 +343,7 @@ export default function JobListings() {
           viewport={{ once: true }}
           className="text-center max-w-3xl mx-auto mb-12"
         >
-          <span className="text-teal-600 font-semibold text-sm uppercase tracking-wider">Open Positions</span>
+          <span className="text-orange-600 font-semibold text-sm uppercase tracking-wider">Open Positions</span>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 mt-4 mb-4">
             Find Your Role
           </h2>
@@ -435,7 +425,7 @@ export default function JobListings() {
                   <Filter size={18} className="mr-2" />
                   Filters
                   {activeFilters.length > 0 && (
-                    <Badge className="ml-2 bg-teal-500">{activeFilters.length}</Badge>
+                    <Badge className="ml-2 bg-orange-500">{activeFilters.length}</Badge>
                   )}
                 </Button>
               </SheetTrigger>
@@ -463,7 +453,7 @@ export default function JobListings() {
               ))}
               <button
                 onClick={resetFilters}
-                className="text-sm text-teal-600 hover:text-teal-700 font-medium"
+                className="text-sm text-orange-600 hover:text-orange-700 font-medium"
               >
                 Clear all
               </button>

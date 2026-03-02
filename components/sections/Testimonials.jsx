@@ -48,7 +48,7 @@ export default function Testimonials() {
     <section className="py-24 bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 relative overflow-hidden">
       {/* Background decoration */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute -top-1/2 -right-1/4 w-96 h-96 bg-teal-500/10 rounded-full blur-3xl" />
+        <div className="absolute -top-1/2 -right-1/4 w-96 h-96 bg-orange-500/10 rounded-full blur-3xl" />
         <div className="absolute -bottom-1/2 -left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl" />
       </div>
 
@@ -61,7 +61,7 @@ export default function Testimonials() {
           transition={{ duration: 0.5 }}
           className="text-center max-w-3xl mx-auto mb-16"
         >
-          <span className="text-teal-400 font-semibold text-sm uppercase tracking-wider">Customer Experience Excellence</span>
+          <span className="text-orange-400 font-semibold text-sm uppercase tracking-wider">Customer Experience Excellence</span>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mt-4 mb-6">
             What Our Clients Say
           </h2>
@@ -75,7 +75,7 @@ export default function Testimonials() {
           <div className="relative">
             {/* Quote icon */}
             <div className="absolute -top-6 left-8 z-10">
-              <div className="w-12 h-12 rounded-full bg-gradient-to-br from-teal-500 to-blue-500 flex items-center justify-center">
+              <div className="w-12 h-12 rounded-full bg-gradient-to-br from-orange-500 to-blue-500 flex items-center justify-center">
                 <Quote className="text-white" size={24} />
               </div>
             </div>
@@ -108,7 +108,7 @@ export default function Testimonials() {
 
                       {/* Author */}
                       <div className="flex items-center gap-4">
-                        <Avatar className="w-14 h-14 bg-gradient-to-br from-teal-500 to-blue-500">
+                        <Avatar className="w-14 h-14 bg-gradient-to-br from-orange-500 to-blue-500">
                           <AvatarFallback className="bg-transparent text-white font-bold">
                             {testimonials[currentIndex].avatar}
                           </AvatarFallback>
@@ -141,7 +141,7 @@ export default function Testimonials() {
                     }}
                     className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
                       index === currentIndex
-                        ? 'w-8 bg-gradient-to-r from-teal-500 to-blue-500'
+                        ? 'w-8 bg-gradient-to-r from-orange-500 to-blue-500'
                         : 'bg-white/30 hover:bg-white/50'
                     }`}
                   />

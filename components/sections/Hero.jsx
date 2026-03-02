@@ -6,6 +6,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { ArrowRight, ChevronLeft, ChevronRight, Play, Pause } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import ProboxX from '@/components/backgrounds/ProboxX';
 import { heroSlides, awards } from '@/data/site-data';
 
 export default function Hero() {
@@ -119,7 +120,22 @@ export default function Hero() {
             opacity: [0.1, 0.15, 0.1],
           }}
           transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }}
-          className="absolute bottom-1/4 -right-1/4 w-[500px] h-[500px] bg-teal-500/15 rounded-full blur-3xl"
+          className="absolute bottom-1/4 -right-1/4 w-[500px] h-[500px] bg-orange-500/15 rounded-full blur-3xl"
+        />
+      </div>
+
+      {/* PROBOX X Brand Motif */}
+      <div className="absolute right-[-5%] top-1/2 -translate-y-1/2 z-[2] pointer-events-none">
+        <ProboxX
+          size={700}
+          opacity={0.08}
+          strokeWidth={2.5}
+          gradientFrom="#f97316"
+          gradientTo="#3b82f6"
+          className="w-[500px] h-[500px] md:w-[600px] md:h-[600px] lg:w-[700px] lg:h-[700px]"
+          drawDuration={2.5}
+          drawDelay={0.8}
+          id="hero-x-grad"
         />
       </div>
 
@@ -138,9 +154,9 @@ export default function Hero() {
                 <motion.div
                   custom={0}
                   variants={contentVariants}
-                  className="inline-flex items-center px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-teal-400 text-sm font-semibold mb-6"
+                  className="inline-flex items-center px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-orange-400 text-sm font-semibold mb-8"
                 >
-                  <span className="w-2 h-2 bg-teal-400 rounded-full mr-2 animate-pulse" />
+                  <span className="w-2 h-2 bg-orange-400 rounded-full mr-2 animate-pulse" />
                   {heroSlides[currentSlide].subtitle}
                 </motion.div>
 
@@ -153,7 +169,7 @@ export default function Hero() {
                   {heroSlides[currentSlide].title.split(' ').map((word, i) => (
                     <span key={i}>
                       {word === 'I.T' || word === 'Simple' || word === 'AI-Powered' || word === 'Digital' ? (
-                        <span className="bg-gradient-to-r from-teal-400 to-blue-400 bg-clip-text text-transparent">
+                        <span className="bg-gradient-to-r from-orange-400 to-blue-400 bg-clip-text text-transparent">
                           {word}
                         </span>
                       ) : (
@@ -181,7 +197,7 @@ export default function Hero() {
                   <Link href="/contact">
                     <Button
                       size="lg"
-                      className="bg-gradient-to-r from-teal-500 to-blue-500 hover:from-teal-600 hover:to-blue-600 text-white px-8 py-6 text-lg font-medium group"
+                      className="bg-gradient-to-r from-orange-500 to-blue-500 hover:from-orange-600 hover:to-blue-600 text-white px-8 py-6 text-lg font-medium group"
                     >
                       {heroSlides[currentSlide].cta}
                       <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" size={20} />
@@ -191,7 +207,7 @@ export default function Hero() {
                     <Button
                       size="lg"
                       variant="outline"
-                      className="border-white/30 bg-white/5 text-white hover:bg-white/10 px-8 py-6 text-lg font-medium"
+                      className="border-white/30 bg-white/5 text-white hover:bg-white/10 hover:text-white px-8 py-6 text-lg font-medium"
                     >
                       View Our Work
                     </Button>
@@ -213,7 +229,7 @@ export default function Hero() {
               onClick={() => goToSlide(index)}
               className={`relative h-2 rounded-full transition-all duration-500 ${
                 index === currentSlide
-                  ? 'w-12 bg-gradient-to-r from-teal-400 to-blue-400'
+                  ? 'w-12 bg-gradient-to-r from-orange-400 to-blue-400'
                   : 'w-2 bg-white/40 hover:bg-white/60'
               }`}
             >
@@ -259,7 +275,7 @@ export default function Hero() {
       </div>
 
       {/* Awards Ticker */}
-      <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-r from-teal-600 to-blue-600 py-3 overflow-hidden z-20">
+      <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-r from-orange-600 to-blue-600 py-3 overflow-hidden z-20">
         <motion.div
           animate={{ x: ['0%', '-50%'] }}
           transition={{ duration: 30, repeat: Infinity, ease: 'linear' }}

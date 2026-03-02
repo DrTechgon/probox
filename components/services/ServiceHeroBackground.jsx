@@ -1,62 +1,130 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import Image from 'next/image';
+import ProboxX from '@/components/backgrounds/ProboxX';
 
-/**
- * Service-specific hero backgrounds
- * Clean, professional style matching the landing page carousel
- * Uses high-quality images with gradient overlays
- */
-
-// Service background images - professional, high-quality
-const serviceBackgrounds = {
-  'artificial-intelligence': 'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=1920&q=80',
-  'cyber-security': 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=1920&q=80',
-  'cloud-services': 'https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=1920&q=80',
-  'network-management': 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1920&q=80',
-  'iiot': 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=1920&q=80',
-  'managed-it-services': 'https://images.unsplash.com/photo-1551434678-e076c223a692?w=1920&q=80',
+const serviceThemes = {
+  'artificial-intelligence': {
+    from: '#8b5cf6',
+    to: '#a855f7',
+    accent: '#c084fc',
+  },
+  'cyber-security': {
+    from: '#10b981',
+    to: '#14b8a6',
+    accent: '#34d399',
+  },
+  'cloud-services': {
+    from: '#3b82f6',
+    to: '#06b6d4',
+    accent: '#60a5fa',
+  },
+  'network-management': {
+    from: '#f59e0b',
+    to: '#f97316',
+    accent: '#fbbf24',
+  },
+  'iiot': {
+    from: '#ec4899',
+    to: '#f43f5e',
+    accent: '#f472b6',
+  },
+  'managed-it-services': {
+    from: '#f97316',
+    to: '#3b82f6',
+    accent: '#fb923c',
+  },
 };
 
-// Default fallback image
-const defaultBackground = 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1920&q=80';
+const defaultTheme = {
+  from: '#f97316',
+  to: '#3b82f6',
+  accent: '#fb923c',
+};
 
 export default function ServiceHeroBackground({ serviceId }) {
-  const backgroundImage = serviceBackgrounds[serviceId] || defaultBackground;
+  const theme = serviceThemes[serviceId] || defaultTheme;
 
   return (
-    <div className="absolute inset-0">
-      {/* Background Image */}
-      <Image
-        src={backgroundImage}
-        alt="Service background"
-        fill
-        priority
-        className="object-cover"
-      />
-      
-      {/* Gradient Overlays - matching landing page style */}
-      <div className="absolute inset-0 bg-gradient-to-r from-slate-900/95 via-slate-900/85 to-slate-900/60" />
-      <div className="absolute inset-0 bg-gradient-to-t from-slate-900/50 via-transparent to-slate-900/30" />
-      
-      {/* Subtle animated glow effects */}
+    <div className="absolute inset-0 bg-slate-900 overflow-hidden">
+      <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-slate-900 to-slate-800" />
+
+      {/* Gradient mesh blobs */}
       <motion.div
         animate={{
-          scale: [1, 1.1, 1],
-          opacity: [0.08, 0.15, 0.08],
+          scale: [1, 1.15, 1],
+          x: [0, 20, 0],
+          y: [0, -15, 0],
         }}
         transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }}
-        className="absolute top-1/4 -left-1/4 w-[500px] h-[500px] bg-blue-500/30 rounded-full blur-3xl"
+        className="absolute top-1/4 -left-[10%] w-[500px] h-[500px] rounded-full blur-3xl"
+        style={{ background: `radial-gradient(circle, ${theme.from}20, transparent 70%)` }}
       />
       <motion.div
         animate={{
           scale: [1.1, 1, 1.1],
-          opacity: [0.08, 0.12, 0.08],
+          x: [0, -25, 0],
+          y: [0, 20, 0],
         }}
         transition={{ duration: 12, repeat: Infinity, ease: 'easeInOut' }}
-        className="absolute bottom-1/4 -right-1/4 w-[400px] h-[400px] bg-teal-500/25 rounded-full blur-3xl"
+        className="absolute bottom-1/4 -right-[10%] w-[450px] h-[450px] rounded-full blur-3xl"
+        style={{ background: `radial-gradient(circle, ${theme.to}18, transparent 70%)` }}
       />
+      <motion.div
+        animate={{
+          scale: [1, 1.2, 1],
+          opacity: [0.5, 0.8, 0.5],
+        }}
+        transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[350px] h-[350px] rounded-full blur-3xl"
+        style={{ background: `radial-gradient(circle, ${theme.accent}10, transparent 70%)` }}
+      />
+
+      {/* X motif */}
+      <div className="absolute right-[5%] top-1/2 -translate-y-1/2">
+        <ProboxX
+          size={500}
+          opacity={0.1}
+          strokeWidth={2}
+          gradientFrom={theme.from}
+          gradientTo={theme.to}
+          className="w-[400px] h-[400px] md:w-[500px] md:h-[500px]"
+          drawDuration={2}
+          drawDelay={0.3}
+          id={`service-x-${serviceId}`}
+        />
+      </div>
+
+      {/* Subtle mesh grid lines */}
+      <svg
+        className="absolute inset-0 w-full h-full opacity-[0.04]"
+        viewBox="0 0 100 100"
+        preserveAspectRatio="xMidYMid slice"
+        aria-hidden="true"
+      >
+        {[...Array(10)].map((_, i) => (
+          <line
+            key={`h-${i}`}
+            x1="0"
+            y1={i * 10 + 5}
+            x2="100"
+            y2={i * 10 + 5}
+            stroke="white"
+            strokeWidth="0.1"
+          />
+        ))}
+        {[...Array(10)].map((_, i) => (
+          <line
+            key={`v-${i}`}
+            x1={i * 10 + 5}
+            y1="0"
+            x2={i * 10 + 5}
+            y2="100"
+            stroke="white"
+            strokeWidth="0.1"
+          />
+        ))}
+      </svg>
     </div>
   );
 }

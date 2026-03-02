@@ -18,7 +18,7 @@ export default function CTABanner() {
             opacity: [0.1, 0.2, 0.1],
           }}
           transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
-          className="absolute -top-1/2 -right-1/4 w-[600px] h-[600px] bg-teal-500/20 rounded-full blur-3xl"
+          className="absolute -top-1/2 -right-1/4 w-[600px] h-[600px] bg-orange-500/20 rounded-full blur-3xl"
         />
         <motion.div
           animate={{
@@ -40,7 +40,7 @@ export default function CTABanner() {
             className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6"
           >
             Let's Connect and Drive{' '}
-            <span className="bg-gradient-to-r from-teal-400 to-blue-400 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-orange-400 to-blue-400 bg-clip-text text-transparent">
               CX Innovation
             </span>
           </motion.h2>
@@ -64,7 +64,7 @@ export default function CTABanner() {
             className="flex flex-col sm:flex-row gap-4 justify-center"
           >
             <Link href="/contact">
-              <Button size="lg" className="bg-gradient-to-r from-teal-500 to-blue-500 hover:from-teal-600 hover:to-blue-600 text-white px-8 py-6 text-lg font-medium group">
+              <Button size="lg" className="bg-gradient-to-r from-orange-500 to-blue-500 hover:from-orange-600 hover:to-blue-600 text-white px-8 py-6 text-lg font-medium group">
                 Contact Us
                 <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" size={20} />
               </Button>

@@ -25,7 +25,7 @@ export default function WhyChooseUs() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <span className="text-teal-600 font-semibold text-sm uppercase tracking-wider">We Are PROBOX</span>
+            <span className="text-orange-600 font-semibold text-sm uppercase tracking-wider">We Are PROBOX</span>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 mt-4 mb-6">
               India's Most Trusted Technology Partner
             </h2>
@@ -38,8 +38,8 @@ export default function WhyChooseUs() {
             {/* Awards badges */}
             <div className="flex flex-wrap gap-3">
               {awards.slice(0, 3).map((award, index) => (
-                <div key={index} className="flex items-center gap-2 bg-gradient-to-r from-teal-50 to-blue-50 px-4 py-2 rounded-full border border-teal-100">
-                  <Award className="w-4 h-4 text-teal-600" />
+                <div key={index} className="flex items-center gap-2 bg-gradient-to-r from-orange-50 to-blue-50 px-4 py-2 rounded-full border border-orange-100">
+                  <Award className="w-4 h-4 text-orange-600" />
                   <span className="text-slate-700 text-sm font-medium">{award}</span>
                 </div>
               ))}
@@ -57,13 +57,13 @@ export default function WhyChooseUs() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="group p-6 bg-slate-50 rounded-2xl hover:bg-gradient-to-br hover:from-teal-50 hover:to-blue-50 transition-all duration-300 border border-transparent hover:border-teal-100"
+                  className="group p-6 bg-slate-50 rounded-2xl hover:bg-gradient-to-br hover:from-orange-50 hover:to-blue-50 transition-all duration-300 border border-transparent hover:border-orange-100"
                 >
-                  <div className="w-12 h-12 rounded-xl bg-white shadow-sm flex items-center justify-center mb-4 group-hover:bg-gradient-to-br group-hover:from-teal-500 group-hover:to-blue-500 transition-all duration-300">
+                  <div className="w-12 h-12 rounded-xl bg-white shadow-sm flex items-center justify-center mb-4 group-hover:bg-gradient-to-br group-hover:from-orange-500 group-hover:to-blue-500 transition-all duration-300">
                     {IconComponent && (
                       <IconComponent
                         size={24}
-                        className="text-teal-600 group-hover:text-white transition-colors duration-300"
+                        className="text-orange-600 group-hover:text-white transition-colors duration-300"
                       />
                     )}
                   </div>
