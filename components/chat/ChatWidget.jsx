@@ -386,7 +386,7 @@ export default function ChatWidget() {
     }
 
     try {
-      const response = await sendMessage(content, messages);
+      const response = await sendMessage(content, messages, pathname);
       
       setMessages(prev => [...prev, {
         id: response.id || generateMessageId(),
